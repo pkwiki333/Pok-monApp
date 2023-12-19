@@ -31,35 +31,30 @@ import com.example.androidpokemonapp.data.mockdata.PokemonDataDC
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PokedexScreen() {
-    Scaffold(
-        topBar = {
-            SmallTopAppBar(
-                title = { Text("Pokédex") },
-                navigationIcon = {
-                    IconButton(onClick = { /* handle back navigation */ }) {
-                        Icon(Icons.Filled.ArrowBack, "Back")
-                    }
-                }
-            )
-        },
-        content = { padding ->
-            LazyColumn(
-                modifier = Modifier
-                    .padding(padding)
-                    .fillMaxSize()
-            ) {
-                items(PokemonData.sampleData) { pokemon ->
-                    PokemonCard(pokemon = pokemon)
+fun PokedexScreen(onBackButtonClicked: () -> Unit, onPokemonClicked: (Int) -> Unit) {
+    val backgroundImagePainter = painterResource(id = R.drawable.achtrgrondpokemonappstaand)
+    Scaffold(topBar = {
+        SmallTopAppBar(title = { Text("Pokédex") }, navigationIcon = {
+            IconButton(onClick =  onBackButtonClicked ) {
+                Icon(Icons.Filled.ArrowBack, "Back")
+            }
+        })
+    }, content = { padding ->
+        LazyColumn(
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize()
+        ) {
+            items(PokemonData.sampleData) { pokemon ->
+                PokemonCard(pokemon = pokemon, onPokemonClicked = onPokemonClicked)
 
-                }
             }
         }
-    )
+    })
 }
 
 @Composable
-fun PokemonCard(pokemon: PokemonDataDC) {
+fun PokemonCard(pokemon: PokemonDataDC, onPokemonClicked: (Int) -> Unit) {
     Card(
         modifier = Modifier
             .padding(8.dp)
@@ -85,11 +80,15 @@ fun PokemonCard(pokemon: PokemonDataDC) {
                 Text("Types: ${pokemon.types}")
                 Text("Pokédex Index: ${pokemon.pokedexIndex}")
             }
-            IconButton(onClick = { /* handle info */ }) {
+            IconButton(onClick = { onPokemonClicked(pokemon.pokedexIndex) }) {
                 Icon(Icons.Filled.Info, "Info")
             }
-            IconButton(onClick = { /*TODO*/ }) {
-                Image(painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com), contentDescription = "pokebal", modifier = Modifier.size(24.dp))
+            IconButton(onClick = {  }) {
+                Image(
+                    painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
+                    contentDescription = "pokebal",
+                    modifier = Modifier.size(24.dp)
+                )
             }
         }
     }

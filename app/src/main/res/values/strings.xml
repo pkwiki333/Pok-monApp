@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AndroidPokemonApp</string>
+    <string name="pokemon_of_the_day">Pokemon of the day</string>
+    <string name="pokedex">Pokédex</string>
+    <string name="EmptyTitle" />
+    <string name="your_team">Your team</string>
+    <string name="main_menu">Main menu</string>
+    <string name="pokemon_detail">pokemon detail</string>
 </resources>

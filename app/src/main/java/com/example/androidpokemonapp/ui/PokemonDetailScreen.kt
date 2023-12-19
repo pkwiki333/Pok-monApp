@@ -19,25 +19,22 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import org.w3c.dom.Text
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PokemonOfTheDayScreen(onBackButtonClicked: () -> Unit) {
+fun pokemonDetailScreen( onBackButtonClicked: () -> Unit) {
     Scaffold(
         topBar = {
             SmallTopAppBar(
                 title = {
-                    Text(text = "Pokémon of the day", fontWeight = FontWeight.Bold)
+                    Text(text = "Details", fontWeight = FontWeight.Bold)
                 },
                 navigationIcon = {
-                    IconButton(onClick =  onBackButtonClicked ) {
+                    IconButton(onClick = onBackButtonClicked ) {
                         Icon(Icons.Filled.ArrowBack, "Back")
                     }
                 }
@@ -62,23 +59,13 @@ fun PokemonOfTheDayScreen(onBackButtonClicked: () -> Unit) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(200.dp)
-                            .background(Color.LightGray),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text("Foto")
-                    }
+                            .background(Color.LightGray)
+                    )
+                    Text(text = "Pokédex index:___________")
                     Spacer(modifier = Modifier.height(8.dp))
-
-                    Text("Types: __________")
-                    Text("Pokédex index: __________")
+                    Text("Type: __________", style = MaterialTheme.typography.titleMedium)
                     Spacer(modifier = Modifier.height(8.dp))
-                    Text("Moves")
-                    Text("________________")
-                    Text("________________")
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text("Beschrijving")
-                    Text("________________")
-                    Text("________________")
+                    Text("Beschrijving: __________", style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }
