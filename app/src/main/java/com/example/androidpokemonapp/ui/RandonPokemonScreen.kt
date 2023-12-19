@@ -25,20 +25,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.androidpokemonapp.viewModel.PokemonOfTheDayViewModel
-import org.w3c.dom.Text
+import com.example.androidpokemonapp.viewModel.RandomPokemonViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PokemonOfTheDayScreen(onBackButtonClicked: () -> Unit) {
-    val pokemonViewModel: PokemonOfTheDayViewModel = viewModel()
+fun RandomPokemonScreen(onBackButtonClicked: () -> Unit) {
+    val pokemonViewModel: RandomPokemonViewModel = viewModel()
     val pokemon = pokemonViewModel.getRandomPokemon()
     Scaffold(
         topBar = {
             SmallTopAppBar(
                 title = {
-                    Text(text = "Pokémon of the day", fontWeight = FontWeight.Bold)
+                    Text(text = "Random Pokémon", fontWeight = FontWeight.Bold)
                 },
                 navigationIcon = {
                     IconButton(onClick =  onBackButtonClicked ) {

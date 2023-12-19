@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.androidpokemonapp.data.mockdata.PokemonData
 import com.example.androidpokemonapp.data.mockdata.PokemonDataDC
 
-class PokemonOfTheDayViewModel : ViewModel() {
+class RandomPokemonViewModel : ViewModel() {
 
     private val pokemonList = PokemonData.getAll()
 

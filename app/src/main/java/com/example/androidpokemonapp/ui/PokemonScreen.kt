@@ -85,11 +85,11 @@ fun PokemonScreen(
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
-                            contentDescription = "Pokémon of the day",
+                            contentDescription = "Random Pokémon",
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Pokémon of the day", color = Color.Black)
+                        Text("Random Pokémon", color = Color.Black)
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))

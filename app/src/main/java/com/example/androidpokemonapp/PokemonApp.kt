@@ -1,11 +1,8 @@
 package com.example.androidpokemonapp
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -21,7 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -35,7 +31,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.androidpokemonapp.ui.PokedexScreen
-import com.example.androidpokemonapp.ui.PokemonOfTheDayScreen
+import com.example.androidpokemonapp.ui.RandomPokemonScreen
 import com.example.androidpokemonapp.ui.pokemonDetailScreen
 
 //import com.example.androidpokemonapp.ui.YourTeamScreen
@@ -61,14 +57,14 @@ fun PokemonApp(
                     composable(ScreensEnum.PokemonScreen.name) {
                         PokemonScreen(
                             innerPadding,
-                            onPokemonOfTheDayClicked = { navController.navigate(ScreensEnum.PokemonOfTheDayScreen.name) },
+                            onPokemonOfTheDayClicked = { navController.navigate(ScreensEnum.RandomPokemon.name) },
                             onPokedexClicked = { navController.navigate(ScreensEnum.PokedexScreen.name) },
                             onYourTeamClicked = { navController.navigate(ScreensEnum.YourTeamScreen.name) },
                         )
                     }
-                    composable(ScreensEnum.PokemonOfTheDayScreen.name) {
+                    composable(ScreensEnum.RandomPokemon.name) {
                         //todo als dit werkt goed anders in cupcake staat dit anders
-                        PokemonOfTheDayScreen(onBackButtonClicked = { navController.navigateUp() })
+                        RandomPokemonScreen(onBackButtonClicked = { navController.navigateUp() })
                     }
                     composable(ScreensEnum.PokedexScreen.name) {
                         PokedexScreen(
@@ -77,11 +73,6 @@ fun PokemonApp(
                     }
                     /*composable(ScreensEnum.YourTeamScreen.name) {
                         YourTeamScreen(onBackButtonClicked = { navController.navigateUp() }, onPokemonClicked = { navController.navigate(ScreensEnum.PokemonDetailScreen.name) },)
-                    }*/
-
-                    /*composable("${ScreensEnum.PokemonDetailScreen.name}/{pokemonId}") { backStackEntry ->
-                        val pokemonId = backStackEntry.arguments?.getString("pokemonId")?.toInt() ?: 0
-                        pokemonDetailScreen(id = pokemonId, onBackButtonClicked = { navController.navigateUp() })
                     }*/
 
                     composable(
