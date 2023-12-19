@@ -23,10 +23,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androidpokemonapp.viewModel.PokedexViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun pokemonDetailScreen( onBackButtonClicked: () -> Unit) {
+fun pokemonDetailScreen(id : Int, onBackButtonClicked: () -> Unit, pokedexViewModel: PokedexViewModel = viewModel()) {
+    val pokemon = pokedexViewModel.getPokemonDetail(id)
     Scaffold(
         topBar = {
             SmallTopAppBar(
@@ -39,35 +42,35 @@ fun pokemonDetailScreen( onBackButtonClicked: () -> Unit) {
                     }
                 }
             )
-        },
-        content = { padding ->
-            Card(
+        }
+    ) { padding ->
+        Card(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp),
+        ) {
+            Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .padding(16.dp),
+                    .fillMaxWidth()
+                    .padding(16.dp)
             ) {
-                Column(
+                    Text("Naam: ${pokemon?.name}", style = MaterialTheme.typography.titleLarge)
+
+                Spacer(modifier = Modifier.height(8.dp))
+                // Placeholder for the Pokémon image
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
-                ) {
-                    Text("Naam: __________", style = MaterialTheme.typography.titleLarge)
-                    Spacer(modifier = Modifier.height(8.dp))
-                    // Placeholder for the Pokémon image
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp)
-                            .background(Color.LightGray)
-                    )
-                    Text(text = "Pokédex index:___________")
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text("Type: __________", style = MaterialTheme.typography.titleMedium)
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text("Beschrijving: __________", style = MaterialTheme.typography.bodyMedium)
-                }
+                        .height(200.dp)
+                        .background(Color.LightGray)
+                )
+                Text(text = "Pokédex index: $id")
+                Spacer(modifier = Modifier.height(8.dp))
+                Text("Type: ${pokemon?.types}", style = MaterialTheme.typography.titleMedium)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text("Beschrijving: __________", style = MaterialTheme.typography.bodyMedium)
             }
         }
-    )
+    }
 }

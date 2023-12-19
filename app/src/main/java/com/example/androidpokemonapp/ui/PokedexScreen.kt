@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
@@ -21,33 +22,45 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.androidpokemonapp.R
-import com.example.androidpokemonapp.data.mockdata.PokemonData
 import com.example.androidpokemonapp.data.mockdata.PokemonDataDC
+import com.example.androidpokemonapp.model.Pokemon
+import com.example.androidpokemonapp.viewModel.PokedexUIState
+import com.example.androidpokemonapp.viewModel.PokedexViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PokedexScreen(onBackButtonClicked: () -> Unit, onPokemonClicked: (Int) -> Unit) {
-    val backgroundImagePainter = painterResource(id = R.drawable.achtrgrondpokemonappstaand)
+fun PokedexScreen(
+    onBackButtonClicked: () -> Unit,
+    onPokemonClicked: (Int) -> Unit,
+    pokedexViewModel: PokedexViewModel = viewModel()
+) {
+    val pokedexUIState = pokedexViewModel.uiState.collectAsState()
+
     Scaffold(topBar = {
         SmallTopAppBar(title = { Text("Pokédex") }, navigationIcon = {
-            IconButton(onClick =  onBackButtonClicked ) {
+            IconButton(onClick = onBackButtonClicked) {
                 Icon(Icons.Filled.ArrowBack, "Back")
             }
         })
     }, content = { padding ->
+        val lazyListState = rememberLazyListState()
         LazyColumn(
+            state = lazyListState,
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
         ) {
-            items(PokemonData.sampleData) { pokemon ->
+            items(pokedexUIState.value.pokemonLijst) { pokemon ->
                 PokemonCard(pokemon = pokemon, onPokemonClicked = onPokemonClicked)
-
             }
         }
     })
@@ -81,9 +94,10 @@ fun PokemonCard(pokemon: PokemonDataDC, onPokemonClicked: (Int) -> Unit) {
                 Text("Pokédex Index: ${pokemon.pokedexIndex}")
             }
             IconButton(onClick = { onPokemonClicked(pokemon.pokedexIndex) }) {
+
                 Icon(Icons.Filled.Info, "Info")
             }
-            IconButton(onClick = {  }) {
+            IconButton(onClick = { }) {
                 Image(
                     painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
                     contentDescription = "pokebal",

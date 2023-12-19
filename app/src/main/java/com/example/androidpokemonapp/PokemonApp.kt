@@ -28,14 +28,17 @@ import androidx.compose.ui.unit.dp
 import com.example.androidpokemonapp.ui.PokemonScreen
 import com.example.androidpokemonapp.ui.ScreensEnum
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.androidpokemonapp.ui.PokedexScreen
 import com.example.androidpokemonapp.ui.PokemonOfTheDayScreen
 import com.example.androidpokemonapp.ui.pokemonDetailScreen
-import com.example.androidpokemonapp.ui.YourTeamScreen
+
+//import com.example.androidpokemonapp.ui.YourTeamScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,53 +48,51 @@ fun PokemonApp(
     var addingVisible by remember { mutableStateOf(false) }
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentScreen =
-        ScreensEnum.valueOf(backStackEntry?.destination?.route ?: ScreensEnum.PokemonScreen.name)
+        ScreensEnum.getBaseRoute(backStackEntry?.destination?.route)
 
     Box(modifier = Modifier.fillMaxSize()) {
 
         Scaffold(
-            /*topBar = {
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center, // Centreer de inhoud horizontaal
-                verticalAlignment = Alignment.CenterVertically // Centreer de inhoud verticaal
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.pokemon_23),
-                    contentDescription = "Pokémon logo",
-                    modifier = Modifier.size(200.dp)
-                )
-            }
-        }, */
             content = { innerPadding ->
-            NavHost(
-                navController = navController,
-                startDestination = ScreensEnum.PokemonScreen.name
-            ) {
-                composable(ScreensEnum.PokemonScreen.name) {
-                    PokemonScreen(
-                        innerPadding,
-                        onPokemonOfTheDayClicked = { navController.navigate(ScreensEnum.PokemonOfTheDayScreen.name) },
-                        onPokedexClicked = { navController.navigate(ScreensEnum.PokedexScreen.name) },
-                        onYourTeamClicked = { navController.navigate(ScreensEnum.YourTeamScreen.name) },
-                    )
+                NavHost(
+                    navController = navController,
+                    startDestination = ScreensEnum.PokemonScreen.name
+                ) {
+                    composable(ScreensEnum.PokemonScreen.name) {
+                        PokemonScreen(
+                            innerPadding,
+                            onPokemonOfTheDayClicked = { navController.navigate(ScreensEnum.PokemonOfTheDayScreen.name) },
+                            onPokedexClicked = { navController.navigate(ScreensEnum.PokedexScreen.name) },
+                            onYourTeamClicked = { navController.navigate(ScreensEnum.YourTeamScreen.name) },
+                        )
+                    }
+                    composable(ScreensEnum.PokemonOfTheDayScreen.name) {
+                        //todo als dit werkt goed anders in cupcake staat dit anders
+                        PokemonOfTheDayScreen(onBackButtonClicked = { navController.navigateUp() })
+                    }
+                    composable(ScreensEnum.PokedexScreen.name) {
+                        PokedexScreen(
+                            onBackButtonClicked = { navController.navigateUp() },
+                            onPokemonClicked = { pokemonId -> navController.navigate(ScreensEnum.PokemonDetailScreen.name + "/$pokemonId") },)
+                    }
+                    /*composable(ScreensEnum.YourTeamScreen.name) {
+                        YourTeamScreen(onBackButtonClicked = { navController.navigateUp() }, onPokemonClicked = { navController.navigate(ScreensEnum.PokemonDetailScreen.name) },)
+                    }*/
+
+                    /*composable("${ScreensEnum.PokemonDetailScreen.name}/{pokemonId}") { backStackEntry ->
+                        val pokemonId = backStackEntry.arguments?.getString("pokemonId")?.toInt() ?: 0
+                        pokemonDetailScreen(id = pokemonId, onBackButtonClicked = { navController.navigateUp() })
+                    }*/
+
+                    composable(
+                        route = ScreensEnum.PokemonDetailScreen.withArgs("{pokemonId}"),
+                        arguments = listOf(navArgument("pokemonId") { type = NavType.IntType })
+                    ) { backStackEntry ->
+                        val pokemonId = backStackEntry.arguments?.getInt("pokemonId") ?:0
+                        pokemonDetailScreen(id = pokemonId, onBackButtonClicked = { navController.navigateUp() })
+                    }
                 }
-                composable(ScreensEnum.PokemonOfTheDayScreen.name) {
-                    //todo als dit werkt goed anders in cupcake staat dit anders
-                    PokemonOfTheDayScreen(onBackButtonClicked = { navController.navigateUp() })
-                }
-                composable(ScreensEnum.PokedexScreen.name) {
-                    PokedexScreen(onBackButtonClicked = { navController.navigateUp() }, onPokemonClicked = { navController.navigate(ScreensEnum.PokemonDetailScreen.name) },)
-                }
-                composable(ScreensEnum.YourTeamScreen.name) {
-                    YourTeamScreen(onBackButtonClicked = { navController.navigateUp() }, onPokemonClicked = { navController.navigate(ScreensEnum.PokemonDetailScreen.name) },)
-                }
-                composable(ScreensEnum.PokemonDetailScreen.name) {
-                    pokemonDetailScreen(onBackButtonClicked = { navController.navigateUp() },)
-                }
-            }
-        })
+            })
     }
 }
 
