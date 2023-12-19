@@ -33,8 +33,7 @@ import androidx.navigation.navArgument
 import com.example.androidpokemonapp.ui.PokedexScreen
 import com.example.androidpokemonapp.ui.RandomPokemonScreen
 import com.example.androidpokemonapp.ui.pokemonDetailScreen
-
-//import com.example.androidpokemonapp.ui.YourTeamScreen
+import com.example.androidpokemonapp.ui.YourTeamScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,9 +70,9 @@ fun PokemonApp(
                             onBackButtonClicked = { navController.navigateUp() },
                             onPokemonClicked = { pokemonId -> navController.navigate(ScreensEnum.PokemonDetailScreen.name + "/$pokemonId") },)
                     }
-                    /*composable(ScreensEnum.YourTeamScreen.name) {
+                    composable(ScreensEnum.YourTeamScreen.name) {
                         YourTeamScreen(onBackButtonClicked = { navController.navigateUp() }, onPokemonClicked = { navController.navigate(ScreensEnum.PokemonDetailScreen.name) },)
-                    }*/
+                    }
 
                     composable(
                         route = ScreensEnum.PokemonDetailScreen.withArgs("{pokemonId}"),

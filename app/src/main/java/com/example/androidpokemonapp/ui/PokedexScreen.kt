@@ -35,6 +35,7 @@ import com.example.androidpokemonapp.data.mockdata.PokemonDataDC
 import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.viewModel.PokedexUIState
 import com.example.androidpokemonapp.viewModel.PokedexViewModel
+import com.example.androidpokemonapp.viewModel.YourTeamViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,6 +45,7 @@ fun PokedexScreen(
     pokedexViewModel: PokedexViewModel = viewModel()
 ) {
     val pokedexUIState = pokedexViewModel.uiState.collectAsState()
+    val yourTeamViewModel: YourTeamViewModel = viewModel()
 
     Scaffold(topBar = {
         SmallTopAppBar(title = { Text("Pokédex") }, navigationIcon = {
@@ -60,14 +62,14 @@ fun PokedexScreen(
                 .fillMaxSize()
         ) {
             items(pokedexUIState.value.pokemonLijst) { pokemon ->
-                PokemonCard(pokemon = pokemon, onPokemonClicked = onPokemonClicked)
+                PokemonCard(pokemon = pokemon, onPokemonClicked = onPokemonClicked, yourTeamViewModel = yourTeamViewModel)
             }
         }
     })
 }
 
 @Composable
-fun PokemonCard(pokemon: PokemonDataDC, onPokemonClicked: (Int) -> Unit) {
+fun PokemonCard(pokemon: PokemonDataDC, onPokemonClicked: (Int) -> Unit, yourTeamViewModel: YourTeamViewModel = viewModel()) {
     Card(
         modifier = Modifier
             .padding(8.dp)
@@ -97,7 +99,7 @@ fun PokemonCard(pokemon: PokemonDataDC, onPokemonClicked: (Int) -> Unit) {
 
                 Icon(Icons.Filled.Info, "Info")
             }
-            IconButton(onClick = { }) {
+            IconButton(onClick = { yourTeamViewModel.addToTeam(pokemon)}) {
                 Image(
                     painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
                     contentDescription = "pokebal",
