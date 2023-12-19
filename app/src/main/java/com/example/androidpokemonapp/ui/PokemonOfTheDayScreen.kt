@@ -24,12 +24,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androidpokemonapp.viewModel.PokemonOfTheDayViewModel
 import org.w3c.dom.Text
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PokemonOfTheDayScreen(onBackButtonClicked: () -> Unit) {
+    val pokemonViewModel: PokemonOfTheDayViewModel = viewModel()
+    val pokemon = pokemonViewModel.getRandomPokemon()
     Scaffold(
         topBar = {
             SmallTopAppBar(
@@ -55,7 +59,7 @@ fun PokemonOfTheDayScreen(onBackButtonClicked: () -> Unit) {
                         .fillMaxWidth()
                         .padding(16.dp)
                 ) {
-                    Text("Naam: __________", style = MaterialTheme.typography.titleLarge)
+                    Text("Naam: ${pokemon.name}", style = MaterialTheme.typography.titleLarge)
                     Spacer(modifier = Modifier.height(8.dp))
                     // Placeholder for the Pokémon image
                     Box(
@@ -69,8 +73,8 @@ fun PokemonOfTheDayScreen(onBackButtonClicked: () -> Unit) {
                     }
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    Text("Types: __________")
-                    Text("Pokédex index: __________")
+                    Text("Types: ${pokemon.types}")
+                    Text("Pokédex index: ${pokemon.pokedexIndex}")
                     Spacer(modifier = Modifier.height(8.dp))
                     Text("Moves")
                     Text("________________")

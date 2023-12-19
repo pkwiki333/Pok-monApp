@@ -18,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,10 +33,9 @@ fun pokemonDetailScreen(id : Int, onBackButtonClicked: () -> Unit, pokedexViewMo
     val pokemon = pokedexViewModel.getPokemonDetail(id)
     Scaffold(
         topBar = {
-            SmallTopAppBar(
-                title = {
-                    Text(text = "Details", fontWeight = FontWeight.Bold)
-                },
+            TopAppBar(title = {
+                Text(text = "Details", fontWeight = FontWeight.Bold)
+            },
                 navigationIcon = {
                     IconButton(onClick = onBackButtonClicked ) {
                         Icon(Icons.Filled.ArrowBack, "Back")
