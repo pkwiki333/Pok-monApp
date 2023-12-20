@@ -29,8 +29,8 @@ import com.example.androidpokemonapp.viewModel.PokedexViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun pokemonDetailScreen(id : Int, onBackButtonClicked: () -> Unit, pokedexViewModel: PokedexViewModel = viewModel()) {
-    val pokemon = pokedexViewModel.getPokemonDetail(id)
+fun pokemonDetailScreen(name : String, onBackButtonClicked: () -> Unit, pokedexViewModel: PokedexViewModel = viewModel()) {
+    val pokemon = pokedexViewModel.getPokemonDetail(name)
     Scaffold(
         topBar = {
             TopAppBar(title = {
@@ -65,7 +65,7 @@ fun pokemonDetailScreen(id : Int, onBackButtonClicked: () -> Unit, pokedexViewMo
                         .height(200.dp)
                         .background(Color.LightGray)
                 )
-                Text(text = "Pokédex index: $id")
+                Text(text = "Pokédex index: ${pokemon?.pokedexIndex}")
                 Spacer(modifier = Modifier.height(8.dp))
                 Text("Type: ${pokemon?.types}", style = MaterialTheme.typography.titleMedium)
                 Spacer(modifier = Modifier.height(8.dp))

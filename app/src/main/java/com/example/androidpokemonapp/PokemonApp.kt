@@ -67,18 +67,18 @@ fun PokemonApp(
                     composable(ScreensEnum.PokedexScreen.name) {
                         PokedexScreen(
                             onBackButtonClicked = { navController.navigateUp() },
-                            onPokemonClicked = { pokemonId -> navController.navigate(ScreensEnum.PokemonDetailScreen.name + "/$pokemonId") },)
+                            onPokemonClicked = { pokemonName -> navController.navigate(ScreensEnum.PokemonDetailScreen.name + "/$pokemonName") },)
                     }
                     composable(ScreensEnum.YourTeamScreen.name) {
                         YourTeamScreen(onBackButtonClicked = { navController.navigateUp() }, onPokemonClicked = { navController.navigate(ScreensEnum.PokemonDetailScreen.name) },)
                     }
 
                     composable(
-                        route = ScreensEnum.PokemonDetailScreen.withArgs("{pokemonId}"),
-                        arguments = listOf(navArgument("pokemonId") { type = NavType.IntType })
+                        route = ScreensEnum.PokemonDetailScreen.withArgs("{pokemonName}"),
+                        arguments = listOf(navArgument("pokemonName") { type = NavType.StringType })
                     ) { backStackEntry ->
-                        val pokemonId = backStackEntry.arguments?.getInt("pokemonId") ?:0
-                        pokemonDetailScreen(id = pokemonId, onBackButtonClicked = { navController.navigateUp() })
+                        val pokemonName = backStackEntry.arguments?.getString("pokemonName") ?: "Naam niet gevonden"
+                        pokemonDetailScreen(name = pokemonName, onBackButtonClicked = { navController.navigateUp() })
                     }
                 }
             })

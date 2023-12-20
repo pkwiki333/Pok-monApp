@@ -28,12 +28,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.androidpokemonapp.R
-import com.example.androidpokemonapp.data.mockdata.PokemonDataDC
-import com.example.androidpokemonapp.model.Pokemon
-import com.example.androidpokemonapp.viewModel.PokedexUIState
+import com.example.androidpokemonapp.model.PokemonDataDC
 import com.example.androidpokemonapp.viewModel.PokedexViewModel
 import com.example.androidpokemonapp.viewModel.YourTeamViewModel
 
@@ -41,7 +37,7 @@ import com.example.androidpokemonapp.viewModel.YourTeamViewModel
 @Composable
 fun PokedexScreen(
     onBackButtonClicked: () -> Unit,
-    onPokemonClicked: (Int) -> Unit,
+    onPokemonClicked: (String) -> Unit,
     pokedexViewModel: PokedexViewModel = viewModel()
 ) {
     val pokedexUIState = pokedexViewModel.uiState.collectAsState()
@@ -69,7 +65,7 @@ fun PokedexScreen(
 }
 
 @Composable
-fun PokemonCard(pokemon: PokemonDataDC, onPokemonClicked: (Int) -> Unit, yourTeamViewModel: YourTeamViewModel = viewModel()) {
+fun PokemonCard(pokemon: PokemonDataDC, onPokemonClicked: (String) -> Unit, yourTeamViewModel: YourTeamViewModel = viewModel()) {
     Card(
         modifier = Modifier
             .padding(8.dp)
@@ -95,7 +91,7 @@ fun PokemonCard(pokemon: PokemonDataDC, onPokemonClicked: (Int) -> Unit, yourTea
                 Text("Types: ${pokemon.types}")
                 Text("Pokédex Index: ${pokemon.pokedexIndex}")
             }
-            IconButton(onClick = { onPokemonClicked(pokemon.pokedexIndex) }) {
+            IconButton(onClick = { onPokemonClicked(pokemon.name) }) {
 
                 Icon(Icons.Filled.Info, "Info")
             }

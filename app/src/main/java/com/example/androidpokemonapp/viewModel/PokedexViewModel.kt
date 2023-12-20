@@ -2,7 +2,7 @@ package com.example.androidpokemonapp.viewModel
 
 import androidx.lifecycle.ViewModel
 import com.example.androidpokemonapp.data.mockdata.PokemonData
-import com.example.androidpokemonapp.data.mockdata.PokemonDataDC
+import com.example.androidpokemonapp.model.PokemonDataDC
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,7 +14,7 @@ class PokedexViewModel : ViewModel() {
     val uiState: StateFlow<PokedexUIState> = _uiState.asStateFlow()
 
 
-    fun getPokemonDetail(pokedexIndex: Int): PokemonDataDC? {
-        return _uiState.value.pokemonLijst.find { it.pokedexIndex == pokedexIndex }
+    fun getPokemonDetail(name: String): PokemonDataDC? {
+        return _uiState.value.pokemonLijst.find { it.name == name }
     }
 }

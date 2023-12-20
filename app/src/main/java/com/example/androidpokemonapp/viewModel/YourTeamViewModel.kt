@@ -1,12 +1,11 @@
 package com.example.androidpokemonapp.viewModel
 
 import androidx.lifecycle.ViewModel
-import com.example.androidpokemonapp.data.mockdata.PokemonDataDC
+import com.example.androidpokemonapp.model.PokemonDataDC
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import android.util.Log
-import com.example.androidpokemonapp.data.mockdata.PokemonData
 
 class YourTeamViewModel: ViewModel() {
     private val _teamPokemons = MutableStateFlow<List<PokemonDataDC>>(emptyList())

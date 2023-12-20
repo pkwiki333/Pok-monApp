@@ -1,6 +1,7 @@
 package com.example.androidpokemonapp.data.mockdata
 
 import com.example.androidpokemonapp.model.Pokemon
+import com.example.androidpokemonapp.model.PokemonDataDC
 
 object PokemonData {
     val sampleData = listOf(
