@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,6 +21,8 @@ import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -29,15 +32,23 @@ import com.example.androidpokemonapp.viewModel.PokedexViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun pokemonDetailScreen(name : String, onBackButtonClicked: () -> Unit, pokedexViewModel: PokedexViewModel = viewModel()) {
-    val pokemon = pokedexViewModel.getPokemonDetail(name)
+fun pokemonDetailScreen(
+    name: String,
+    onBackButtonClicked: () -> Unit,
+    pokedexViewModel: PokedexViewModel = viewModel(factory = PokedexViewModel.Factory)
+) {
+    LaunchedEffect(name) {
+        pokedexViewModel.getPokemonDetail(name)
+    }
+
+    val pokemonState = pokedexViewModel.pokemonState.collectAsState().value
     Scaffold(
         topBar = {
             TopAppBar(title = {
                 Text(text = "Details", fontWeight = FontWeight.Bold)
             },
                 navigationIcon = {
-                    IconButton(onClick = onBackButtonClicked ) {
+                    IconButton(onClick = onBackButtonClicked) {
                         Icon(Icons.Filled.ArrowBack, "Back")
                     }
                 }
@@ -55,21 +66,21 @@ fun pokemonDetailScreen(name : String, onBackButtonClicked: () -> Unit, pokedexV
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
-                    Text("Naam: ${pokemon?.name}", style = MaterialTheme.typography.titleLarge)
-
-                Spacer(modifier = Modifier.height(8.dp))
-                // Placeholder for the Pokémon image
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp)
-                        .background(Color.LightGray)
-                )
-                Text(text = "Pokédex index: ${pokemon?.pokedexIndex}")
-                Spacer(modifier = Modifier.height(8.dp))
-                Text("Type: ${pokemon?.types}", style = MaterialTheme.typography.titleMedium)
-                Spacer(modifier = Modifier.height(8.dp))
-                Text("Beschrijving: __________", style = MaterialTheme.typography.bodyMedium)
+                if(pokemonState.pokemonDetail ==null){
+                    CircularProgressIndicator()
+                }else {
+                    Text(
+                        "Naam: ${pokemonState.pokemonDetail?.name}",
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = "Pokédex index: ${pokemonState.pokemonDetail?.pokedexIndex}")
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text("Beschrijving: __________", style = MaterialTheme.typography.bodyMedium)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text("Type: ${pokemonState.pokemonDetail?.types}")
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
             }
         }
     }

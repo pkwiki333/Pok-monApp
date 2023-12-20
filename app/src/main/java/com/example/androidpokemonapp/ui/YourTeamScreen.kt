@@ -1,3 +1,4 @@
+/*
 package com.example.androidpokemonapp.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
@@ -51,3 +52,4 @@ fun YourTeamScreen(onBackButtonClicked: () -> Unit, onPokemonClicked: (Int) -> U
         }
     )
 }
+*/

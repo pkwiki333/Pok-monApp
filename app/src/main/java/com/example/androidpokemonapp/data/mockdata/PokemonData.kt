@@ -1,17 +1,16 @@
 package com.example.androidpokemonapp.data.mockdata
 
-import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.model.PokemonDataDC
 
 object PokemonData {
     val sampleData = listOf(
-        Pokemon("Bulbasaur", "Grass, Poison", 1),
-        Pokemon("Charmander", "Fire", 2),
-        Pokemon("Pikachu", "Electric", 3),
-        Pokemon("Charizard", "Fire", 4),
-        Pokemon("Raichu", "Fire", 5),
-        Pokemon("Wurmple", "Fire", 6),
-        Pokemon("Golem", "Fire", 7),
+        PokemonDataDC("Bulbasaur", "Grass, Poison", 1),
+        PokemonDataDC("Charmander", "Fire", 2),
+        PokemonDataDC("Pikachu", "Electric", 3),
+        PokemonDataDC("Charizard", "Fire", 4),
+        PokemonDataDC("Raichu", "Fire", 5),
+        PokemonDataDC("Wurmple", "Fire", 6),
+        PokemonDataDC("Golem", "Fire", 7),
 
     )
     val getAll: () -> MutableList<PokemonDataDC> = {
