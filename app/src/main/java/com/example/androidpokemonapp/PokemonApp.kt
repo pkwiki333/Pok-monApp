@@ -40,7 +40,6 @@ import com.example.androidpokemonapp.ui.YourTeamScreen
 fun PokemonApp(
     navController: NavHostController = rememberNavController(),
 ) {
-    var addingVisible by remember { mutableStateOf(false) }
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentScreen =
         ScreensEnum.getBaseRoute(backStackEntry?.destination?.route)
