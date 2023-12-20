@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.flow
 interface PokemonRepository {
      suspend fun getPokemonList(): List<PokemonList>
      suspend fun getPokemonInfo(name: String): Pokemon
+
 }
 
 class PokemonRepositoryImpl(private val pokemonApiService: PokemonApiService) : PokemonRepository {
@@ -20,8 +21,9 @@ class PokemonRepositoryImpl(private val pokemonApiService: PokemonApiService) : 
     }
 
 
-
     override suspend fun getPokemonInfo(name: String): Pokemon {
         return pokemonApiService.getPokemonInfo(name).asDomainObject()
     }
+
+
 }

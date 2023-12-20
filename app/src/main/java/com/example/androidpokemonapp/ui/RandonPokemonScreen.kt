@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,20 +22,37 @@ import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androidpokemonapp.viewModel.PokedexViewModel
 import com.example.androidpokemonapp.viewModel.RandomPokemonViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RandomPokemonScreen(onBackButtonClicked: () -> Unit) {
-    val pokemonViewModel: RandomPokemonViewModel = viewModel()
-    val pokemon = pokemonViewModel.getRandomPokemon()
+fun RandomPokemonScreen( onBackButtonClicked: () -> Unit) {
+    val randomPokemonViewModel: RandomPokemonViewModel = viewModel(factory = RandomPokemonViewModel.Factory)
+    val randomPokemonState = randomPokemonViewModel.randomPokemonState.collectAsState().value
+
+
+    //val pokemonDetailState = pokedexViewModel.pokemonState.collectAsState().value
+
+
+    /*LaunchedEffect(randomPokemonState.pokemonDetail) {
+        randomPokemonState.pokemonDetail?.name?.let { name ->
+            pokedexViewModel.getPokemonDetail(name)
+        }
+    }*/
+    LaunchedEffect(Unit) {
+        randomPokemonViewModel.getRandomPokemon()
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(title = {
@@ -46,7 +65,7 @@ fun RandomPokemonScreen(onBackButtonClicked: () -> Unit) {
                 }
             )
         },
-        content = { padding ->
+        content =  {padding ->
             Card(
                 modifier = Modifier
                     .fillMaxSize()
@@ -58,32 +77,52 @@ fun RandomPokemonScreen(onBackButtonClicked: () -> Unit) {
                         .fillMaxWidth()
                         .padding(16.dp)
                 ) {
-                    Text("Naam: ${pokemon.name}", style = MaterialTheme.typography.titleLarge)
-                    Spacer(modifier = Modifier.height(8.dp))
-                    // Placeholder for the Pokémon image
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp)
-                            .background(Color.LightGray),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text("Foto")
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
+                    if(randomPokemonState.pokemonDetail == null){
+                        CircularProgressIndicator()
+                    }else{
+                        Text("Naam: ${randomPokemonState.pokemonDetail?.name}", style = MaterialTheme.typography.titleLarge)
+                        Spacer(modifier = Modifier.height(8.dp))
+                        // Placeholder for the Pokémon image
 
-                    Text("Types: ${pokemon.types}")
-                    Text("Pokédex index: ${pokemon.pokedexIndex}")
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text("Moves")
-                    Text("________________")
-                    Text("________________")
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text("Beschrijving")
-                    Text("________________")
-                    Text("________________")
+                        Text("Types: ${randomPokemonState.pokemonDetail?.types}")
+                        Text("Pokédex index: ${randomPokemonState.pokemonDetail?.pokedexIndex}")
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text("Moves")
+                        Text("________________")
+                        Text("________________")
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text("Beschrijving")
+                        Text("________________")
+                        Text("________________")
+                    }
+
+                    Button(onClick = { randomPokemonViewModel.getRandomPokemon() }) {
+                        Text(text = "Haal willekeurige Pokémon op")
+                    }
+
                 }
             }
         }
+
+            /*{ padding ->
+                Column(
+                    modifier = Modifier
+                        .padding(padding)
+                        .fillMaxSize()
+                ) {
+                    if (randomPokemonState.pokemonDetail == null) {
+                        CircularProgressIndicator()
+                    } else {
+                        Text("Naam: ${randomPokemonState.pokemonDetail.name}", style = MaterialTheme.typography.titleLarge)
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text("Pokédex index: ${randomPokemonState.pokemonDetail.pokedexIndex}")
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text("Types: ${randomPokemonState.pokemonDetail.types}")
+                        Spacer(modifier = Modifier.height(8.dp))
+                        // Voeg hier meer Pokémon-details toe indien gewenst
+
+
+                }
+            }}*/
     )
 }

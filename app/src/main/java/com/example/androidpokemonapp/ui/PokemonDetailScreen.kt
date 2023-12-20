@@ -37,9 +37,7 @@ fun pokemonDetailScreen(
     onBackButtonClicked: () -> Unit,
     pokedexViewModel: PokedexViewModel = viewModel(factory = PokedexViewModel.Factory)
 ) {
-    LaunchedEffect(name) {
-        pokedexViewModel.getPokemonDetail(name)
-    }
+       val pokemon = pokedexViewModel.getPokemonDetail(name)
 
     val pokemonState = pokedexViewModel.pokemonState.collectAsState().value
     Scaffold(

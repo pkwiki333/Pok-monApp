@@ -44,6 +44,10 @@ fun PokemonApp(
     val currentScreen =
         ScreensEnum.getBaseRoute(backStackEntry?.destination?.route)
 
+    /*val currentScreenTitle = PageOverviewScreen.valueOf(
+        backStackEntry?.destination?.route ?: PageOverviewScreen.HomePage.name,
+    ).title*/
+
     Box(modifier = Modifier.fillMaxSize()) {
 
         Scaffold(

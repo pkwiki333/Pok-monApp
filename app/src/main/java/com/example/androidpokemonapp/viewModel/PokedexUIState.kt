@@ -14,9 +14,9 @@ data class PokemonState(val pokemonDetail: Pokemon? = null)
 
 
 sealed interface PokemonListApiState{
-    data class Success(val pokemon: List<PokemonList>) : PokemonApiState
-    object Error: PokemonApiState
-    object Loading : PokemonApiState
+    data class Success(val pokemon: List<PokemonList>) : PokemonListApiState
+    object Error: PokemonListApiState
+    object Loading : PokemonListApiState
 }
 sealed interface PokemonApiState{
     data class Success(val pokemon: Pokemon) : PokemonApiState

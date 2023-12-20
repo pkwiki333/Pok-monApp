@@ -37,6 +37,10 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
     var pokemonApiState: PokemonApiState by mutableStateOf(PokemonApiState.Loading)
         private set
 
+    var pokemonListApiState: PokemonListApiState by mutableStateOf(PokemonListApiState.Loading)
+        private set
+
+
     init {
         fetchPokemons()
     }
@@ -48,13 +52,15 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
                 _uiState.update {
                     it.copy(pokemonLijst = listResult)
                 }
-                pokemonApiState = PokemonListApiState.Success(listResult)
+                pokemonListApiState = PokemonListApiState.Success(listResult)
             } catch (e: Exception) {
-                pokemonApiState = PokemonListApiState.Error
+                pokemonListApiState = PokemonListApiState.Error
             }
 
         }
     }
+
+
 
     fun getPokemonDetail(name: String){
         viewModelScope.launch {
@@ -76,11 +82,9 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val application = (this[APPLICATION_KEY] as PokemonApplication)
+                val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as PokemonApplication)
                 val pokemonRepository = application.container.pokemonRepository
-                PokedexViewModel(
-                    pokemonRepository = pokemonRepository
-                )
+                PokedexViewModel(pokemonRepository)
             }
         }
     }
