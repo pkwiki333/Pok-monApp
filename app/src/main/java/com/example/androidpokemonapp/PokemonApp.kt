@@ -1,26 +1,12 @@
 package com.example.androidpokemonapp
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import com.example.androidpokemonapp.ui.PokemonScreen
 import com.example.androidpokemonapp.ui.ScreensEnum
 import androidx.navigation.NavHostController
@@ -31,8 +17,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.androidpokemonapp.ui.PokedexScreen
+import com.example.androidpokemonapp.ui.PokemonTopBar
 import com.example.androidpokemonapp.ui.RandomPokemonScreen
 import com.example.androidpokemonapp.ui.pokemonDetailScreen
+
 //import com.example.androidpokemonapp.ui.YourTeamScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,13 +32,22 @@ fun PokemonApp(
     val currentScreen =
         ScreensEnum.getBaseRoute(backStackEntry?.destination?.route)
 
-    /*val currentScreenTitle = PageOverviewScreen.valueOf(
-        backStackEntry?.destination?.route ?: PageOverviewScreen.HomePage.name,
-    ).title*/
+    val currentScreenTitle = ScreensEnum.valueOf(
+        ScreensEnum.getBaseRoute(backStackEntry?.destination?.route).toString(),
+    ).title
 
     Box(modifier = Modifier.fillMaxSize()) {
 
         Scaffold(
+            topBar = {
+                if (currentScreen != ScreensEnum.PokemonScreen) {
+                    PokemonTopBar(
+                        canNavigateBack = navController.previousBackStackEntry != null,
+                        navigateUp = { navController.navigateUp() },
+                        currentScreenTitle = currentScreenTitle,
+                    )
+                }
+            },
             content = { innerPadding ->
                 NavHost(
                     navController = navController,
@@ -58,67 +55,35 @@ fun PokemonApp(
                 ) {
                     composable(ScreensEnum.PokemonScreen.name) {
                         PokemonScreen(
-                            innerPadding,
+                            padding = innerPadding,
                             onPokemonOfTheDayClicked = { navController.navigate(ScreensEnum.RandomPokemon.name) },
                             onPokedexClicked = { navController.navigate(ScreensEnum.PokedexScreen.name) },
                             onYourTeamClicked = { navController.navigate(ScreensEnum.YourTeamScreen.name) },
                         )
                     }
                     composable(ScreensEnum.RandomPokemon.name) {
-                        //todo als dit werkt goed anders in cupcake staat dit anders
-                        RandomPokemonScreen(onBackButtonClicked = { navController.navigateUp() })
+                        RandomPokemonScreen(padding = innerPadding)
                     }
                     composable(ScreensEnum.PokedexScreen.name) {
                         PokedexScreen(
-                            onBackButtonClicked = { navController.navigateUp() },
-                            onPokemonClicked = { pokemonName -> navController.navigate(ScreensEnum.PokemonDetailScreen.name + "/$pokemonName") },)
+                            padding = innerPadding,
+                            onPokemonClicked = { pokemonName -> navController.navigate(ScreensEnum.PokemonDetailScreen.name + "/$pokemonName") },
+                        )
                     }
                     /*composable(ScreensEnum.YourTeamScreen.name) {
-                        YourTeamScreen(onBackButtonClicked = { navController.navigateUp() }, onPokemonClicked = { navController.navigate(ScreensEnum.PokemonDetailScreen.name) },)
+                        YourTeamScreen(onPokemonClicked = { navController.navigate(ScreensEnum.PokemonDetailScreen.name) },)
                     }*/
 
                     composable(
                         route = ScreensEnum.PokemonDetailScreen.withArgs("{pokemonName}"),
                         arguments = listOf(navArgument("pokemonName") { type = NavType.StringType })
                     ) { backStackEntry ->
-                        val pokemonName = backStackEntry.arguments?.getString("pokemonName") ?: "Naam niet gevonden"
-                        pokemonDetailScreen(name = pokemonName, onBackButtonClicked = { navController.navigateUp() })
+                        val pokemonName = backStackEntry.arguments?.getString("pokemonName")
+                            ?: "Naam niet gevonden"
+                        pokemonDetailScreen(name = pokemonName, padding = innerPadding)
                     }
                 }
             })
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TaskAppAppBar(
-    currentScreen: ScreensEnum,
-    canNavigateBack: Boolean,
-    navigateUp: () -> Unit = {},
-    modifier: Modifier = Modifier
-) {
-    TopAppBar(
-        colors = TopAppBarDefaults.smallTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            titleContentColor = MaterialTheme.colorScheme.primary,
-        ),
-
-        title = {
-            Image(
-                painter = painterResource(id = R.drawable.pokemon_23),
-                contentDescription = "Pokémon logo",
-                modifier = Modifier.size(200.dp)
-            )
-        },
-        navigationIcon = {
-            if (canNavigateBack) {
-                IconButton(onClick = navigateUp) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "navigate back"
-                    )
-                }
-            }
-        }
-    )
-}

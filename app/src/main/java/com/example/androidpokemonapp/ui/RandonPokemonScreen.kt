@@ -3,6 +3,7 @@ package com.example.androidpokemonapp.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,102 +28,70 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.viewModel.PokedexViewModel
 import com.example.androidpokemonapp.viewModel.RandomPokemonViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RandomPokemonScreen( onBackButtonClicked: () -> Unit) {
-    val randomPokemonViewModel: RandomPokemonViewModel = viewModel(factory = RandomPokemonViewModel.Factory)
+fun RandomPokemonScreen(padding: PaddingValues) {
+    val randomPokemonViewModel: RandomPokemonViewModel =
+        viewModel(factory = RandomPokemonViewModel.Factory)
     val randomPokemonState = randomPokemonViewModel.randomPokemonState.collectAsState().value
 
 
-    //val pokemonDetailState = pokedexViewModel.pokemonState.collectAsState().value
-
-
-    /*LaunchedEffect(randomPokemonState.pokemonDetail) {
-        randomPokemonState.pokemonDetail?.name?.let { name ->
-            pokedexViewModel.getPokemonDetail(name)
-        }
-    }*/
     LaunchedEffect(Unit) {
         randomPokemonViewModel.getRandomPokemon()
     }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(title = {
-                Text(text = "Random Pokémon", fontWeight = FontWeight.Bold)
-            },
-                navigationIcon = {
-                    IconButton(onClick =  onBackButtonClicked ) {
-                        Icon(Icons.Filled.ArrowBack, "Back")
-                    }
-                }
-            )
-        },
-        content =  {padding ->
-            Card(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .padding(16.dp),
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                ) {
-                    if(randomPokemonState.pokemonDetail == null){
-                        CircularProgressIndicator()
-                    }else{
-                        Text("Naam: ${randomPokemonState.pokemonDetail?.name}", style = MaterialTheme.typography.titleLarge)
-                        Spacer(modifier = Modifier.height(8.dp))
-                        // Placeholder for the Pokémon image
 
-                        Text("Types: ${randomPokemonState.pokemonDetail?.types}")
-                        Text("Pokédex index: ${randomPokemonState.pokemonDetail?.pokedexIndex}")
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text("Moves")
-                        Text("________________")
-                        Text("________________")
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text("Beschrijving")
-                        Text("________________")
-                        Text("________________")
-                    }
+    Card(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(padding)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp) ,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            if (randomPokemonState.pokemonDetail == null) {
+                CircularProgressIndicator()
+            } else {
+                Text(
+                    "Naam: ${randomPokemonState.pokemonDetail?.name}",
+                    style = MaterialTheme.typography.titleLarge
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                // Placeholder for the Pokémon image
 
-                    Button(onClick = { randomPokemonViewModel.getRandomPokemon() }) {
-                        Text(text = "Haal willekeurige Pokémon op")
-                    }
-
-                }
+                Text("Types: ${randomPokemonState.pokemonDetail?.types}")
+                Text("Pokédex index: ${randomPokemonState.pokemonDetail?.pokedexIndex}")
+                Spacer(modifier = Modifier.height(8.dp))
+                Text("Moves")
+                Text("________________")
+                Text("________________")
+                Spacer(modifier = Modifier.height(8.dp))
+                Text("Beschrijving")
+                Text("________________")
+                Text("________________")
             }
+
+            Button(
+                onClick = { randomPokemonViewModel.getRandomPokemon() }, modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
+                    .padding(8.dp)
+            ) {
+                Text(text = stringResource(R.string.get_random_pok_mon))
+            }
+
         }
-
-            /*{ padding ->
-                Column(
-                    modifier = Modifier
-                        .padding(padding)
-                        .fillMaxSize()
-                ) {
-                    if (randomPokemonState.pokemonDetail == null) {
-                        CircularProgressIndicator()
-                    } else {
-                        Text("Naam: ${randomPokemonState.pokemonDetail.name}", style = MaterialTheme.typography.titleLarge)
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text("Pokédex index: ${randomPokemonState.pokemonDetail.pokedexIndex}")
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text("Types: ${randomPokemonState.pokemonDetail.types}")
-                        Spacer(modifier = Modifier.height(8.dp))
-                        // Voeg hier meer Pokémon-details toe indien gewenst
-
-
-                }
-            }}*/
-    )
+    }
 }

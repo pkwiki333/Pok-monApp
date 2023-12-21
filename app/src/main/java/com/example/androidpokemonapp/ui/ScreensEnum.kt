@@ -6,7 +6,7 @@ import com.example.androidpokemonapp.R
 enum class ScreensEnum(@StringRes val title: Int) {
     PokedexScreen(title = R.string.pokedex),
     RandomPokemon(title = R.string.pokemon_of_the_day),
-    PokemonDetailScreen(title = R.string.pokemon_detail),
+    PokemonDetailScreen(title = R.string.pokemon_details),
     PokemonScreen(title = R.string.main_menu),
     YourTeamScreen(title = R.string.your_team);
 

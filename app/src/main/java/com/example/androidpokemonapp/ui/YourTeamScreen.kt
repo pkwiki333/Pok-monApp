@@ -24,22 +24,10 @@ import com.example.androidpokemonapp.viewModel.YourTeamViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun YourTeamScreen(onBackButtonClicked: () -> Unit, onPokemonClicked: (Int) -> Unit, yourTeamViewModel: YourTeamViewModel = viewModel()) {
+fun YourTeamScreen(onPokemonClicked: (Int) -> Unit, yourTeamViewModel: YourTeamViewModel = viewModel()) {
     val teamPokemons = yourTeamViewModel.teamPokemons.collectAsState()
     val team = yourTeamViewModel.getAll()
-    Scaffold(
-        topBar = {
-            TopAppBar(title = {
-                Text(text = "Your team", fontWeight = FontWeight.Bold)
-            },
-                navigationIcon = {
-                    IconButton(onClick = onBackButtonClicked ) {
-                        Icon(Icons.Filled.ArrowBack, "Back")
-                    }
-                }
-            )
-        },
-        content = { padding ->
+
             LazyColumn(
                 modifier = Modifier
                     .padding(padding)
@@ -49,7 +37,6 @@ fun YourTeamScreen(onBackButtonClicked: () -> Unit, onPokemonClicked: (Int) -> U
                     PokemonCard(pokemon = pokemon, onPokemonClicked = { onPokemonClicked(pokemon.pokedexIndex) })
                 }
             }
-        }
-    )
+
 }
 */

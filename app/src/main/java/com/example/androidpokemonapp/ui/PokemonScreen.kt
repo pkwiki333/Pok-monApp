@@ -32,8 +32,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.androidpokemonapp.R
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PokemonScreen(
     padding: PaddingValues,
@@ -43,88 +41,83 @@ fun PokemonScreen(
 ) {
     val backgroundImagePainter = painterResource(id = R.drawable.achtrgrondpokemonappstaand)
 
-
     Box(modifier = Modifier.fillMaxSize()) {
+        Image(
+            painter = backgroundImagePainter,
+            contentDescription = "Background",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.pokemon_23),
+                contentDescription = "Pokémon logo",
+                modifier = Modifier.size(200.dp)
+            )
+        }
 
-        Scaffold(topBar = {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center, // Centreer de inhoud horizontaal
-                verticalAlignment = Alignment.CenterVertically // Centreer de inhoud verticaal
+
+            Button(
+                onClick = onPokemonOfTheDayClicked,
+                colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.Start)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.pokemon_23),
-                    contentDescription = "Pokémon logo",
-                    modifier = Modifier.size(200.dp)
+                    painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
+                    contentDescription = "Random Pokémon",
+                    modifier = Modifier.size(24.dp)
                 )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("Random Pokémon", color = Color.Black)
             }
-        },
-            content = {
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Button(
+                onClick = onPokedexClicked,
+                colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 Image(
-                    painter = backgroundImagePainter,
-                    contentDescription = "Background",
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
+                    painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
+                    contentDescription = "Pokédex",
+                    modifier = Modifier.size(24.dp)
                 )
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp)
-                ) {
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("Pokédex", color = Color.Black)
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Button(
+                onClick = onYourTeamClicked,
+                colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
+                    contentDescription = "Your pokémon",
+                    modifier = Modifier.size(24.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("Your team", color = Color.Black)
+            }
+        }
 
 
-                    Button(
-                        onClick = onPokemonOfTheDayClicked,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .align(Alignment.Start)
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
-                            contentDescription = "Random Pokémon",
-                            modifier = Modifier.size(24.dp)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Random Pokémon", color = Color.Black)
-                    }
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    Button(
-                        onClick = onPokedexClicked,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
-                            contentDescription = "Pokédex",
-                            modifier = Modifier.size(24.dp)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Pokédex", color = Color.Black)
-                    }
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    Button(
-                        onClick = onYourTeamClicked,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
-                            contentDescription = "Your pokémon",
-                            modifier = Modifier.size(24.dp)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Your team", color = Color.Black)
-                    }
-                }
-
-            })
     }
 }
