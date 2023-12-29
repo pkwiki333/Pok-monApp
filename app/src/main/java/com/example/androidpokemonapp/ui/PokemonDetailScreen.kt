@@ -64,31 +64,3 @@ fun pokemonDetailScreen(
     }
 
 }
-
-@Composable
-fun pokemonDetailScreenContent(padding: PaddingValues, pokemonState: PokemonState) {
-    Card(
-        modifier = Modifier
-            .fillMaxSize()
-
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                "Naam: ${pokemonState.pokemonDetail?.name}",
-                style = MaterialTheme.typography.titleLarge
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = "Pokédex index: ${pokemonState.pokemonDetail?.pokedexIndex}")
-            Spacer(modifier = Modifier.height(8.dp))
-            Text("Beschrijving: __________", style = MaterialTheme.typography.bodyMedium)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text("Type: ${pokemonState.pokemonDetail?.types}")
-            Spacer(modifier = Modifier.height(8.dp))
-        }
-    }
-}
