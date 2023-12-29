@@ -6,8 +6,7 @@ import com.example.androidpokemonapp.model.PokemonList
 import com.example.androidpokemonapp.network.responses.ApiPokemonList
 
 data class PokedexUIState(
-    val pokemonLijst: List<PokemonList>,
-    val isLoading: Boolean = false,
+    val pokemonLijst: List<PokemonList>
 )
 
 data class PokemonState(val pokemonDetail: Pokemon? = null)
