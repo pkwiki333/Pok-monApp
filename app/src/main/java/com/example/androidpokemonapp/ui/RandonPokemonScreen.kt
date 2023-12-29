@@ -1,5 +1,6 @@
 package com.example.androidpokemonapp.ui
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,64 +36,82 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.viewModel.PokedexViewModel
+import com.example.androidpokemonapp.viewModel.RandomPokemonApiState
+import com.example.androidpokemonapp.viewModel.RandomPokemonUIState
 import com.example.androidpokemonapp.viewModel.RandomPokemonViewModel
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RandomPokemonScreen(padding: PaddingValues) {
-    val randomPokemonViewModel: RandomPokemonViewModel =
+fun RandomPokemonScreen(
+    padding: PaddingValues, randomPokemonViewModel: RandomPokemonViewModel =
         viewModel(factory = RandomPokemonViewModel.Factory)
-    val randomPokemonState = randomPokemonViewModel.randomPokemonState.collectAsState().value
+) {
 
+    val randomPokemonState by randomPokemonViewModel.randomPokemonState.collectAsState()
+    val randomPokemonApiState = randomPokemonViewModel.randomPokemonApiState
 
     LaunchedEffect(Unit) {
         randomPokemonViewModel.getRandomPokemon()
     }
-
-
+//todo Fix zichtbaarheid achtergrond van Card
     Card(
         modifier = Modifier
             .fillMaxSize()
             .padding(padding)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp) ,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            if (randomPokemonState.pokemonDetail == null) {
-                CircularProgressIndicator()
-            } else {
-                Text(
-                    "Naam: ${randomPokemonState.pokemonDetail?.name}",
-                    style = MaterialTheme.typography.titleLarge
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                // Placeholder for the Pokémon image
-
-                Text("Types: ${randomPokemonState.pokemonDetail?.types}")
-                Text("Pokédex index: ${randomPokemonState.pokemonDetail?.pokedexIndex}")
-                Spacer(modifier = Modifier.height(8.dp))
-                Text("Moves")
-                Text("________________")
-                Text("________________")
-                Spacer(modifier = Modifier.height(8.dp))
-                Text("Beschrijving")
-                Text("________________")
-                Text("________________")
-            }
-
-            Button(
-                onClick = { randomPokemonViewModel.getRandomPokemon() }, modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.CenterHorizontally)
-                    .padding(8.dp)
-            ) {
-                Text(text = stringResource(R.string.get_random_pok_mon))
-            }
-
+    )  {
+        when (randomPokemonApiState) {
+            is RandomPokemonApiState.Loading -> CircularProgressIndicator()
+            is RandomPokemonApiState.Error -> Text("Couldn't load...")
+            is RandomPokemonApiState.Success -> CardInhoud(
+                randomPokemonState = randomPokemonState,
+                randomPokemonViewModel = randomPokemonViewModel
+            )
         }
     }
+
 }
+
+@Composable
+fun CardInhoud(
+    randomPokemonState: RandomPokemonUIState,
+    randomPokemonViewModel: RandomPokemonViewModel
+
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+
+        Text(
+            "Naam: ${randomPokemonState.pokemonDetail?.name}",
+            style = MaterialTheme.typography.titleLarge
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text("Types: ${randomPokemonState.pokemonDetail?.types}")
+        Text("Pokédex index: ${randomPokemonState.pokemonDetail?.pokedexIndex}")
+        Spacer(modifier = Modifier.height(8.dp))
+        Text("Moves")
+        Text("________________")
+        Text("________________")
+        Spacer(modifier = Modifier.height(8.dp))
+        Text("Beschrijving")
+        Text("________________")
+        Text("________________")
+
+        Button(
+            onClick = { randomPokemonViewModel.getRandomPokemon() },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
+            Text(text = stringResource(R.string.get_random_pok_mon))
+        }
+
+    }
+}
+
+

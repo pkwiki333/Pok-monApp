@@ -54,13 +54,14 @@ import com.example.androidpokemonapp.viewModel.PokedexViewModel
 
 //import com.example.androidpokemonapp.viewModel.YourTeamViewModel
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun PokedexScreen(
     padding: PaddingValues,
     onPokemonClicked: (String) -> Unit,
     pokedexViewModel: PokedexViewModel = viewModel(factory = PokedexViewModel.Factory)
 ) {
-    val pokedexUIState = pokedexViewModel.uiState.collectAsState()
+    val pokedexUIState by pokedexViewModel.uiState.collectAsState()
     // val yourTeamViewModel: YourTeamViewModel = viewModel()
 
         Column(modifier = Modifier.padding(padding)) {
@@ -83,7 +84,7 @@ fun PokedexScreen(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                items(pokedexUIState.value.pokemonLijst) { pokemon ->
+                items(pokedexUIState.pokemonLijst) { pokemon ->
                     PokemonCard(
                         pokemon = pokemon,
                         onPokemonClicked = onPokemonClicked/*, yourTeamViewModel = yourTeamViewModel*/

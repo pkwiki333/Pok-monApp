@@ -14,20 +14,22 @@ import com.example.androidpokemonapp.PokemonApplication
 import com.example.androidpokemonapp.data.PokemonRepository
 import com.example.androidpokemonapp.data.mockdata.PokemonData
 import com.example.androidpokemonapp.model.PokemonDataDC
+import com.example.androidpokemonapp.viewModel.RandomPokemonApiState.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class RandomPokemonViewModel(private val pokemonRepository: PokemonRepository) : ViewModel() {
 
-    private val _randomPokemonState = MutableStateFlow<PokemonState>(PokemonState(null))
-    val randomPokemonState: StateFlow<PokemonState> = _randomPokemonState.asStateFlow()
+    private val _randomPokemonState = MutableStateFlow(RandomPokemonUIState(null))
+    val randomPokemonState: StateFlow<RandomPokemonUIState> = _randomPokemonState.asStateFlow()
 
-    var RandomPokemonApiState: PokemonApiState by mutableStateOf(PokemonApiState.Loading)
+    var randomPokemonApiState: RandomPokemonApiState by mutableStateOf(Loading)
         private set
 
-    fun getRandomPokemon(){
+    fun getRandomPokemon() {
         viewModelScope.launch {
             try {
                 val pokemonList = pokemonRepository.getPokemonList()
@@ -35,11 +37,13 @@ class RandomPokemonViewModel(private val pokemonRepository: PokemonRepository) :
                     val randomPokemonName = pokemonList.random().name
                     val randomPokemonDetail = pokemonRepository.getPokemonInfo(randomPokemonName)
 
-                    _randomPokemonState.value = PokemonState(randomPokemonDetail)
-                    Log.i("RandomPokemonViewModel", "!!!!!!!!!!Werkt wel")
+                    _randomPokemonState.update { it.copy(pokemonDetail = randomPokemonDetail) }
+                    randomPokemonApiState = Success(randomPokemonDetail)
+
                 }
             } catch (e: Exception) {
-                Log.i("RandomPokemonViewModel", "!!!!!!!!!!Werkt niet")
+                randomPokemonApiState = Error
+
             }
         }
     }
