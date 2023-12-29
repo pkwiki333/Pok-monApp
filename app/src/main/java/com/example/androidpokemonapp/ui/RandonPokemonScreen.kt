@@ -53,12 +53,13 @@ fun RandomPokemonScreen(
     LaunchedEffect(Unit) {
         randomPokemonViewModel.getRandomPokemon()
     }
-//todo Fix zichtbaarheid achtergrond van Card
-    Card(
+
+    Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxSize()
             .padding(padding)
-    )  {
+    ) {
         when (randomPokemonApiState) {
             is RandomPokemonApiState.Loading -> CircularProgressIndicator()
             is RandomPokemonApiState.Error -> Text("Couldn't load...")
@@ -68,49 +69,52 @@ fun RandomPokemonScreen(
             )
         }
     }
-
 }
 
 @Composable
 fun CardInhoud(
     randomPokemonState: RandomPokemonUIState,
-    randomPokemonViewModel: RandomPokemonViewModel
-
+    randomPokemonViewModel: RandomPokemonViewModel,
 ) {
-    Column(
+    Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxSize()
     ) {
-
-
-        Text(
-            "Naam: ${randomPokemonState.pokemonDetail?.name}",
-            style = MaterialTheme.typography.titleLarge
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text("Types: ${randomPokemonState.pokemonDetail?.types}")
-        Text("Pokédex index: ${randomPokemonState.pokemonDetail?.pokedexIndex}")
-        Spacer(modifier = Modifier.height(8.dp))
-        Text("Moves")
-        Text("________________")
-        Text("________________")
-        Spacer(modifier = Modifier.height(8.dp))
-        Text("Beschrijving")
-        Text("________________")
-        Text("________________")
-
-        Button(
-            onClick = { randomPokemonViewModel.getRandomPokemon() },
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = stringResource(R.string.get_random_pok_mon))
-        }
 
+
+            Text(
+                "Naam: ${randomPokemonState.pokemonDetail?.name}",
+                style = MaterialTheme.typography.titleLarge
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text("Types: ${randomPokemonState.pokemonDetail?.types}")
+            Text("Pokédex index: ${randomPokemonState.pokemonDetail?.pokedexIndex}")
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("Moves")
+            Text("________________")
+            Text("________________")
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("Beschrijving")
+            Text("________________")
+            Text("________________")
+
+            Button(
+                onClick = { randomPokemonViewModel.getRandomPokemon() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            ) {
+                Text(text = stringResource(R.string.get_random_pok_mon))
+            }
+
+        }
     }
 }
 
