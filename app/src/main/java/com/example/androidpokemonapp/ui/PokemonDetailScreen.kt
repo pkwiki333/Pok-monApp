@@ -47,14 +47,9 @@ fun pokemonDetailScreen(
             .padding(padding)
     ) {
         when (pokemonApiState) {
-            is PokemonApiState.Loading -> {
-                Log.i("PokemonDetailScreen", "!!!!!!!!!loading")
-                CircularProgressIndicator()
-            }
-
+            is PokemonApiState.Loading -> gifImage()
             is PokemonApiState.Error -> Text("Couldn't load...")
             is PokemonApiState.Success -> {
-                Log.i("PokemonDetailScreen", "!!!!!!!!!succes")
                 pokemonDetailScreenContent(
                     padding = padding,
                     pokemonState = pokemonState

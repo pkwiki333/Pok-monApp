@@ -34,7 +34,7 @@ fun PokedexScreen(
             .padding(padding)
     ) {
         when (pekedexApiState) {
-            is PokemonListApiState.Loading -> CircularProgressIndicator()
+            is PokemonListApiState.Loading -> gifImage()
             is PokemonListApiState.Error -> Text("Couldn't load...")
             is PokemonListApiState.Success -> pokedexScreenContent(
                 padding = padding,

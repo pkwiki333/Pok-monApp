@@ -1,5 +1,6 @@
 package com.example.androidpokemonapp.ui
 
+import android.widget.ImageView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -49,7 +50,7 @@ fun RandomPokemonScreen(
             .padding(padding)
     ) {
         when (randomPokemonApiState) {
-            is RandomPokemonApiState.Loading -> CircularProgressIndicator()
+            is RandomPokemonApiState.Loading -> gifImage()
             is RandomPokemonApiState.Error -> Text("Couldn't load...")
             is RandomPokemonApiState.Success -> RandomPokemonCardInhoud(
                 randomPokemonState = randomPokemonState,
