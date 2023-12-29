@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.androidpokemonapp.R
@@ -26,19 +27,19 @@ fun PokemonCard(
 ) {
     Card(
         modifier = Modifier
-            .padding(8.dp)
+            .padding(dimensionResource(id = R.dimen.padding_small))
             .fillMaxWidth()
     ) {
         Row(
             modifier = Modifier
-                .padding(16.dp)
+                .padding(dimensionResource(id = R.dimen.padding_medium))
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(start = 16.dp)
+                    .padding(start = dimensionResource(id = R.dimen.padding_medium))
             ) {
                 Text(pokemon.name, style = MaterialTheme.typography.titleMedium)
                 Text("Pokédex Index: ${pokemon.pokedexIndex}")
@@ -51,7 +52,7 @@ fun PokemonCard(
                 Image(
                     painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
                     contentDescription = "pokebal",
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(dimensionResource(id = R.dimen.pokeball_size))
                 )
             }
         }

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.androidpokemonapp.R
@@ -26,7 +27,7 @@ fun pokedexScreenContent(padding: PaddingValues, onPokemonClicked: (String) -> U
             Image(
                 painter = painterResource(id = R.drawable.pokemon_23),
                 contentDescription = "Pokémon logo",
-                modifier = Modifier.size(200.dp)
+                modifier = Modifier.size(dimensionResource(id = R.dimen.logo_size))
             )
         }
         pokedexList(padding = padding, onPokemonClicked = onPokemonClicked)
