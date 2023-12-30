@@ -1,4 +1,3 @@
-/*
 package com.example.androidpokemonapp.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,12 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidpokemonapp.data.mockdata.PokemonData
-import com.example.androidpokemonapp.viewModel.YourTeamViewModel
+//import com.example.androidpokemonapp.viewModel.YourTeamViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun YourTeamScreen(onPokemonClicked: (Int) -> Unit, yourTeamViewModel: YourTeamViewModel = viewModel()) {
-    val teamPokemons = yourTeamViewModel.teamPokemons.collectAsState()
+fun YourTeamScreen(onPokemonClicked: (Int) -> Unit, /*yourTeamViewModel: YourTeamViewModel = viewModel()*/) {
+   /* val teamPokemons = yourTeamViewModel.teamPokemons.collectAsState()
     val team = yourTeamViewModel.getAll()
 
             LazyColumn(
@@ -36,7 +35,6 @@ fun YourTeamScreen(onPokemonClicked: (Int) -> Unit, yourTeamViewModel: YourTeamV
                 items(team) { pokemon ->
                     PokemonCard(pokemon = pokemon, onPokemonClicked = { onPokemonClicked(pokemon.pokedexIndex) })
                 }
-            }
+            }*/
 
 }
-*/

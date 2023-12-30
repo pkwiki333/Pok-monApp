@@ -9,6 +9,6 @@ class PokemonApplication : Application(){
 
     override fun onCreate() {
         super.onCreate()
-        container = AppContainerImpl()
+        container = AppContainerImpl(applicationContext)
     }
 }

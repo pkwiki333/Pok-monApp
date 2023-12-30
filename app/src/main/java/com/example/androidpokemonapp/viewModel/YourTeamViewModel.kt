@@ -29,4 +29,5 @@ class YourTeamViewModel: ViewModel() {
     fun removeFromTeam(pokemon: PokemonDataDC) {
         _teamPokemons.value = _teamPokemons.value.filter { it.pokedexIndex != pokemon.pokedexIndex }
     }
-}*/
+}
+*/

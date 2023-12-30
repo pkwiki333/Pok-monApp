@@ -6,20 +6,22 @@ import com.example.androidpokemonapp.model.PokemonList
 import com.example.androidpokemonapp.network.responses.ApiPokemonList
 
 data class PokedexUIState(
-    val pokemonLijst: List<PokemonList>
+    val name: String = "", val pokedexIndex: Int = 0
+
 )
 
 data class PokemonState(val pokemonDetail: Pokemon? = null)
 
 
-sealed interface PokemonListApiState{
-    data class Success(val pokemon: List<PokemonList>) : PokemonListApiState
-    object Error: PokemonListApiState
+sealed interface PokemonListApiState {
+    object Success : PokemonListApiState
+    object Error : PokemonListApiState
     object Loading : PokemonListApiState
 }
-sealed interface PokemonApiState{
-    data class Success(val pokemon: Pokemon) : PokemonApiState
-    object Error: PokemonApiState
+
+sealed interface PokemonApiState {
+    object Success : PokemonApiState
+    object Error : PokemonApiState
     object Loading : PokemonApiState
 }
 

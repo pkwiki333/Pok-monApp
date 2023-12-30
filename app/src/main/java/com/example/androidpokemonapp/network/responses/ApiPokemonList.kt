@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class ApiPokemonList(
     val count: Int,
     val next: String,
-    val previous: Any,
+    val previous: String, //origineel Any voor als String problemen meost veroorzaken
     val results: List<Result>
 )
 

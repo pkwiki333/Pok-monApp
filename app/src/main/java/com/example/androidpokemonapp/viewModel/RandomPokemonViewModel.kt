@@ -13,11 +13,15 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.androidpokemonapp.PokemonApplication
 import com.example.androidpokemonapp.data.PokemonRepository
 import com.example.androidpokemonapp.data.mockdata.PokemonData
+import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.model.PokemonDataDC
 import com.example.androidpokemonapp.viewModel.RandomPokemonApiState.*
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -29,22 +33,35 @@ class RandomPokemonViewModel(private val pokemonRepository: PokemonRepository) :
     var randomPokemonApiState: RandomPokemonApiState by mutableStateOf(Loading)
         private set
 
+    lateinit var uiRandomPokemonState: StateFlow<Pokemon>
+
     fun getRandomPokemon() {
-        viewModelScope.launch {
-            try {
-                val pokemonList = pokemonRepository.getPokemonList()
-                if (pokemonList.isNotEmpty()) {
-                    val randomPokemonName = pokemonList.random().name
-                    val randomPokemonDetail = pokemonRepository.getPokemonInfo(randomPokemonName)
+        try {
+            viewModelScope.launch {
+                val pokemonsList = pokemonRepository.getPokemonList().first()
+                val randomPokemon = pokemonsList.random()
+                val pokemonName = randomPokemon.name
 
-                    _randomPokemonState.update { it.copy(pokemonDetail = randomPokemonDetail) }
-                    randomPokemonApiState = Success(randomPokemonDetail)
+                uiRandomPokemonState = pokemonRepository.getPokemonInfo(pokemonName).stateIn(
+                    scope = viewModelScope,
+                    started = SharingStarted.WhileSubscribed(5_000L),
+                    initialValue = Pokemon(
+                        name = "",
+                        pokedexIndex = 0,
+                        height = 0,
+                        weight = 0,
+                        types = emptyList(),
+                        abilities = emptyList()
+                    )
+                )
 
-                }
-            } catch (e: Exception) {
-                randomPokemonApiState = Error
+                randomPokemonApiState = Success
 
             }
+
+        } catch (e: Exception) {
+            randomPokemonApiState = Error
+
         }
     }
 

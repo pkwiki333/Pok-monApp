@@ -21,7 +21,7 @@ import com.example.androidpokemonapp.ui.PokemonTopBar
 import com.example.androidpokemonapp.ui.RandomPokemonScreen
 import com.example.androidpokemonapp.ui.pokemonDetailScreen
 
-//import com.example.androidpokemonapp.ui.YourTeamScreen
+import com.example.androidpokemonapp.ui.YourTeamScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -70,9 +70,9 @@ fun PokemonApp(
                             onPokemonClicked = { pokemonName -> navController.navigate(ScreensEnum.PokemonDetailScreen.name + "/$pokemonName") },
                         )
                     }
-                    /*composable(ScreensEnum.YourTeamScreen.name) {
+                    composable(ScreensEnum.YourTeamScreen.name) {
                         YourTeamScreen(onPokemonClicked = { navController.navigate(ScreensEnum.PokemonDetailScreen.name) },)
-                    }*/
+                    }
 
                     composable(
                         route = ScreensEnum.PokemonDetailScreen.withArgs("{pokemonName}"),
