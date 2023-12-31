@@ -58,9 +58,11 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
                     initialValue = emptyList()
                 )
                 pokemonListApiState = PokemonListApiState.Success
+            Log.i("PokedexViewModel", "fetchPokemons: ${uiPokemonListListState.value}")
 
         } catch (e: Exception) {
             pokemonListApiState = PokemonListApiState.Error
+
         }
     }
 

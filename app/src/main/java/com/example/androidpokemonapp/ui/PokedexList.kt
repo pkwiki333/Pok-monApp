@@ -26,7 +26,7 @@ fun pokedexList(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        items(pokedexUIState.pokemonLijst) { pokemon ->
+        items(items = pokedexViewModel.uiPokemonListListState.value) { pokemon ->
             PokemonCard(
                 pokemon = pokemon,
                 onPokemonClicked = onPokemonClicked

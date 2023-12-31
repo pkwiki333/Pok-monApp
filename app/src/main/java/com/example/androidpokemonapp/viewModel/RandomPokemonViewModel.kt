@@ -12,9 +12,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.androidpokemonapp.PokemonApplication
 import com.example.androidpokemonapp.data.PokemonRepository
-import com.example.androidpokemonapp.data.mockdata.PokemonData
 import com.example.androidpokemonapp.model.Pokemon
-import com.example.androidpokemonapp.model.PokemonDataDC
 import com.example.androidpokemonapp.viewModel.RandomPokemonApiState.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -22,7 +20,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class RandomPokemonViewModel(private val pokemonRepository: PokemonRepository) : ViewModel() {
@@ -38,8 +35,8 @@ class RandomPokemonViewModel(private val pokemonRepository: PokemonRepository) :
     fun getRandomPokemon() {
         try {
             viewModelScope.launch {
-                val pokemonsList = pokemonRepository.getPokemonList().first()
-                val randomPokemon = pokemonsList.random()
+                val pokemonList = pokemonRepository.getPokemonList().first()
+                val randomPokemon = pokemonList.random()
                 val pokemonName = randomPokemon.name
 
                 uiRandomPokemonState = pokemonRepository.getPokemonInfo(pokemonName).stateIn(
@@ -56,6 +53,7 @@ class RandomPokemonViewModel(private val pokemonRepository: PokemonRepository) :
                 )
 
                 randomPokemonApiState = Success
+                Log.i("RandomPokemonViewModel", "!!!!!!!!!getRandomPokemon: $uiRandomPokemonState")
 
             }
 

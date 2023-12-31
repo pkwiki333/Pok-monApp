@@ -1,9 +1,11 @@
 package com.example.androidpokemonapp.network
 
+import android.util.Log
 import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.network.responses.ApiPokemon
 import com.example.androidpokemonapp.network.responses.ApiPokemonList
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -24,8 +26,18 @@ interface PokemonApiService {
      : ApiPokemon
 }
 
-
 fun PokemonApiService.getPokemonListAsFlow() = flow {
-    emit(getPokemonList())
+    try {
+        val response = getPokemonList()
+        Log.i("PokemonApiService", "!!!!!!Duidelijk deze$response")
+        emit(response)
+    }catch (e: Exception){
+        Log.i("PokemonApiService", "!!!!!!Duidelijk deze${e.message}")
+    }
+
+}
+
+fun PokemonApiService.getPokemonAsFlow(name: String) = flow {
+    emit(getPokemonInfo(name))
 }
 
