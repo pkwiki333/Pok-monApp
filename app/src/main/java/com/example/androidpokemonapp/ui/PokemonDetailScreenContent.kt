@@ -19,7 +19,7 @@ import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.viewModel.PokemonState
 
-@SuppressLint("StateFlowValueCalledInComposition")
+
 @Composable
 fun pokemonDetailScreenContent(
     padding: PaddingValues,

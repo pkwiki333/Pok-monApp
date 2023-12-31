@@ -25,6 +25,7 @@ import kotlinx.coroutines.launch
 
 //todo fix pokedex nu opgehaald uit RoomDb, maar moet uit de api komen. zelfde voor een pokemon en Random Pokemon.
 //todo fix yourTeam in RoomDb
+//todo apparte viewModel maken voor Detail pagina, de viewmodel heeft als param een naam, en zo kan je die dan in die init steken
 class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewModel() {
 
     private val _pokemonListState = MutableStateFlow(PokedexUIState())

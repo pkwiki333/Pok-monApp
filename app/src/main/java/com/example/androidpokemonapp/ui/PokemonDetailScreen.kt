@@ -20,7 +20,6 @@ import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.viewModel.PokedexViewModel
 import com.example.androidpokemonapp.viewModel.PokemonApiState
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun pokemonDetailScreen(
     name: String,
