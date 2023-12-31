@@ -7,26 +7,24 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.androidpokemonapp.viewModel.PokedexViewModel
+import com.example.androidpokemonapp.model.PokemonList
 
 @Composable
 fun pokedexList(
     padding: PaddingValues,
     onPokemonClicked: (String) -> Unit,
-    pokedexViewModel: PokedexViewModel = viewModel(factory = PokedexViewModel.Factory)
+    uiPokemonList: List<PokemonList>
 ) {
-    val pokedexUIState by pokedexViewModel.pokemonListState.collectAsState()
+
     val lazyListState = rememberLazyListState()
     LazyColumn(
         state = lazyListState,
         modifier = Modifier
             .fillMaxSize()
     ) {
-        items(items = pokedexViewModel.uiPokemonListListState.value) { pokemon ->
+        items(items = uiPokemonList, key = {pokemon -> pokemon.name}) { pokemon ->
             PokemonCard(
                 pokemon = pokemon,
                 onPokemonClicked = onPokemonClicked

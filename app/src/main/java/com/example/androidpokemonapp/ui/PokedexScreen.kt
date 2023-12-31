@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -30,6 +29,7 @@ fun PokedexScreen(
     val pokedexUIState by pokedexViewModel.pokemonListState.collectAsState()
     val pekedexApiState = pokedexViewModel.pokemonListApiState
     // val yourTeamViewModel: YourTeamViewModel = viewModel()
+    val uiPokemonList by pokedexViewModel.uiPokemonListListState.collectAsState()
 
     Box(
         contentAlignment = Alignment.Center,
@@ -51,7 +51,10 @@ fun PokedexScreen(
             }
             is PokemonListApiState.Success -> pokedexScreenContent(
                 padding = padding,
-                onPokemonClicked = onPokemonClicked
+                onPokemonClicked = onPokemonClicked,
+                pokedexUIState = pokedexUIState,
+                uiPokemonList = uiPokemonList
+
             )
         }
     }

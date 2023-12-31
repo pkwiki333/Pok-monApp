@@ -20,7 +20,7 @@ sealed interface PokemonListApiState {
 }
 
 sealed interface PokemonApiState {
-    object Success : PokemonApiState
+    data class Success(val pokemonDetail: Pokemon?) : PokemonApiState
     object Error : PokemonApiState
     object Loading : PokemonApiState
 }

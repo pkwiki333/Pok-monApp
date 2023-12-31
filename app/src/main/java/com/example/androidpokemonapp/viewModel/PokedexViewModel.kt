@@ -52,13 +52,14 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
     private fun fetchPokemons() {
         try {
             //viewModelScope.launch {pokemonRepository.refresh()}   ---> todo eventueel voor als ik de refresh nodig heb
-                uiPokemonListListState = pokemonRepository.getPokemonList().stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000L),
-                    initialValue = emptyList()
-                )
-                pokemonListApiState = PokemonListApiState.Success
+            uiPokemonListListState = pokemonRepository.getPokemonList().stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000L),
+                initialValue = emptyList()
+            )
             Log.i("PokedexViewModel", "fetchPokemons: ${uiPokemonListListState.value}")
+            pokemonListApiState = PokemonListApiState.Success
+
 
         } catch (e: Exception) {
             pokemonListApiState = PokemonListApiState.Error
@@ -68,16 +69,23 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
 
     fun getPokemonDetail(name: String) {
         //viewModelScope.launch {pokemonRepository.refresh()}   ---> todo  eventueel voor als ik de refresh nodig heb
-            try {
-                uiPokemonListState = pokemonRepository.getPokemonInfo(name).stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000L),
-                    initialValue = Pokemon(name = "", pokedexIndex = 0, height = 0, weight = 0, types = emptyList(), abilities = emptyList())
+        try {
+            uiPokemonListState = pokemonRepository.getPokemonInfo(name).stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000L),
+                initialValue = Pokemon(
+                    name = "",
+                    pokedexIndex = 0,
+                    height = 0,
+                    weight = 0,
+                    types = emptyList(),
+                    abilities = emptyList()
                 )
-                pokemonApiState = PokemonApiState.Success
-            } catch (e: Exception) {
-                pokemonApiState = PokemonApiState.Error
-            }
+            )
+            pokemonApiState = PokemonApiState.Success(uiPokemonListState.value)
+        } catch (e: Exception) {
+            pokemonApiState = PokemonApiState.Error
+        }
 
     }
 

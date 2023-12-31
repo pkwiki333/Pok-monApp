@@ -9,14 +9,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.androidpokemonapp.R
+import com.example.androidpokemonapp.model.PokemonList
+import com.example.androidpokemonapp.viewModel.PokedexUIState
 
 @Composable
-fun pokedexScreenContent(padding: PaddingValues, onPokemonClicked: (String) -> Unit) {
+fun pokedexScreenContent(
+    padding: PaddingValues,
+    onPokemonClicked: (String) -> Unit,
+    pokedexUIState: PokedexUIState,
+    uiPokemonList: List<PokemonList>) {
     Column {
         Row(
             modifier = Modifier
@@ -30,6 +37,6 @@ fun pokedexScreenContent(padding: PaddingValues, onPokemonClicked: (String) -> U
                 modifier = Modifier.size(dimensionResource(id = R.dimen.logo_size))
             )
         }
-        pokedexList(padding = padding, onPokemonClicked = onPokemonClicked)
+        pokedexList(padding = padding, onPokemonClicked = onPokemonClicked, uiPokemonList = uiPokemonList)
     }
 }
