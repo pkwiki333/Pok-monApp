@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,22 +16,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidpokemonapp.R
-import com.example.androidpokemonapp.viewModel.PokedexViewModel
-import com.example.androidpokemonapp.viewModel.PokemonApiState
+import com.example.androidpokemonapp.viewModel.Pokedex.PokedexViewModel
+import com.example.androidpokemonapp.viewModel.PokemonDetails.PokemonApiState
+import com.example.androidpokemonapp.viewModel.PokemonDetails.PokemonDetailsViewModel
 
 @Composable
 fun pokemonDetailScreen(
     name: String,
     padding: PaddingValues,
-    pokedexViewModel: PokedexViewModel = viewModel(factory = PokedexViewModel.Factory)
+    pokemonDetailsViewModel: PokemonDetailsViewModel = viewModel(factory = PokemonDetailsViewModel.Factory(name = name))
 ) {
-    val pokemonState by pokedexViewModel.pokemonState.collectAsState()
-    val pokemonApiState = pokedexViewModel.pokemonApiState
-    val uiPokemonListState by pokedexViewModel.uiPokemonListState.collectAsState()
+    val pokemonState by pokemonDetailsViewModel.pokemonState.collectAsState()
+    val pokemonApiState = pokemonDetailsViewModel.pokemonApiState
+    val uiPokemonListState by pokemonDetailsViewModel.uiPokemonListState.collectAsState()
 
 
     LaunchedEffect(name) {
-        pokedexViewModel.getPokemonDetail(name)
+        pokemonDetailsViewModel.getPokemonDetail(name)
     }
 
     Box(

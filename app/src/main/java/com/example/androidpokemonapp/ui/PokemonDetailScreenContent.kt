@@ -1,6 +1,5 @@
 package com.example.androidpokemonapp.ui
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -17,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.model.Pokemon
-import com.example.androidpokemonapp.viewModel.PokemonState
+import com.example.androidpokemonapp.viewModel.PokemonDetails.PokemonState
 
 
 @Composable

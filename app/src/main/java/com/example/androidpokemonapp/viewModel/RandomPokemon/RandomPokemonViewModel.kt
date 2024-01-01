@@ -1,4 +1,4 @@
-package com.example.androidpokemonapp.viewModel
+package com.example.androidpokemonapp.viewModel.RandomPokemon
 
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -13,7 +13,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.androidpokemonapp.PokemonApplication
 import com.example.androidpokemonapp.data.PokemonRepository
 import com.example.androidpokemonapp.model.Pokemon
-import com.example.androidpokemonapp.viewModel.RandomPokemonApiState.*
+import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonApiState.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -33,8 +33,9 @@ class RandomPokemonViewModel(private val pokemonRepository: PokemonRepository) :
     lateinit var uiRandomPokemonState: StateFlow<Pokemon>
 
     fun getRandomPokemon() {
-        try {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            try {
+
                 val pokemonList = pokemonRepository.getPokemonList().first()
                 val randomPokemon = pokemonList.random()
                 val pokemonName = randomPokemon.name
@@ -55,11 +56,11 @@ class RandomPokemonViewModel(private val pokemonRepository: PokemonRepository) :
                 randomPokemonApiState = Success
                 Log.i("RandomPokemonViewModel", "!!!!!!!!!getRandomPokemon: $uiRandomPokemonState")
 
+
+            } catch (e: Exception) {
+                randomPokemonApiState = Error
+
             }
-
-        } catch (e: Exception) {
-            randomPokemonApiState = Error
-
         }
     }
 

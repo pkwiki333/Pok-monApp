@@ -1,4 +1,4 @@
-package com.example.androidpokemonapp.viewModel
+package com.example.androidpokemonapp.viewModel.YourTeam
 
 import com.example.androidpokemonapp.model.PokemonDataDC
 

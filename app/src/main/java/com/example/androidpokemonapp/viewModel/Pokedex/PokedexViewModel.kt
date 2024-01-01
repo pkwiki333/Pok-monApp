@@ -1,4 +1,4 @@
-package com.example.androidpokemonapp.viewModel
+package com.example.androidpokemonapp.viewModel.Pokedex
 
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -17,30 +17,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
-
-//todo fix pokedex nu opgehaald uit RoomDb, maar moet uit de api komen. zelfde voor een pokemon en Random Pokemon.
 //todo fix yourTeam in RoomDb
-//todo apparte viewModel maken voor Detail pagina, de viewmodel heeft als param een naam, en zo kan je die dan in die init steken
 class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewModel() {
 
     private val _pokemonListState = MutableStateFlow(PokedexUIState())
     val pokemonListState: StateFlow<PokedexUIState> = _pokemonListState.asStateFlow()
 
-    private val _pokemonState = MutableStateFlow(PokemonState(null))
-    val pokemonState: StateFlow<PokemonState> = _pokemonState.asStateFlow()
-
-
     lateinit var uiPokemonListListState: StateFlow<List<PokemonList>>
-
-    lateinit var uiPokemonListState: StateFlow<Pokemon>
-
-    var pokemonApiState: PokemonApiState by mutableStateOf(PokemonApiState.Loading)
-        private set
 
     var pokemonListApiState: PokemonListApiState by mutableStateOf(PokemonListApiState.Loading)
         private set
@@ -68,27 +53,7 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
         }
     }
 
-    fun getPokemonDetail(name: String) {
-        //viewModelScope.launch {pokemonRepository.refresh()}   ---> todo  eventueel voor als ik de refresh nodig heb
-        try {
-            uiPokemonListState = pokemonRepository.getPokemonInfo(name).stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000L),
-                initialValue = Pokemon(
-                    name = "",
-                    pokedexIndex = 0,
-                    height = 0,
-                    weight = 0,
-                    types = emptyList(),
-                    abilities = emptyList()
-                )
-            )
-            pokemonApiState = PokemonApiState.Success(uiPokemonListState.value)
-        } catch (e: Exception) {
-            pokemonApiState = PokemonApiState.Error
-        }
 
-    }
 
 
     companion object {

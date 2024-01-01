@@ -15,10 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidpokemonapp.R
-import com.example.androidpokemonapp.viewModel.PokedexViewModel
-import com.example.androidpokemonapp.viewModel.PokemonListApiState
+import com.example.androidpokemonapp.viewModel.Pokedex.PokedexViewModel
+import com.example.androidpokemonapp.viewModel.Pokedex.PokemonListApiState
 
-//import com.example.androidpokemonapp.viewModel.YourTeamViewModel
+//import com.example.androidpokemonapp.viewModel.YourTeam.YourTeamViewModel
 
 @Composable
 fun PokedexScreen(

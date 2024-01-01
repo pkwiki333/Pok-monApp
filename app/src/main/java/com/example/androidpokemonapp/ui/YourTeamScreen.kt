@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidpokemonapp.data.mockdata.PokemonData
-//import com.example.androidpokemonapp.viewModel.YourTeamViewModel
+//import com.example.androidpokemonapp.viewModel.YourTeam.YourTeamViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

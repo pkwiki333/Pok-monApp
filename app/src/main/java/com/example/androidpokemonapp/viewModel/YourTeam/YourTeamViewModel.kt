@@ -1,5 +1,5 @@
-/*
-package com.example.androidpokemonapp.viewModel
+
+package com.example.androidpokemonapp.viewModel.YourTeam
 
 import androidx.lifecycle.ViewModel
 import com.example.androidpokemonapp.model.PokemonDataDC
@@ -11,6 +11,7 @@ import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.model.PokemonList
 
 class YourTeamViewModel: ViewModel() {
+    /*
     private val _teamPokemons = MutableStateFlow<List<Pokemon>>(emptyList())
     val teamPokemons: StateFlow<List<Pokemon>> = _teamPokemons.asStateFlow()
 
@@ -28,6 +29,6 @@ class YourTeamViewModel: ViewModel() {
 
     fun removeFromTeam(pokemon: PokemonDataDC) {
         _teamPokemons.value = _teamPokemons.value.filter { it.pokedexIndex != pokemon.pokedexIndex }
-    }
+    }*/
 }
-*/
+
