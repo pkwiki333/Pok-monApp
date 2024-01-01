@@ -56,6 +56,7 @@ class PokemonDetailsViewModel(private val pokemonRepository: PokemonRepository, 
 
     }
 
+
     companion object {
         fun Factory(name: String): ViewModelProvider.Factory = viewModelFactory {
             initializer {

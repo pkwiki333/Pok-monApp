@@ -27,16 +27,9 @@ interface PokemonApiService {
 }
 
 fun PokemonApiService.getPokemonListAsFlow() = flow {
-    try {
         val response = getPokemonList()
-        Log.i("PokemonApiService", "!!!!!!Duidelijk deze$response")
         emit(response)
-    }catch (e: Exception){
-        Log.i("PokemonApiService", "!!!!!!Duidelijk deze${e.message}")
-    }
-
 }
-
 fun PokemonApiService.getPokemonAsFlow(name: String) = flow {
     emit(getPokemonInfo(name))
 }

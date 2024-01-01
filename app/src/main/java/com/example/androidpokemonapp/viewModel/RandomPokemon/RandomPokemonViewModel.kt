@@ -33,9 +33,8 @@ class RandomPokemonViewModel(private val pokemonRepository: PokemonRepository) :
     lateinit var uiRandomPokemonState: StateFlow<Pokemon>
 
     fun getRandomPokemon() {
-        viewModelScope.launch {
-            try {
-
+        try {
+            viewModelScope.launch {
                 val pokemonList = pokemonRepository.getPokemonList().first()
                 val randomPokemon = pokemonList.random()
                 val pokemonName = randomPokemon.name
@@ -54,14 +53,17 @@ class RandomPokemonViewModel(private val pokemonRepository: PokemonRepository) :
                 )
 
                 randomPokemonApiState = Success
-                Log.i("RandomPokemonViewModel", "!!!!!!!!!getRandomPokemon: $uiRandomPokemonState")
-
-
-            } catch (e: Exception) {
-                randomPokemonApiState = Error
-
+                Log.i(
+                    "RandomPokemonViewModel",
+                    "!!!!!!!!!getRandomPokemon: $uiRandomPokemonState"
+                )
             }
+
+        } catch (e: Exception) {
+            randomPokemonApiState = Error
+
         }
+
     }
 
 

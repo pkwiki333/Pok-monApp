@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.androidpokemonapp.model.PokemonList
 
-@Entity
+@Entity(tableName = "YourTeam")
 data class DbPokemonList
     (
     @PrimaryKey
@@ -12,7 +12,7 @@ data class DbPokemonList
     val pokedexIndex: Int
 )
 
-fun PokemonList.asDomainObject(): DbPokemonList {
+fun PokemonList.asDatabaseObject(): DbPokemonList {
     return DbPokemonList(
         name = name,
         pokedexIndex = pokedexIndex

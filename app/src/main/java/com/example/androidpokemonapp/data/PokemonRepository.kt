@@ -1,22 +1,17 @@
 package com.example.androidpokemonapp.data
 
 import android.util.Log
-import androidx.room.Query
-import com.example.androidpokemonapp.data.database.DbPokemon
-import com.example.androidpokemonapp.data.database.DbPokemonList
 import com.example.androidpokemonapp.data.database.PokemonDao
 import com.example.androidpokemonapp.data.database.PokemonListDao
+import com.example.androidpokemonapp.data.database.asDatabaseObject
 import com.example.androidpokemonapp.data.database.asDomainObject
 import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.model.PokemonList
 import com.example.androidpokemonapp.network.PokemonApiService
 import com.example.androidpokemonapp.network.getPokemonAsFlow
 import com.example.androidpokemonapp.network.getPokemonListAsFlow
-import com.example.androidpokemonapp.network.responses.ApiPokemon
-import com.example.androidpokemonapp.network.responses.ApiPokemonList
 import com.example.androidpokemonapp.network.responses.asDomainObject
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 interface PokemonRepository {
@@ -24,11 +19,15 @@ interface PokemonRepository {
 
     fun getPokemonInfoDB(name: String): Flow<Pokemon>
 
+    suspend fun insertToYourTeam(pokemon: PokemonList)
+
+    suspend fun deletePokemon(pokemon: PokemonList)
+
     fun getPokemonList(): Flow<List<PokemonList>>
 
     fun getPokemonInfo(name: String): Flow<Pokemon>
 
-    //suspend fun refresh()
+    suspend fun refresh()
 
 }
 
@@ -38,25 +37,30 @@ class PokemonRepositoryImpl(
     private val pokemonApiService: PokemonApiService
 ) : PokemonRepository {
     override fun getPokemonListDB(): Flow<List<PokemonList>> {
-        return pokemonListDao.getPokemonList().map {
+        return pokemonListDao.getYourTeamList().map {
             it.asDomainObject()
         }
-}
+    }
+
     override fun getPokemonInfoDB(name: String): Flow<Pokemon> {
         return pokemonDao.getPokemonInfo(name).map {
             it.asDomainObject()
         }
     }
 
+    override suspend fun insertToYourTeam(pokemon: PokemonList) {
+        pokemonListDao.insertToYourTeam(pokemon.asDatabaseObject())
+    }
+
+    override suspend fun deletePokemon(pokemon: PokemonList) {
+        pokemonListDao.deletePokemon(pokemon.asDatabaseObject())
+    }
+
     override fun getPokemonList(): Flow<List<PokemonList>> {
-        val response = pokemonApiService.getPokemonListAsFlow().map {
+
+        return pokemonApiService.getPokemonListAsFlow().map {
             it.asDomainObject()
         }
-        Log.i("PokemonRepositoryImpl", "!!!!!!!!!getPokemonList: $response")
-        return response
-        /*return pokemonApiService.getPokemonListAsFlow().map {
-            it.asDomainObject()
-        }*/
 
     }
 
@@ -66,16 +70,14 @@ class PokemonRepositoryImpl(
         }
     }
 
-   /* override suspend fun refresh() {
-        pokemonApiService.getPokemonListAsFlow().map {
-            Log.i("PokemonRepositoryImpl", "!!!!!!!!!refresh: $it")
-            it.asDomainObject()
+    override suspend fun refresh() {
+        pokemonApiService.getPokemonListAsFlow().collect {
+            for (pokemon in it.asDomainObject()) {
+                Log.i(("PokemonRepositoryImpl"), "refresh: ${pokemon.name}")
+                insertToYourTeam(pokemon)
+            }
         }
-        *//*val pokemonList = pokemonApiService.getPokemonList()
-        val pokemon = pokemonApiService.getPokemonInfo("bulbasaur")
-        pokemonListDao.insertAll(pokemonList.results.map { it.asDatabaseObject() })
-        pokemonDao.insert(pokemon.asDatabaseObject())*//*
-    }*/
+    }
 
 }
 

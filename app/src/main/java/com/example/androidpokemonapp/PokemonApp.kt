@@ -70,10 +70,9 @@ fun PokemonApp(
                             onPokemonClicked = { pokemonName -> navController.navigate(ScreensEnum.PokemonDetailScreen.name + "/$pokemonName") },
                         )
                     }
-                    /*composable(ScreensEnum.YourTeamScreen.name) {
+                    composable(ScreensEnum.YourTeamScreen.name) {
                         YourTeamScreen(onPokemonClicked = { navController.navigate(ScreensEnum.PokemonDetailScreen.name) },)
                     }
-*/
                     composable(
                         route = ScreensEnum.PokemonDetailScreen.withArgs("{pokemonName}"),
                         arguments = listOf(navArgument("pokemonName") { type = NavType.StringType })

@@ -18,6 +18,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 //todo fix yourTeam in RoomDb
 class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewModel() {
@@ -50,6 +52,13 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
         } catch (e: Exception) {
             pokemonListApiState = PokemonListApiState.Error
 
+        }
+    }
+
+    //add voegt hier geoon toe aan de db
+    fun addToTeam(pokemon: PokemonList){
+        viewModelScope.launch{
+            pokemonRepository.insertToYourTeam(pokemon)
         }
     }
 

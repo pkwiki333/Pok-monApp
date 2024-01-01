@@ -2,9 +2,7 @@ package com.example.androidpokemonapp.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
 import com.example.androidpokemonapp.model.Pokemon
-import com.example.androidpokemonapp.model.PokemonList
 
 @Entity
 data class DbPokemon(
@@ -17,7 +15,7 @@ data class DbPokemon(
     val abilities: List<String>
 )
 
-fun Pokemon.asDatabaseObject(): DbPokemon {
+fun Pokemon.asDomainObject(): DbPokemon {
     return DbPokemon(
         name = name,
         pokedexIndex = pokedexIndex,
