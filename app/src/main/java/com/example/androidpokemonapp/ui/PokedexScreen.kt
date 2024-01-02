@@ -21,19 +21,16 @@ import com.example.androidpokemonapp.viewModel.Pokedex.PokedexViewModel
 import com.example.androidpokemonapp.viewModel.Pokedex.PokemonListApiState
 import com.example.androidpokemonapp.viewModel.YourTeam.YourTeamViewModel
 
-//import com.example.androidpokemonapp.viewModel.YourTeam.YourTeamViewModel
 
 @Composable
 fun PokedexScreen(
     padding: PaddingValues,
     onPokemonClicked: (String) -> Unit,
     pokedexViewModel: PokedexViewModel = viewModel(factory = PokedexViewModel.Factory),
-    yourTeamViewModel: YourTeamViewModel = viewModel(factory = YourTeamViewModel.Factory)
+
 ) {
-    val pokedexUIState by pokedexViewModel.pokemonListState.collectAsState()
-    val pekedexApiState = pokedexViewModel.pokemonListApiState
-    val uiPokemonList by pokedexViewModel.uiPokemonListListState.collectAsState()
-    val uiyourTeamList by yourTeamViewModel.uiTeamPokemonsState.collectAsState()
+
+    val pokemonList by pokedexViewModel.uipokemonListApiState.collectAsState()
     fun onPokemonCatched(pokemon: PokemonList) {
         pokedexViewModel.addToTeam(pokemon)
         Log.i("PokedexScreen", "!!!!!!!!onPokemonCatched: ${pokemon.name}")
@@ -46,8 +43,8 @@ fun PokedexScreen(
             .fillMaxSize()
             .padding(padding)
     ) {
-        when (pekedexApiState) {
-            is PokemonListApiState.Loading -> gifImage()
+        when (pokemonList) {
+            is PokemonListApiState.Loading -> GifImage()
             is PokemonListApiState.Error -> {
                 Column {
                     Image(
@@ -56,16 +53,12 @@ fun PokedexScreen(
                     )
                     Text(text = "Laden mislukt")
                 }
-
             }
             is PokemonListApiState.Success -> pokedexScreenContent(
                 padding = padding,
                 onPokemonClicked = onPokemonClicked,
                 onPokemonCatched = {pokemon -> onPokemonCatched(pokemon)},
-                pokedexUIState = pokedexUIState,
-                uiPokemonList = uiPokemonList,
-                uiyourTeamList = uiyourTeamList
-
+                pokemonList = (pokemonList as PokemonListApiState.Success).pokemonList,
             )
         }
     }

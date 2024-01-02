@@ -16,14 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.model.Pokemon
-import com.example.androidpokemonapp.viewModel.PokemonDetails.PokemonState
 
 
 @Composable
 fun pokemonDetailScreenContent(
     padding: PaddingValues,
-    uiPokemonListState: Pokemon,
-    pokemonState: PokemonState
+    pokemon: Pokemon,
 ) {
 
 
@@ -40,15 +38,15 @@ fun pokemonDetailScreenContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                "Naam: ${uiPokemonListState.name}",
+                "Naam: ${pokemon.name}",
                 style = MaterialTheme.typography.titleLarge
             )
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
-            Text(text = "Pokédex index: ${uiPokemonListState.pokedexIndex}")
+            Text(text = "Pokédex index: ${pokemon.pokedexIndex}")
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
             Text("Beschrijving: __________", style = MaterialTheme.typography.bodyMedium)
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
-            Text("Type: ${uiPokemonListState.types}")
+            Text("Type: ${pokemon.types}")
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
         }
     }

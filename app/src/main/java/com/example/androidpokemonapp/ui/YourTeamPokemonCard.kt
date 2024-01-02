@@ -34,57 +34,59 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun YourTeamPokemonCard(
-    pokemon: PokemonList,
+    pokemon: List<PokemonList>,
     onPokemonClicked: (String) -> Unit,
     onPokemonRelease: (PokemonList) -> Unit,
 ) {
+
     var isVisible by remember {
         mutableStateOf(true)
     }
 
     AnimatedVisibility(
         visible = isVisible,
-        exit = fadeOut(animationSpec = tween(durationMillis = 3000)),
+        exit = fadeOut(animationSpec = tween(durationMillis = 500)),
     ) {
-        Card(
-            modifier = Modifier
-                .padding(dimensionResource(id = R.dimen.padding_small))
-                .fillMaxWidth()
-        ) {
-            Row(
+        for (pokemon in pokemon){
+            Card(
                 modifier = Modifier
-                    .padding(dimensionResource(id = R.dimen.padding_medium))
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(dimensionResource(id = R.dimen.padding_small))
+                    .fillMaxWidth()
             ) {
-                Column(
+                Row(
                     modifier = Modifier
-                        .weight(1f)
-                        .padding(start = dimensionResource(id = R.dimen.padding_medium))
+                        .padding(dimensionResource(id = R.dimen.padding_medium))
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(pokemon.name, style = MaterialTheme.typography.titleMedium)
-                    Text("Pokédex Index: ${pokemon.pokedexIndex}")
-                }
-                IconButton(onClick = { onPokemonClicked(pokemon.name) }) {
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(start = dimensionResource(id = R.dimen.padding_medium))
+                    ) {
+                        Text(pokemon.name, style = MaterialTheme.typography.titleMedium)
+                        Text("Pokédex Index: ${pokemon.pokedexIndex}")
+                    }
+                    IconButton(onClick = { onPokemonClicked(pokemon.name) }) {
 
-                    Icon(Icons.Filled.Info, "Info")
+                        Icon(Icons.Filled.Info, "Info")
+                    }
+                    Button(
+                        onClick = {
+                            isVisible = false
+                        }, colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.error
+                        )
+                    ) {
+                        Text("Laat vrij")
+                    }
                 }
-                Button(
-                    onClick = {
-                        isVisible = false
-                    }, colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.error
-                    )
-                ) {
-                    Text("Laat vrij")
-                }
+            }
+            LaunchedEffect(key1 = pokemon) {
+                delay(500)
+                onPokemonRelease(pokemon)
             }
         }
     }
-    if (!isVisible) {
-        LaunchedEffect(Unit) {
-            delay(300)
-            onPokemonRelease(pokemon)
-        }
-    }
+
 }

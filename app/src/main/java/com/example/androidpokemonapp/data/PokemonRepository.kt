@@ -1,6 +1,7 @@
 package com.example.androidpokemonapp.data
 
 import android.util.Log
+import com.example.androidpokemonapp.data.database.DbPokemonList
 import com.example.androidpokemonapp.data.database.PokemonDao
 import com.example.androidpokemonapp.data.database.PokemonListDao
 import com.example.androidpokemonapp.data.database.asDatabaseObject
@@ -12,12 +13,16 @@ import com.example.androidpokemonapp.network.getPokemonAsFlow
 import com.example.androidpokemonapp.network.getPokemonListAsFlow
 import com.example.androidpokemonapp.network.responses.asDomainObject
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import java.io.IOException
 
 interface PokemonRepository {
     fun getPokemonListDB(): Flow<List<PokemonList>>
 
     fun getPokemonInfoDB(name: String): Flow<Pokemon>
+
+    suspend fun updateCatchedStatus(name: String, isCatched: Boolean)
 
     suspend fun insertToYourTeam(pokemon: PokemonList)
 
@@ -40,12 +45,29 @@ class PokemonRepositoryImpl(
         return pokemonListDao.getYourTeamList().map {
             it.asDomainObject()
         }
+            .combine(pokemonListDao.getYourTeamList()) { pokemonList: List<PokemonList>, dbPokemonList: List<DbPokemonList> ->
+                val keys: List<String> = dbPokemonList.map {
+                    it.name
+                }
+                pokemonList.map {
+                    if (keys.contains(it.name))
+                        return@map it.copy(isCatched = true)
+                    else
+                        return@map it
+                }
+
+            }
     }
+
 
     override fun getPokemonInfoDB(name: String): Flow<Pokemon> {
         return pokemonDao.getPokemonInfo(name).map {
             it.asDomainObject()
         }
+    }
+
+    override suspend fun updateCatchedStatus(name: String, isCatched: Boolean) {
+        pokemonListDao.updateCatchedStatus(name, isCatched)
     }
 
     override suspend fun insertToYourTeam(pokemon: PokemonList) {
@@ -57,11 +79,9 @@ class PokemonRepositoryImpl(
     }
 
     override fun getPokemonList(): Flow<List<PokemonList>> {
-
         return pokemonApiService.getPokemonListAsFlow().map {
             it.asDomainObject()
         }
-
     }
 
     override fun getPokemonInfo(name: String): Flow<Pokemon> {
@@ -78,7 +98,6 @@ class PokemonRepositoryImpl(
             }
         }
     }
-
 }
 
 

@@ -26,8 +26,7 @@ fun RandomPokemonScreen(
         viewModel(factory = RandomPokemonViewModel.Factory)
 ) {
 
-    val randomPokemonState by randomPokemonViewModel.randomPokemonState.collectAsState()
-    val randomPokemonApiState = randomPokemonViewModel.randomPokemonApiState
+    val randomPokemonApiState by randomPokemonViewModel.randomPokemonApiState.collectAsState()
 
     LaunchedEffect(Unit) {
         randomPokemonViewModel.getRandomPokemon()
@@ -40,7 +39,7 @@ fun RandomPokemonScreen(
             .padding(padding)
     ) {
         when (randomPokemonApiState) {
-            is RandomPokemonApiState.Loading -> gifImage()
+            is RandomPokemonApiState.Loading -> GifImage()
             is RandomPokemonApiState.Error -> {
                 Column {
                     Image(
@@ -51,7 +50,7 @@ fun RandomPokemonScreen(
                 }
             }
             is RandomPokemonApiState.Success -> RandomPokemonCardInhoud(
-                randomPokemonState = randomPokemonState,
+                pokemon = (randomPokemonApiState as RandomPokemonApiState.Success).pokemonDetail,
                 randomPokemonViewModel = randomPokemonViewModel
             )
         }

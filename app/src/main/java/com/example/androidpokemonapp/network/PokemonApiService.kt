@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.flowOf
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.io.IOException
 
 interface PokemonApiService {
 
@@ -29,6 +30,8 @@ interface PokemonApiService {
 fun PokemonApiService.getPokemonListAsFlow() = flow {
         val response = getPokemonList()
         emit(response)
+
+
 }
 fun PokemonApiService.getPokemonAsFlow(name: String) = flow {
     emit(getPokemonInfo(name))

@@ -15,7 +15,7 @@ fun pokedexList(
     padding: PaddingValues,
     onPokemonClicked: (String) -> Unit,
     onPokemonCatched: (PokemonList) -> Unit,
-    uiPokemonList: List<PokemonList>,
+    PokemonList: List<PokemonList>,
     uiyourTeamList: List<PokemonList>
 ) {
 
@@ -25,7 +25,7 @@ fun pokedexList(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        items(items = uiPokemonList, key = {pokemon -> pokemon.name}) { pokemon ->
+        items(items = PokemonList, key = {pokemon -> pokemon.name}) { pokemon ->
             PokemonCard(
                 pokemon = pokemon,
                 onPokemonClicked = onPokemonClicked,

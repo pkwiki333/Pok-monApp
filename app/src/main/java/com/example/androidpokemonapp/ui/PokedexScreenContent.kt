@@ -15,16 +15,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.model.PokemonList
-import com.example.androidpokemonapp.viewModel.Pokedex.PokedexUIState
 
 @Composable
 fun pokedexScreenContent(
     padding: PaddingValues,
     onPokemonClicked: (String) -> Unit,
     onPokemonCatched: (PokemonList) -> Unit,
-    pokedexUIState: PokedexUIState,
-    uiPokemonList: List<PokemonList>,
-    uiyourTeamList: List<PokemonList>
+    pokemonList: List<PokemonList>,
 ) {
     Column {
         Row(
@@ -39,6 +36,12 @@ fun pokedexScreenContent(
                 modifier = Modifier.size(dimensionResource(id = R.dimen.logo_size))
             )
         }
-        pokedexList(padding = padding, onPokemonClicked = onPokemonClicked, onPokemonCatched = onPokemonCatched, uiPokemonList = uiPokemonList, uiyourTeamList = uiyourTeamList)
+        pokedexList(
+            padding = padding,
+            onPokemonClicked = onPokemonClicked,
+            onPokemonCatched = onPokemonCatched,
+            PokemonList = pokemonList,
+            uiyourTeamList = uiyourTeamList
+        )
     }
 }

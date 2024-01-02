@@ -16,12 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import com.example.androidpokemonapp.R
-import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonUIState
+import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonViewModel
 
 @Composable
 fun RandomPokemonCardInhoud(
-    randomPokemonState: RandomPokemonUIState,
+    pokemon: Pokemon,
     randomPokemonViewModel: RandomPokemonViewModel,
 ) {
     Card(
@@ -36,13 +36,13 @@ fun RandomPokemonCardInhoud(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                "Naam: ${randomPokemonState.pokemonDetail?.name}",
+                "Naam: ${pokemon.name}",
                 style = MaterialTheme.typography.titleLarge
             )
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
 
-            Text("Types: ${randomPokemonState.pokemonDetail?.types}")
-            Text("Pokédex index: ${randomPokemonState.pokemonDetail?.pokedexIndex}")
+            Text("Types: ${pokemon.types}")
+            Text("Pokédex index: ${pokemon.pokedexIndex}")
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
             Text("Moves")
             Text("________________")

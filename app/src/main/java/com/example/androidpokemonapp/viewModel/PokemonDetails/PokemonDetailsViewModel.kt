@@ -11,48 +11,59 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.androidpokemonapp.PokemonApplication
 import com.example.androidpokemonapp.data.PokemonRepository
 import com.example.androidpokemonapp.model.Pokemon
-import com.example.androidpokemonapp.viewModel.Pokedex.PokedexViewModel
+import com.example.androidpokemonapp.viewModel.Pokedex.PokemonListApiState
+import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonApiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 class PokemonDetailsViewModel(private val pokemonRepository: PokemonRepository, name: String) :
     ViewModel() {
 
-
-    private val _pokemonState = MutableStateFlow(PokemonState(null))
-    val pokemonState: StateFlow<PokemonState> = _pokemonState.asStateFlow()
-
-    lateinit var uiPokemonListState: StateFlow<Pokemon>
-
-    var pokemonApiState: PokemonApiState by mutableStateOf(PokemonApiState.Loading)
-        private set
+    var uipokemonApiState: StateFlow<PokemonApiState> =
+        MutableStateFlow(PokemonApiState.Loading).asStateFlow()
 
     init {
         getPokemonDetail(name)
     }
 
     fun getPokemonDetail(name: String) {
-        //viewModelScope.launch {pokemonRepository.refresh()}   ---> todo  eventueel voor als ik de refresh nodig heb
         try {
-            uiPokemonListState = pokemonRepository.getPokemonInfo(name).stateIn(
+            uipokemonApiState =
+                pokemonRepository.getPokemonInfo(name)
+                    .map<Pokemon, PokemonApiState> { PokemonApiState.Success(it) }
+                    .stateIn(
+                        scope = viewModelScope,
+                        started = SharingStarted.WhileSubscribed(5_000L),
+                        initialValue = PokemonApiState.Loading
+                    )
+
+        } catch (e: Exception) {
+            uipokemonApiState = flowOf(PokemonApiState.Error).stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000L),
-                initialValue = Pokemon(
-                    name = "",
-                    pokedexIndex = 0,
-                    height = 0,
-                    weight = 0,
-                    types = emptyList(),
-                    abilities = emptyList()
-                )
+                initialValue = PokemonApiState.Error
+            )
+
+        }
+
+
+
+
+       /* try {
+            uiPokemonState = pokemonRepository.getPokemonInfo(name).map { PokemonState(it)}.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000L),
+                initialValue = PokemonState()
             )
             pokemonApiState = PokemonApiState.Success
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             pokemonApiState = PokemonApiState.Error
-        }
+        }*/
 
     }
 

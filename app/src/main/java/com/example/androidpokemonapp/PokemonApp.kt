@@ -6,6 +6,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.androidpokemonapp.ui.PokemonScreen
 import com.example.androidpokemonapp.ui.ScreensEnum
@@ -71,18 +74,21 @@ fun PokemonApp(
                         )
                     }
                     composable(ScreensEnum.YourTeamScreen.name) {
-                        YourTeamScreen(onPokemonClicked = { pokemonName -> navController.navigate(ScreensEnum.PokemonDetailScreen.name + "/$pokemonName") }, padding = innerPadding)
+                        YourTeamScreen(onPokemonClicked = { pokemonName ->
+                            navController.navigate(ScreensEnum.PokemonDetailScreen.name + "/$pokemonName")}, padding = innerPadding)}
+
+                                composable (
+                                route = ScreensEnum.PokemonDetailScreen.withArgs("{pokemonName}"),
+                            arguments = listOf(navArgument("pokemonName") {
+                                type = NavType.StringType
+                            })
+                        ) { backStackEntry ->
+                            val pokemonName = backStackEntry.arguments?.getString("pokemonName")
+                                ?: "Naam niet gevonden"
+                            pokemonDetailScreen(name = pokemonName, padding = innerPadding)
+                        }
                     }
-                    composable(
-                        route = ScreensEnum.PokemonDetailScreen.withArgs("{pokemonName}"),
-                        arguments = listOf(navArgument("pokemonName") { type = NavType.StringType })
-                    ) { backStackEntry ->
-                        val pokemonName = backStackEntry.arguments?.getString("pokemonName")
-                            ?: "Naam niet gevonden"
-                        pokemonDetailScreen(name = pokemonName, padding = innerPadding)
-                    }
-                }
-            })
+                })
+            }
     }
-}
 

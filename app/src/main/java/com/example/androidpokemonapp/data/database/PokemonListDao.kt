@@ -16,6 +16,9 @@ interface PokemonListDao {
     @Delete
     suspend fun deletePokemon(pokemon: DbPokemonList)
 
+    @Query("UPDATE yourteam SET isCatched = :isCatched WHERE name = :name")
+    suspend fun updateCatchedStatus(name: String, isCatched: Boolean)
+
     @Query("SELECT * FROM YourTeam ORDER BY pokedexIndex ASC")
     fun getYourTeamList(): Flow<List<DbPokemonList>>
 }

@@ -1,20 +1,12 @@
 package com.example.androidpokemonapp.ui
 
-import android.os.Build
 import android.os.Build.VERSION.SDK_INT
-import android.util.Size
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import coil.ImageLoader
-import coil.compose.AsyncImage
-import coil.compose.LocalImageLoader
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
@@ -24,7 +16,7 @@ import com.example.androidpokemonapp.R
 
 
 @Composable
-fun gifImage(
+fun GifImage(
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current

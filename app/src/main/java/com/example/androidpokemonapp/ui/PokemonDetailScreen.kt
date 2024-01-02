@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidpokemonapp.R
-import com.example.androidpokemonapp.viewModel.Pokedex.PokedexViewModel
+import com.example.androidpokemonapp.viewModel.Pokedex.PokemonListApiState
 import com.example.androidpokemonapp.viewModel.PokemonDetails.PokemonApiState
 import com.example.androidpokemonapp.viewModel.PokemonDetails.PokemonDetailsViewModel
 
@@ -26,9 +26,7 @@ fun pokemonDetailScreen(
     padding: PaddingValues,
     pokemonDetailsViewModel: PokemonDetailsViewModel = viewModel(factory = PokemonDetailsViewModel.Factory(name = name))
 ) {
-    val pokemonState by pokemonDetailsViewModel.pokemonState.collectAsState()
-    val pokemonApiState = pokemonDetailsViewModel.pokemonApiState
-    val uiPokemonListState by pokemonDetailsViewModel.uiPokemonListState.collectAsState()
+    val uiPokemonApiState by pokemonDetailsViewModel.uipokemonApiState.collectAsState()
 
 
     LaunchedEffect(name) {
@@ -41,8 +39,8 @@ fun pokemonDetailScreen(
             .fillMaxSize()
             .padding(padding)
     ) {
-        when (pokemonApiState) {
-            is PokemonApiState.Loading -> gifImage()
+        when (uiPokemonApiState) {
+            is PokemonApiState.Loading -> GifImage()
             is PokemonApiState.Error -> {
                 Column {
                     Image(
@@ -53,11 +51,10 @@ fun pokemonDetailScreen(
                 }
             }
             is PokemonApiState.Success -> {
-                pokemonDetailScreenContent(
-                    padding = padding,
-                    pokemonState = pokemonState,
-                    uiPokemonListState = uiPokemonListState,
-                )
+                    pokemonDetailScreenContent(
+                        padding = padding,
+                        pokemon = (uiPokemonApiState as PokemonApiState.Success).pokemon
+                    )
             }
         }
     }

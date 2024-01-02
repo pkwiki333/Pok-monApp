@@ -13,25 +13,27 @@ import com.example.androidpokemonapp.PokemonApplication
 import com.example.androidpokemonapp.data.PokemonRepository
 import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.model.PokemonList
+import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonApiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 //todo fix yourTeam in RoomDb
 class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewModel() {
 
-    private val _pokemonListState = MutableStateFlow(PokedexUIState())
-    val pokemonListState: StateFlow<PokedexUIState> = _pokemonListState.asStateFlow()
+    //private val _pokemonListState = MutableStateFlow(PokedexUIState())
+    //val pokemonListState: StateFlow<PokedexUIState> = _pokemonListState.asStateFlow()
 
-    lateinit var uiPokemonListListState: StateFlow<List<PokemonList>>
 
-    var pokemonListApiState: PokemonListApiState by mutableStateOf(PokemonListApiState.Loading)
-        private set
 
+    var uipokemonListApiState: StateFlow<PokemonListApiState> =
+        MutableStateFlow(PokemonListApiState.Loading).asStateFlow()
 
     init {
         fetchPokemons()
@@ -39,18 +41,38 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
 
     private fun fetchPokemons() {
         try {
-            //viewModelScope.launch {pokemonRepository.refresh()}   ---> todo eventueel voor als ik de refresh nodig heb
-            uiPokemonListListState = pokemonRepository.getPokemonList().stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000L),
-                initialValue = emptyList()
-            )
-            Log.i("PokedexViewModel", "fetchPokemons: ${uiPokemonListListState.value}")
-            pokemonListApiState = PokemonListApiState.Success
 
+            uipokemonListApiState =
+                pokemonRepository.getPokemonList()
+                    .map { PokemonListApiState.Success(it) }
+                    .stateIn(
+                        scope = viewModelScope,
+                        started = SharingStarted.WhileSubscribed(5_000L),
+                        initialValue = PokemonListApiState.Loading
+                    )
 
         } catch (e: Exception) {
-            pokemonListApiState = PokemonListApiState.Error
+            uipokemonListApiState = flowOf(PokemonListApiState.Error).stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000L),
+                initialValue = PokemonListApiState.Error
+            )
+
+        }
+    }
+
+    fun updateIsCatched(name: String, isCatched: Boolean){
+
+        viewModelScope.launch {
+            try {
+                if(isCatched)
+                    pokemonRepository.insertToYourTeam(pokemonRepository.getPokemonList().first().first())
+                else
+                    pokemonRepository.deletePokemon(pokemonRepository.getPokemonList().first().first())
+                pokemonRepository.updateCatchedStatus(name, isCatched)
+            }catch (e: Exception){
+                Log.d("PokedexViewModel", "updateIsCatched: ${e.message}")
+            }
 
         }
     }

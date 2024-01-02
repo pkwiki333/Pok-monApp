@@ -2,11 +2,9 @@
 package com.example.androidpokemonapp.viewModel.YourTeam
 
 import androidx.lifecycle.ViewModel
-import com.example.androidpokemonapp.model.PokemonDataDC
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -16,24 +14,25 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.androidpokemonapp.PokemonApplication
 import com.example.androidpokemonapp.data.PokemonRepository
-import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.model.PokemonList
-import com.example.androidpokemonapp.viewModel.Pokedex.PokedexUIState
-import com.example.androidpokemonapp.viewModel.Pokedex.PokedexViewModel
 import com.example.androidpokemonapp.viewModel.Pokedex.PokemonListApiState
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class YourTeamViewModel(private val pokemonRepository: PokemonRepository): ViewModel() {
-    private val _teamPokemonsState = MutableStateFlow(YourTeamUiState())
-    val teamPokemonsState: StateFlow<YourTeamUiState> = _teamPokemonsState.asStateFlow()
+    //private val _teamPokemonsState = MutableStateFlow(YourTeamUiState())
+   // val teamPokemonsState: StateFlow<YourTeamUiState> = _teamPokemonsState.asStateFlow()
 
-    lateinit var uiTeamPokemonsState: StateFlow<List<PokemonList>>
+   // lateinit var uiTeamPokemonsState: StateFlow<List<PokemonList>>
 
-    var yourPokemonApiState: YourPokemonApiState by mutableStateOf(YourPokemonApiState.Loading)
-        private set
+   /* var yourPokemonApiState: YourPokemonApiState by mutableStateOf(YourPokemonApiState.Loading)
+        private set*/
+
+    var uiYourpokemonApiState: StateFlow<YourPokemonApiState> =
+        MutableStateFlow(YourPokemonApiState.Loading).asStateFlow()
 
     init {
         fetchYourPokemon()
@@ -41,6 +40,29 @@ class YourTeamViewModel(private val pokemonRepository: PokemonRepository): ViewM
 
     private fun fetchYourPokemon() {
         try {
+            uiYourpokemonApiState =
+                pokemonRepository.getPokemonListDB()
+                    .map { YourPokemonApiState.Success(it) }
+                    .stateIn(
+                        scope = viewModelScope,
+                        started = SharingStarted.WhileSubscribed(5_000L),
+                        initialValue = YourPokemonApiState.Loading
+                    )
+
+        } catch (e: Exception) {
+            uiYourpokemonApiState = flowOf(YourPokemonApiState.Error).stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000L),
+                initialValue = YourPokemonApiState.Error
+            )
+
+        }
+
+
+
+
+
+        /*try {
            // viewModelScope.launch { pokemonRepository.refresh() }
             uiTeamPokemonsState = pokemonRepository.getPokemonListDB().stateIn(
                 scope = viewModelScope,
@@ -50,7 +72,7 @@ class YourTeamViewModel(private val pokemonRepository: PokemonRepository): ViewM
             yourPokemonApiState = YourPokemonApiState.Success
         } catch (e: Exception) {
             yourPokemonApiState = YourPokemonApiState.Error
-        }
+        }*/
     }
 
     fun deletePokemon(pokemon: PokemonList){
