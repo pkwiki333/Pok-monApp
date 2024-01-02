@@ -1,3 +1,4 @@
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -23,8 +25,11 @@ import com.example.androidpokemonapp.model.PokemonList
 @Composable
 fun PokemonCard(
     pokemon: PokemonList,
-    onPokemonClicked: (String) -> Unit/*, yourTeamViewModel: YourTeamViewModel = viewModel()*/
+    onPokemonClicked: (String) -> Unit,
+    onPokemonCatched: (PokemonList) -> Unit,
+    uiyourTeamList: List<PokemonList>
 ) {
+    val context = LocalContext.current
     Card(
         modifier = Modifier
             .padding(dimensionResource(id = R.dimen.padding_small))
@@ -48,12 +53,23 @@ fun PokemonCard(
 
                 Icon(Icons.Filled.Info, "Info")
             }
-            IconButton(onClick = { /*yourTeamViewModel.addToTeam(pokemon)*/ }) {
-                Image(
-                    painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
-                    contentDescription = "pokebal",
-                    modifier = Modifier.size(dimensionResource(id = R.dimen.pokeball_size))
-                )
+            if (!uiyourTeamList.contains(pokemon)) {
+                IconButton(onClick = { onPokemonCatched(pokemon)
+                    Toast.makeText(context, "${pokemon.name} is toegevoegd aan uw team", Toast.LENGTH_SHORT).show()}) {
+                    Image(
+                        painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
+                        contentDescription = "pokebal",
+                        modifier = Modifier.size(dimensionResource(id = R.dimen.pokeball_size))
+                    )
+                }
+            }else{
+                IconButton(onClick = { Toast.makeText(context, "${pokemon.name} zit al in uw team", Toast.LENGTH_SHORT).show() }) {
+                    Image(
+                        painter = painterResource(id = R.drawable.pokeball_png_blackwhite),
+                        contentDescription = "pokeball black/white",
+                        modifier = Modifier.size(dimensionResource(id = R.dimen.pokeball_size))
+                    )
+                }
             }
         }
     }

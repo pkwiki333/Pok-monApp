@@ -21,8 +21,11 @@ import com.example.androidpokemonapp.viewModel.Pokedex.PokedexUIState
 fun pokedexScreenContent(
     padding: PaddingValues,
     onPokemonClicked: (String) -> Unit,
+    onPokemonCatched: (PokemonList) -> Unit,
     pokedexUIState: PokedexUIState,
-    uiPokemonList: List<PokemonList>) {
+    uiPokemonList: List<PokemonList>,
+    uiyourTeamList: List<PokemonList>
+) {
     Column {
         Row(
             modifier = Modifier
@@ -36,6 +39,6 @@ fun pokedexScreenContent(
                 modifier = Modifier.size(dimensionResource(id = R.dimen.logo_size))
             )
         }
-        pokedexList(padding = padding, onPokemonClicked = onPokemonClicked, uiPokemonList = uiPokemonList)
+        pokedexList(padding = padding, onPokemonClicked = onPokemonClicked, onPokemonCatched = onPokemonCatched, uiPokemonList = uiPokemonList, uiyourTeamList = uiyourTeamList)
     }
 }

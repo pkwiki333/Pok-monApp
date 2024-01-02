@@ -41,7 +41,7 @@ class YourTeamViewModel(private val pokemonRepository: PokemonRepository): ViewM
 
     private fun fetchYourPokemon() {
         try {
-            viewModelScope.launch { pokemonRepository.refresh() }
+           // viewModelScope.launch { pokemonRepository.refresh() }
             uiTeamPokemonsState = pokemonRepository.getPokemonListDB().stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000L),

@@ -1,5 +1,6 @@
 package com.example.androidpokemonapp.ui
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,8 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidpokemonapp.R
+import com.example.androidpokemonapp.model.PokemonList
 import com.example.androidpokemonapp.viewModel.Pokedex.PokedexViewModel
 import com.example.androidpokemonapp.viewModel.Pokedex.PokemonListApiState
+import com.example.androidpokemonapp.viewModel.YourTeam.YourTeamViewModel
 
 //import com.example.androidpokemonapp.viewModel.YourTeam.YourTeamViewModel
 
@@ -24,12 +27,18 @@ import com.example.androidpokemonapp.viewModel.Pokedex.PokemonListApiState
 fun PokedexScreen(
     padding: PaddingValues,
     onPokemonClicked: (String) -> Unit,
-    pokedexViewModel: PokedexViewModel = viewModel(factory = PokedexViewModel.Factory)
+    pokedexViewModel: PokedexViewModel = viewModel(factory = PokedexViewModel.Factory),
+    yourTeamViewModel: YourTeamViewModel = viewModel(factory = YourTeamViewModel.Factory)
 ) {
     val pokedexUIState by pokedexViewModel.pokemonListState.collectAsState()
     val pekedexApiState = pokedexViewModel.pokemonListApiState
-    // val yourTeamViewModel: YourTeamViewModel = viewModel()
     val uiPokemonList by pokedexViewModel.uiPokemonListListState.collectAsState()
+    val uiyourTeamList by yourTeamViewModel.uiTeamPokemonsState.collectAsState()
+    fun onPokemonCatched(pokemon: PokemonList) {
+        pokedexViewModel.addToTeam(pokemon)
+        Log.i("PokedexScreen", "!!!!!!!!onPokemonCatched: ${pokemon.name}")
+    }
+
 
     Box(
         contentAlignment = Alignment.Center,
@@ -52,8 +61,10 @@ fun PokedexScreen(
             is PokemonListApiState.Success -> pokedexScreenContent(
                 padding = padding,
                 onPokemonClicked = onPokemonClicked,
+                onPokemonCatched = {pokemon -> onPokemonCatched(pokemon)},
                 pokedexUIState = pokedexUIState,
-                uiPokemonList = uiPokemonList
+                uiPokemonList = uiPokemonList,
+                uiyourTeamList = uiyourTeamList
 
             )
         }

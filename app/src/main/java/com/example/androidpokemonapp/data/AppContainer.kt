@@ -28,11 +28,13 @@ class AppContainerImpl(private val applicationContext: Context) : AppContainer {
 
     private val pokemonDb: PokemonDatabase by lazy {
         Room.databaseBuilder(applicationContext, PokemonDatabase::class.java, "Pokemon_database")
+            .fallbackToDestructiveMigration()
             .build()
     }
 
     private val pokemonListDb: PokemonListDatabase by lazy {
         Room.databaseBuilder(applicationContext, PokemonListDatabase::class.java, "PokemonList_database")
+            .fallbackToDestructiveMigration()
             .build()
     }
 

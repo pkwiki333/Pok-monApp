@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import com.example.androidpokemonapp.model.PokemonList
 
@@ -15,7 +14,9 @@ import com.example.androidpokemonapp.model.PokemonList
 fun pokedexList(
     padding: PaddingValues,
     onPokemonClicked: (String) -> Unit,
-    uiPokemonList: List<PokemonList>
+    onPokemonCatched: (PokemonList) -> Unit,
+    uiPokemonList: List<PokemonList>,
+    uiyourTeamList: List<PokemonList>
 ) {
 
     val lazyListState = rememberLazyListState()
@@ -27,7 +28,9 @@ fun pokedexList(
         items(items = uiPokemonList, key = {pokemon -> pokemon.name}) { pokemon ->
             PokemonCard(
                 pokemon = pokemon,
-                onPokemonClicked = onPokemonClicked
+                onPokemonClicked = onPokemonClicked,
+                onPokemonCatched = onPokemonCatched,
+                uiyourTeamList = uiyourTeamList
             )
         }
     }
