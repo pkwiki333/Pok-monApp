@@ -16,7 +16,7 @@ data class DbPokemon(
     val moves: List<String>
 )
 
-fun Pokemon.asDomainObject(): DbPokemon {
+fun Pokemon.asDatabaseObject(): DbPokemon {
     return DbPokemon(
         name = name,
         pokedexIndex = pokedexIndex,

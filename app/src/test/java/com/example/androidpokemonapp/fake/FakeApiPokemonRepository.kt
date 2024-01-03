@@ -3,6 +3,7 @@ package com.example.androidpokemonapp.fake
 import com.example.androidpokemonapp.data.PokemonRepository
 import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.model.PokemonList
+import com.example.androidpokemonapp.network.responses.asDomainObject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -28,12 +29,11 @@ class FakeApiPokemonRepository: PokemonRepository {
     }
 
     override fun getPokemonList(): Flow<List<PokemonList>> {
-
-        return flowOf(FakeApiDataSource.getPokemonList())
+        return flowOf(FakeApiDataSource.getFakePokemonList().asDomainObject())
     }
 
     override fun getPokemonInfo(name: String): Flow<Pokemon> {
-        TODO("Not yet implemented")
+        return flowOf(FakeApiDataSource.getFakePokemon(name).asDomainObject())
     }
 
     override suspend fun refresh() {

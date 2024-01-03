@@ -21,6 +21,12 @@ fun PokemonList.asDatabaseObject(): DbPokemonList {
     )
 }
 
+fun List<PokemonList>.asDatabaseObject(): List<DbPokemonList> {
+    return map {
+        it.asDatabaseObject()
+    }
+}
+
 fun DbPokemonList.asDomainObject(): PokemonList {
     return PokemonList(
         name = name,

@@ -32,7 +32,7 @@ interface PokemonRepository {
 
     fun getPokemonInfo(name: String): Flow<Pokemon>
 
-    suspend fun refresh()
+    //suspend fun refresh()
 
 }
 
@@ -88,14 +88,14 @@ class PokemonRepositoryImpl(
         }
     }
 
-    override suspend fun refresh() {
+    /*override suspend fun refresh() {
         pokemonApiService.getPokemonListAsFlow().collect {
             for (pokemon in it.asDomainObject()) {
                 Log.i(("PokemonRepositoryImpl"), "refresh: ${pokemon.name}")
                 insertToYourTeam(pokemon)
             }
         }
-    }
+    }*/
 }
 
 
