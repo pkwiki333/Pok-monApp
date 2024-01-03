@@ -36,10 +36,6 @@ fun PokedexScreen(
 ) {
     val pokemonList by pokedexViewModel.uipokemonListApiState.collectAsState()
     val yourTeamList by yourTeamViewModel.uiYourpokemonApiState.collectAsState()
-    fun onPokemonCatchDb(pokemon: PokemonList) {
-        pokedexViewModel.addToTeam(pokemon)
-        Log.i("PokedexScreen", "!!!!!!!!onPokemonCatched: ${pokemon.name}")
-    }
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -82,6 +78,12 @@ fun PokedexScreen(
 
                         )
                     }
+                    /*item {
+                        if((pokemonList as PokemonListApiState.Success).hasMoreData){
+                            GifImage()
+                            pokedexViewModel.loadMorePokemons()
+                        }
+                    }*/
                 }
             }
         }

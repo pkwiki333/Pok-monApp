@@ -30,7 +30,8 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
 
     //private val _pokemonListState = MutableStateFlow(PokedexUIState())
     //val pokemonListState: StateFlow<PokedexUIState> = _pokemonListState.asStateFlow()
-
+    private var offset = 0
+    val hasMoreData = true
 
     var uipokemonListApiState: StateFlow<PokemonListApiState> =
         MutableStateFlow(PokemonListApiState.Loading).asStateFlow()
@@ -39,7 +40,7 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
         fetchPokemons()
     }
 
-    private fun fetchPokemons() {
+    private fun fetchPokemons(offset: Int = 0) {
         try {
 
             uipokemonListApiState =
@@ -60,6 +61,14 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
 
         }
     }
+
+   /* fun loadMorePokemons() {
+        if(hasMoreData){
+            offset += 20
+            fetchPokemons(offset)
+        }
+    }*/
+
 
     fun updateIsCatched(name: String, isCatched: Boolean) {
 
@@ -85,12 +94,8 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
         }
     }
 
-    //add voegt hier geoon toe aan de db
-    fun addToTeam(pokemon: PokemonList) {
-        viewModelScope.launch {
-            pokemonRepository.insertToYourTeam(pokemon)
-        }
-    }
+
+
 
 
     companion object {
