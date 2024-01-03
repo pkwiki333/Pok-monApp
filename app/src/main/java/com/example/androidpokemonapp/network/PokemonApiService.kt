@@ -14,7 +14,7 @@ import java.io.IOException
 interface PokemonApiService {
 
     //todo tijdelijk maar 20, maar verander naar allemaal met pagination
-    @GET("pokemon?limit=20&offset=0")
+    @GET("pokemon?limit=400&offset=0")
     suspend fun getPokemonList(
         /*@Query("limit") limit: Int,
         @Query("offset") offset: Int*/

@@ -2,6 +2,7 @@ package com.example.androidpokemonapp.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,12 +25,10 @@ fun pokemonDetailScreenContent(
     pokemon: Pokemon,
 ) {
 
-
     Card(
         modifier = Modifier
             .fillMaxSize()
             .padding(dimensionResource(id = R.dimen.padding_medium))
-
     ) {
         Column(
             modifier = Modifier
@@ -37,17 +36,36 @@ fun pokemonDetailScreenContent(
                 .padding(dimensionResource(id = R.dimen.padding_medium)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                "Naam: ${pokemon.name}",
-                style = MaterialTheme.typography.titleLarge
-            )
+            Row {
+                Text(
+                    "Naam: ${pokemon.name}",
+                    style = MaterialTheme.typography.titleLarge,
+                )
+
+                Text(
+                    "Pokedex: ${pokemon.pokedexIndex}",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_small))
+                )
+            }
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
-            Text(text = "Pokédex index: ${pokemon.pokedexIndex}")
+            Text("Types: ${pokemon.types.joinToString(separator = ", ")}")
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
-            Text("Beschrijving: __________", style = MaterialTheme.typography.bodyMedium)
+            Text("Abilities:")
+            Text("${pokemon.abilities.joinToString(separator = ", ")}")
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
-            Text("Type: ${pokemon.types}")
+            Row {
+                Text("Height: ${pokemon.height / 10}m")
+                Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
+                Text(
+                    "Weight: ${pokemon.weight / 10}kg",
+                    modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_small))
+                )
+            }
+
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
+            Text("Moves:")
+            Text("${pokemon.moves.joinToString(separator = ", ")}")
         }
     }
 }

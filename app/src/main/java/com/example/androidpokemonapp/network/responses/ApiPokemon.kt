@@ -9,7 +9,7 @@ data class ApiPokemon(
     val base_experience: Int,
     val forms: List<Form>,
     val game_indices: List<GameIndice>,
-    val height: Int,
+    val height: Double,
    // val held_items: List<Any>,
     val id: Int,
     val is_default: Boolean,
@@ -23,7 +23,7 @@ data class ApiPokemon(
     //val sprites: Sprites,
     val stats: List<Stat>,
     val types: List<Type>,
-    val weight: Int
+    val weight: Double
 )
 
 
@@ -35,6 +35,7 @@ fun ApiPokemon.asDomainObject(): Pokemon {
         weight = weight,
         types = types.map { it.type.name },
         abilities = abilities.map { it.ability.name },
+        moves = moves.map { it.move.name }
     )
 }
 

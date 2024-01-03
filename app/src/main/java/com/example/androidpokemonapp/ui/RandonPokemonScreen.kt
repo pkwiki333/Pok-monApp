@@ -28,9 +28,6 @@ fun RandomPokemonScreen(
 
     val randomPokemonApiState by randomPokemonViewModel.randomPokemonApiState.collectAsState()
 
-    LaunchedEffect(Unit) {
-        randomPokemonViewModel.getRandomPokemon()
-    }
 
     Box(
         contentAlignment = Alignment.Center,

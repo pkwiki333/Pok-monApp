@@ -63,7 +63,7 @@ fun PokemonCard(
                 IconButton(onClick = { onPokemonCatched(pokemon)
                     //onPokemonCatchDb(pokemon)
                     isCatched = true
-                    Toast.makeText(context, "${pokemon.name} is toegevoegd aan uw team", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "${pokemon.name} is added to your team", Toast.LENGTH_SHORT).show()
                     }) {
                     Image(
                         painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
@@ -72,7 +72,7 @@ fun PokemonCard(
                     )
                 }
             }else{
-                IconButton(onClick = { Toast.makeText(context, "${pokemon.name} zit al in uw team", Toast.LENGTH_SHORT).show() }) {
+                IconButton(onClick = { Toast.makeText(context, "${pokemon.name} is already on your team", Toast.LENGTH_SHORT).show() }) {
                     Image(
                         painter = painterResource(id = R.drawable.pokeball_png_blackwhite),
                         contentDescription = "pokeball black/white",

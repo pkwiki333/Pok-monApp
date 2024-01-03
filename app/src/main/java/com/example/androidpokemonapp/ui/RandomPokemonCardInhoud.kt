@@ -1,6 +1,7 @@
 package com.example.androidpokemonapp.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonViewModel
+import java.io.File
 
 @Composable
 fun RandomPokemonCardInhoud(
@@ -35,34 +37,36 @@ fun RandomPokemonCardInhoud(
                 .padding(dimensionResource(id = R.dimen.padding_medium)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                "Naam: ${pokemon.name}",
-                style = MaterialTheme.typography.titleLarge
-            )
-            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
+            Row {
+                Text(
+                    "Naam: ${pokemon.name}",
+                    style = MaterialTheme.typography.titleLarge,
+                )
 
-            Text("Types: ${pokemon.types}")
-            Text("Pokédex index: ${pokemon.pokedexIndex}")
+                Text(
+                    "Pokedex: ${pokemon.pokedexIndex}",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_small))
+                )
+            }
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
-            Text("Moves")
-            Text("________________")
-            Text("________________")
+            Text("Types: ${pokemon.types.joinToString(separator = ", ")}")
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
-            Text("Beschrijving")
-            Text("________________")
-            Text("________________")
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            Button(
-                onClick = { randomPokemonViewModel.getRandomPokemon() },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(dimensionResource(id = R.dimen.padding_small))
-            ) {
-                Text(text = stringResource(R.string.get_random_pok_mon))
+            Text("Abilities:")
+            Text("${pokemon.abilities.joinToString(separator = ", ")}")
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
+            Row {
+                Text("Height: ${pokemon.height / 10}m")
+                Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
+                Text(
+                    "Weight: ${pokemon.weight / 10}kg",
+                    modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_small))
+                )
             }
 
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
+            Text("Moves:")
+            Text("${pokemon.moves.joinToString(separator = ", ")}")
         }
     }
 }
