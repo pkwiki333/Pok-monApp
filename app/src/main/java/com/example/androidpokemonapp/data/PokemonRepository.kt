@@ -22,7 +22,7 @@ interface PokemonRepository {
 
     fun getPokemonInfoDB(name: String): Flow<Pokemon>
 
-    suspend fun updateCatchedStatus(name: String, isCatched: Boolean)
+   // suspend fun updateCatchedStatus(name: String, isCatched: Boolean)
 
     suspend fun insertToYourTeam(pokemon: PokemonList)
 
@@ -45,7 +45,7 @@ class PokemonRepositoryImpl(
         return pokemonListDao.getYourTeamList().map {
             it.asDomainObject()
         }
-            .combine(pokemonListDao.getYourTeamList()) { pokemonList: List<PokemonList>, dbPokemonList: List<DbPokemonList> ->
+            /*.combine(pokemonListDao.getYourTeamList()) { pokemonList: List<PokemonList>, dbPokemonList: List<DbPokemonList> ->
                 val keys: List<String> = dbPokemonList.map {
                     it.name
                 }
@@ -56,19 +56,17 @@ class PokemonRepositoryImpl(
                         return@map it
                 }
 
-            }
+            }*/
     }
-
-
     override fun getPokemonInfoDB(name: String): Flow<Pokemon> {
         return pokemonDao.getPokemonInfo(name).map {
             it.asDomainObject()
         }
     }
 
-    override suspend fun updateCatchedStatus(name: String, isCatched: Boolean) {
+    /*override suspend fun updateCatchedStatus(name: String, isCatched: Boolean) {
         pokemonListDao.updateCatchedStatus(name, isCatched)
-    }
+    }*/
 
     override suspend fun insertToYourTeam(pokemon: PokemonList) {
         pokemonListDao.insertToYourTeam(pokemon.asDatabaseObject())

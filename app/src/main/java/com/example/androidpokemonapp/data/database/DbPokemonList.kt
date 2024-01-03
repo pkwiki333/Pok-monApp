@@ -10,14 +10,14 @@ data class DbPokemonList
     @PrimaryKey
     val name: String,
     val pokedexIndex: Int,
-    val isCatched: Boolean = false
+    //val isCatched: Boolean = false
 )
 
 fun PokemonList.asDatabaseObject(): DbPokemonList {
     return DbPokemonList(
         name = name,
         pokedexIndex = pokedexIndex,
-        isCatched = isCatched
+        //isCatched = isCatched
     )
 }
 
@@ -25,7 +25,7 @@ fun DbPokemonList.asDomainObject(): PokemonList {
     return PokemonList(
         name = name,
         pokedexIndex = pokedexIndex,
-        isCatched = isCatched
+       // isCatched = isCatched
     )
 }
 

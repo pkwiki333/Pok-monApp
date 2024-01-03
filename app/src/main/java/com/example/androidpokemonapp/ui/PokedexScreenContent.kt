@@ -1,3 +1,4 @@
+/*
 package com.example.androidpokemonapp.ui
 
 import androidx.compose.foundation.Image
@@ -41,7 +42,6 @@ fun pokedexScreenContent(
             onPokemonClicked = onPokemonClicked,
             onPokemonCatched = onPokemonCatched,
             PokemonList = pokemonList,
-            uiyourTeamList = uiyourTeamList
         )
     }
-}
+}*/

@@ -25,9 +25,10 @@ import com.example.androidpokemonapp.model.PokemonList
 @Composable
 fun PokemonCard(
     pokemon: PokemonList,
+    yourTeamList: List<PokemonList>,
     onPokemonClicked: (String) -> Unit,
-    onPokemonCatched: (PokemonList) -> Unit,
-    uiyourTeamList: List<PokemonList>
+    onPokemonCatchDb: (PokemonList) -> Unit,
+    /*onPokemonCatched: (PokemonList) -> Unit,*/
 ) {
     val context = LocalContext.current
     Card(
@@ -53,9 +54,11 @@ fun PokemonCard(
 
                 Icon(Icons.Filled.Info, "Info")
             }
-            if (!uiyourTeamList.contains(pokemon)) {
-                IconButton(onClick = { onPokemonCatched(pokemon)
-                    Toast.makeText(context, "${pokemon.name} is toegevoegd aan uw team", Toast.LENGTH_SHORT).show()}) {
+            if (!yourTeamList.contains(pokemon)) {
+                IconButton(onClick = { /*onPokemonCatched(pokemon)*/
+                    onPokemonCatchDb(pokemon)
+                    Toast.makeText(context, "${pokemon.name} is toegevoegd aan uw team", Toast.LENGTH_SHORT).show()
+                    }) {
                     Image(
                         painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
                         contentDescription = "pokebal",

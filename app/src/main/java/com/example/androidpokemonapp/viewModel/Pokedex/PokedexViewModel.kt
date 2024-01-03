@@ -61,7 +61,7 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
         }
     }
 
-    fun updateIsCatched(name: String, isCatched: Boolean){
+    /*fun updateIsCatched(name: String, isCatched: Boolean){
 
         viewModelScope.launch {
             try {
@@ -75,7 +75,7 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
             }
 
         }
-    }
+    }*/
 
     //add voegt hier geoon toe aan de db
     fun addToTeam(pokemon: PokemonList){

@@ -51,7 +51,7 @@ fun YourTeamScreen(
             ) {
                 items(items = (uiYourPokemonApiList as YourPokemonApiState.Success).pokemonDbList, key = { pokemon -> pokemon.name}) { pokemon ->
                     YourTeamPokemonCard(
-                        pokemon = (uiYourPokemonApiList as PokemonListApiState.Success).pokemonList,
+                        pokemon = pokemon,
                         onPokemonClicked = { onPokemonClicked(pokemon.name) },
                         onPokemonRelease = { pokemon -> onPokemonRelease(pokemon) },
                     )
