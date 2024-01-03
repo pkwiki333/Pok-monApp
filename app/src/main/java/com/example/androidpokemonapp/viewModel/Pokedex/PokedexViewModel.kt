@@ -1,6 +1,7 @@
 package com.example.androidpokemonapp.viewModel.Pokedex
 
 import android.util.Log
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -29,7 +30,6 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
 
     //private val _pokemonListState = MutableStateFlow(PokedexUIState())
     //val pokemonListState: StateFlow<PokedexUIState> = _pokemonListState.asStateFlow()
-
 
 
     var uipokemonListApiState: StateFlow<PokemonListApiState> =
@@ -61,30 +61,36 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
         }
     }
 
-    /*fun updateIsCatched(name: String, isCatched: Boolean){
+    fun updateIsCatched(name: String, isCatched: Boolean) {
 
         viewModelScope.launch {
             try {
-                if(isCatched)
-                    pokemonRepository.insertToYourTeam(pokemonRepository.getPokemonList().first().first())
-                else
-                    pokemonRepository.deletePokemon(pokemonRepository.getPokemonList().first().first())
-                pokemonRepository.updateCatchedStatus(name, isCatched)
-            }catch (e: Exception){
+                var currentState = uipokemonListApiState.value
+                if(currentState is PokemonListApiState.Success) {
+                    var pokemonList = currentState.pokemonList
+
+                    if (isCatched) {
+                        for (pokemon in pokemonList) {
+                            if (pokemon.name == name) {
+                                pokemonRepository.insertToYourTeam(pokemon)
+                            }
+                        }
+                        pokemonRepository.updateCatchedStatus(name, true)
+                    }
+                }
+            } catch (e: Exception) {
                 Log.d("PokedexViewModel", "updateIsCatched: ${e.message}")
             }
 
         }
-    }*/
+    }
 
     //add voegt hier geoon toe aan de db
-    fun addToTeam(pokemon: PokemonList){
-        viewModelScope.launch{
+    fun addToTeam(pokemon: PokemonList) {
+        viewModelScope.launch {
             pokemonRepository.insertToYourTeam(pokemon)
         }
     }
-
-
 
 
     companion object {

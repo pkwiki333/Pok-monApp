@@ -1,6 +1,7 @@
 
 package com.example.androidpokemonapp.viewModel.YourTeam
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,6 +18,7 @@ import com.example.androidpokemonapp.data.PokemonRepository
 import com.example.androidpokemonapp.model.PokemonList
 import com.example.androidpokemonapp.viewModel.Pokedex.PokemonListApiState
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -73,6 +75,30 @@ class YourTeamViewModel(private val pokemonRepository: PokemonRepository): ViewM
         } catch (e: Exception) {
             yourPokemonApiState = YourPokemonApiState.Error
         }*/
+    }
+
+    fun updateIsCatched(name: String, isCatched: Boolean) {
+
+        viewModelScope.launch {
+            try {
+                var currentState = uiYourpokemonApiState.value
+                if(currentState is YourPokemonApiState.Success) {
+                    var pokemonList = currentState.pokemonDbList
+
+                    if (isCatched) {
+                        pokemonRepository.updateCatchedStatus(name, false)
+                        for (pokemon in pokemonList) {
+                            if (pokemon.name == name) {
+                                pokemonRepository.deletePokemon(pokemon)
+                            }
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                Log.d("PokedexViewModel", "updateIsCatched: ${e.message}")
+            }
+
+        }
     }
 
     fun deletePokemon(pokemon: PokemonList){

@@ -13,6 +13,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -27,9 +31,10 @@ fun PokemonCard(
     pokemon: PokemonList,
     yourTeamList: List<PokemonList>,
     onPokemonClicked: (String) -> Unit,
-    onPokemonCatchDb: (PokemonList) -> Unit,
-    /*onPokemonCatched: (PokemonList) -> Unit,*/
+    //onPokemonCatchDb: (PokemonList) -> Unit,
+    onPokemonCatched: (PokemonList) -> Unit,
 ) {
+    var isCatched by remember { mutableStateOf(pokemon.isCatched) }
     val context = LocalContext.current
     Card(
         modifier = Modifier
@@ -54,9 +59,10 @@ fun PokemonCard(
 
                 Icon(Icons.Filled.Info, "Info")
             }
-            if (!yourTeamList.contains(pokemon)) {
-                IconButton(onClick = { /*onPokemonCatched(pokemon)*/
-                    onPokemonCatchDb(pokemon)
+            if (isCatched == false) {
+                IconButton(onClick = { onPokemonCatched(pokemon)
+                    //onPokemonCatchDb(pokemon)
+                    isCatched = true
                     Toast.makeText(context, "${pokemon.name} is toegevoegd aan uw team", Toast.LENGTH_SHORT).show()
                     }) {
                     Image(

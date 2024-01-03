@@ -72,13 +72,13 @@ fun PokedexScreen(
                             pokemon = pokemon,
                             yourTeamList = (yourTeamList as YourPokemonApiState.Success).pokemonDbList,
                             onPokemonClicked = onPokemonClicked,
-                            onPokemonCatchDb = { pokemon -> onPokemonCatchDb(pokemon) },
-                            /*onPokemonCatched = { pokemon ->
+                           //onPokemonCatchDb = { pokemon -> onPokemonCatchDb(pokemon) },
+                            onPokemonCatched = { pokemon ->
                                 pokedexViewModel.updateIsCatched(
                                     pokemon.name,
                                     true
                                 )
-                            }*/
+                            }
 
                         )
                     }

@@ -31,8 +31,10 @@ fun YourTeamScreen(
     val uiYourPokemonApiList by yourTeamViewModel.uiYourpokemonApiState.collectAsState()
 
     fun onPokemonRelease(pokemon: PokemonList) {
-        yourTeamViewModel.deletePokemon(pokemon)
+       yourTeamViewModel.updateIsCatched(pokemon.name, pokemon.isCatched)
+        //yourTeamViewModel.deletePokemon(pokemon)
     }
+
     when (uiYourPokemonApiList) {
         is YourPokemonApiState.Loading -> GifImage()
         is YourPokemonApiState.Error -> Column {

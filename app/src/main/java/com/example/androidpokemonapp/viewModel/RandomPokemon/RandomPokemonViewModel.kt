@@ -14,7 +14,8 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.androidpokemonapp.PokemonApplication
 import com.example.androidpokemonapp.data.PokemonRepository
 import com.example.androidpokemonapp.model.Pokemon
-import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonApiState.*
+import com.example.androidpokemonapp.viewModel.Pokedex.PokemonListApiState
+import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonApiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -42,8 +43,11 @@ class RandomPokemonViewModel(private val pokemonRepository: PokemonRepository) :
         try {
             viewModelScope.launch {
                 val pokemonList = pokemonRepository.getPokemonList().first()
+                Log.i("RandomPokemonViewModel", "!!!!!!!getRandomPokemonPokemonList: $pokemonList")
                 val randomPokemon = pokemonList.random()
+                Log.i("RandomPokemonViewModel", "!!!!!!!getRandomPokemonRandomPokemon: $randomPokemon")
                 var pokemonName = randomPokemon.name
+                Log.i("RandomPokemonViewModel", "!!!!!!!getRandomPokemonName: $pokemonName")
 
                 randomPokemonApiState =
                     pokemonRepository.getPokemonInfo(pokemonName)
@@ -53,6 +57,10 @@ class RandomPokemonViewModel(private val pokemonRepository: PokemonRepository) :
                             started = SharingStarted.WhileSubscribed(5_000L),
                             initialValue = RandomPokemonApiState.Loading
                         )
+                var currentState = randomPokemonApiState.value
+                if(currentState is RandomPokemonApiState.Success) {
+                    Log.i("RandomPokemonViewModel", "!!!!!!!Succes voor Random Pokemon")
+                }
             }
         } catch (e: Exception) {
             randomPokemonApiState = flowOf(RandomPokemonApiState.Error).stateIn(
@@ -60,9 +68,7 @@ class RandomPokemonViewModel(private val pokemonRepository: PokemonRepository) :
                 started = SharingStarted.WhileSubscribed(5_000L),
                 initialValue = RandomPokemonApiState.Error
             )
-
         }
-
     }
 
     companion object {
