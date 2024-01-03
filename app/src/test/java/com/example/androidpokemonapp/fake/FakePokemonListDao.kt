@@ -21,6 +21,6 @@ class FakePokemonListDao: PokemonListDao {
     }
 
     override fun getYourTeamList(): Flow<List<DbPokemonList>> {
-        return flow{emit(FakeApiDataSource.getFakePokemonList().asDomainObject().asDatabaseObject()) }
+        return flow{emit(FakeApiDataSource.getFakeDbPokemonList().asDatabaseObject()) }
     }
 }

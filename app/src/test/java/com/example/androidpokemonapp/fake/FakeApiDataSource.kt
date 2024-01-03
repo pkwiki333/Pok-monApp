@@ -483,6 +483,24 @@ object FakeApiDataSource {
             )
         )
     )
+
+    private val fakeDbPokemonList = listOf(
+        PokemonList(
+            name = "Charizard",
+            pokedexIndex = 3,
+            isCatched = true
+        ),
+        PokemonList(
+            name = "Butterfree",
+            pokedexIndex = 12,
+            isCatched = true
+        )
+    )
+
+
+    fun getFakeDbPokemonList(): List<PokemonList> {
+        return fakeDbPokemonList
+    }
 }
 
 

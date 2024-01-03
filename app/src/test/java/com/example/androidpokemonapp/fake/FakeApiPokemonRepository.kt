@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flowOf
 
 class FakeApiPokemonRepository: PokemonRepository {
     override fun getPokemonListDB(): Flow<List<PokemonList>> {
-        TODO("Not yet implemented")
+        return flowOf(FakeApiDataSource.getFakePokemonList().asDomainObject())
     }
 
     override fun getPokemonInfoDB(name: String): Flow<Pokemon> {
@@ -36,7 +36,4 @@ class FakeApiPokemonRepository: PokemonRepository {
         return flowOf(FakeApiDataSource.getFakePokemon(name).asDomainObject())
     }
 
-    override suspend fun refresh() {
-        TODO("Not yet implemented")
-    }
 }

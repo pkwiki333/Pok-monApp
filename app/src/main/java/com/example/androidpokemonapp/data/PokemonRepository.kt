@@ -45,18 +45,7 @@ class PokemonRepositoryImpl(
         return pokemonListDao.getYourTeamList().map {
             it.asDomainObject()
         }
-            .combine(pokemonListDao.getYourTeamList()) { pokemonList: List<PokemonList>, dbPokemonList: List<DbPokemonList> ->
-                val keys: List<String> = dbPokemonList.map {
-                    it.name
-                }
-                pokemonList.map {
-                    if (keys.contains(it.name))
-                        return@map it.copy(isCatched = true)
-                    else
-                        return@map it
-                }
 
-            }
     }
     override fun getPokemonInfoDB(name: String): Flow<Pokemon> {
         return pokemonDao.getPokemonInfo(name).map {
@@ -79,6 +68,17 @@ class PokemonRepositoryImpl(
     override fun getPokemonList(): Flow<List<PokemonList>> {
         return pokemonApiService.getPokemonListAsFlow().map {
             it.asDomainObject()
+        }.combine(pokemonListDao.getYourTeamList()) { pokemonList: List<PokemonList>, dbPokemonList: List<DbPokemonList> ->
+            val keys: List<String> = dbPokemonList.map {
+                it.name
+            }
+            pokemonList.map {
+                if (keys.contains(it.name))
+                    return@map it.copy(isCatched = true)
+                else
+                    return@map it
+            }
+
         }
     }
 
