@@ -20,8 +20,6 @@ import java.io.IOException
 interface PokemonRepository {
     fun getPokemonListDB(): Flow<List<PokemonList>>
 
-    fun getPokemonInfoDB(name: String): Flow<Pokemon>
-
     suspend fun updateCatchedStatus(name: String, isCatched: Boolean)
 
     suspend fun insertToYourTeam(pokemon: PokemonList)
@@ -43,12 +41,6 @@ class PokemonRepositoryImpl(
 ) : PokemonRepository {
     override fun getPokemonListDB(): Flow<List<PokemonList>> {
         return pokemonListDao.getYourTeamList().map {
-            it.asDomainObject()
-        }
-
-    }
-    override fun getPokemonInfoDB(name: String): Flow<Pokemon> {
-        return pokemonDao.getPokemonInfo(name).map {
             it.asDomainObject()
         }
     }

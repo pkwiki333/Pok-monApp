@@ -1,23 +1,21 @@
 package com.example.androidpokemonapp.fake
 
 import com.example.androidpokemonapp.data.PokemonRepository
+import com.example.androidpokemonapp.data.database.asDatabaseObject
 import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.model.PokemonList
 import com.example.androidpokemonapp.network.responses.asDomainObject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-class FakeApiPokemonRepository: PokemonRepository {
+class FakeApiPokemonRepository(private val fakePokemonListDao: FakePokemonListDao = FakePokemonListDao()): PokemonRepository {
     override fun getPokemonListDB(): Flow<List<PokemonList>> {
-        return flowOf(FakeApiDataSource.getFakePokemonList().asDomainObject())
+        return flowOf(FakeApiDataSource.getFakeDbPokemonList())
     }
 
-    override fun getPokemonInfoDB(name: String): Flow<Pokemon> {
-        TODO("Not yet implemented")
-    }
 
     override suspend fun updateCatchedStatus(name: String, isCatched: Boolean) {
-        TODO("Not yet implemented")
+        fakePokemonListDao.updateCatchedStatus(name, isCatched)
     }
 
     override suspend fun insertToYourTeam(pokemon: PokemonList) {

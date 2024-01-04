@@ -3,11 +3,13 @@ package com.example.androidpokemonapp.fake
 import com.example.androidpokemonapp.data.database.DbPokemonList
 import com.example.androidpokemonapp.data.database.PokemonListDao
 import com.example.androidpokemonapp.data.database.asDatabaseObject
+import com.example.androidpokemonapp.model.PokemonList
 import com.example.androidpokemonapp.network.responses.asDomainObject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class FakePokemonListDao: PokemonListDao {
+    private val pokemons = mutableListOf<PokemonList>()
     override suspend fun insertToYourTeam(pokemon: DbPokemonList) {
         TODO("Not yet implemented")
     }
@@ -17,7 +19,7 @@ class FakePokemonListDao: PokemonListDao {
     }
 
     override suspend fun updateCatchedStatus(name: String, isCatched: Boolean) {
-        TODO("Not yet implemented")
+        pokemons.find { it.name == name }?.isCatched = isCatched
     }
 
     override fun getYourTeamList(): Flow<List<DbPokemonList>> {

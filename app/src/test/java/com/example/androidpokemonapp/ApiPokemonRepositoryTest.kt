@@ -1,9 +1,11 @@
 package com.example.androidpokemonapp
 
+import android.util.Log
 import com.example.androidpokemonapp.data.PokemonRepositoryImpl
 import com.example.androidpokemonapp.data.database.asDatabaseObject
 import com.example.androidpokemonapp.data.database.asDomainObject
 import com.example.androidpokemonapp.fake.FakeApiDataSource
+import com.example.androidpokemonapp.fake.FakeApiPokemonRepository
 import com.example.androidpokemonapp.fake.FakePokemonDao
 import com.example.androidpokemonapp.fake.FakePokemonListDao
 import com.example.androidpokemonapp.fake.FakeapiPokemonService
@@ -11,48 +13,64 @@ import com.example.androidpokemonapp.model.PokemonList
 import com.example.androidpokemonapp.network.responses.asDomainObject
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import org.mockito.kotlin.times
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
+import org.mockito.kotlin.verify
+
 
 class ApiPokemonRepositoryTest {
 
-    @Test
-    fun apiPokemonRepository_getAllPokemons_verifyPokemonsList() = runTest {
-        val repository = PokemonRepositoryImpl(
+    private lateinit var repository: FakeApiPokemonRepository
+
+    @Before
+    fun setUp() {
+        /*repository = PokemonRepositoryImpl(
             pokemonDao = FakePokemonDao(),
             pokemonListDao = FakePokemonListDao(),
             pokemonApiService = FakeapiPokemonService()
-        )
-        val actualResults = repository.getPokemonList().first()
+        )*/
+        repository = FakeApiPokemonRepository()
+    }
 
+    @Test
+    fun apiPokemonRepository_getAllPokemons_verifyPokemonsList() = runTest {
+
+        val actualResults = repository.getPokemonList().first()
         val expectedResults = FakeApiDataSource.getFakePokemonList().asDomainObject()
 
         assertEquals(expectedResults, actualResults)
     }
+
     @Test
     fun apiPokemonRepository_getPokemonInfo_verifyPokemonInfo() =
         runTest {
-            val repository = PokemonRepositoryImpl(
-                pokemonDao = FakePokemonDao(),
-                pokemonListDao = FakePokemonListDao(),
-                pokemonApiService = FakeapiPokemonService()
-            )
-            assertEquals(FakeApiDataSource.getFakePokemon("bulbasaur").asDomainObject(), repository.getPokemonInfo("bulbasaur").first())
+            val actualResults = FakeApiDataSource.getFakePokemon("bulbasaur").asDomainObject()
+            val expectedResults = repository.getPokemonInfo("bulbasaur").first()
+
+            assertEquals(actualResults, expectedResults)
         }
 
     @Test
-    fun DBPokemonRepository_getPokemonCatched_verifyPokemonCatched() = runTest {
-        val repository = PokemonRepositoryImpl(
-            pokemonDao = FakePokemonDao(),
-            pokemonListDao = FakePokemonListDao(),
-            pokemonApiService = FakeapiPokemonService()
-        )
+    fun dBPokemonRepository_getPokemonCatched_verifyPokemonCatched() = runTest {
         val actualResults = repository.getPokemonListDB().first()
 
-        val expectedResults = FakeApiDataSource.getFakeDbPokemonList().asDatabaseObject().filter { pokemon -> pokemon.isCatched }.asDomainObject()
+        val expectedResults = FakeApiDataSource.getFakeDbPokemonList().asDatabaseObject()
+            .filter { pokemon -> pokemon.isCatched }.asDomainObject()
 
         assertEquals(expectedResults, actualResults)
     }
+
+   /* @Test
+    fun dBPokemonRepository_updateIsCatched_verifyPokemonisCatchedUpdate() = runTest {
+
+        repository.updateCatchedStatus("Bulbasaur", true)
+
+        val actualResult = repository.getPokemonList().first().find { it.name == "Bulbasaur" }?.isCatched
+
+        assertEquals(true, actualResult)
+    }*/
 }
 
 

@@ -40,7 +40,7 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
         fetchPokemons()
     }
 
-    private fun fetchPokemons(offset: Int = 0) {
+    fun fetchPokemons(offset: Int = 0) {
         try {
 
             uipokemonListApiState =
