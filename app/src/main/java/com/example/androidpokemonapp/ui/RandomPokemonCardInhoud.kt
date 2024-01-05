@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -21,6 +23,16 @@ import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonViewModel
 import java.io.File
 
+/**
+ * Toont een kaart met gedetailleerde informatie over een willekeurige Pokémon.
+ * De inhoud bestaat uit de naam, Pokédex-index, types, abilities,
+ * hoogte, gewicht, en de lijst met moves van de Pokémon.
+ *
+ * De kaart kan verticaal gescrold worden als de content langer is dan het scherm.
+ *
+ * @param pokemon De Pokémon entiteit met de gegevens die getoond moeten worden.
+ * @param randomPokemonViewModel ViewModel die wordt gebruikt voor het beheren van de state en events.
+ */
 @Composable
 fun RandomPokemonCardInhoud(
     pokemon: Pokemon,
@@ -34,7 +46,10 @@ fun RandomPokemonCardInhoud(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(dimensionResource(id = R.dimen.padding_medium)),
+                .padding(dimensionResource(id = R.dimen.padding_medium))
+                .verticalScroll(
+                    rememberScrollState()
+                ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row {

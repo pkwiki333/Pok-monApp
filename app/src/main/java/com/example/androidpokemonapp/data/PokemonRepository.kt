@@ -17,23 +17,66 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
+/**
+ * Interface die definieert welke operaties beschikbaar zijn voor interactie met Pokémon-gegevens.
+ * Dit omvat het ophalen van gegevens uit de lokale database en de externe API.
+ */
 interface PokemonRepository {
+    /**
+     * Haalt een lijst op van alle Pokémon in de lokale database.
+     *
+     * @return Een Flow van een lijst van [PokemonList], die de gevangen Pokémon vertegenwoordigt.
+     */
     fun getPokemonListDB(): Flow<List<PokemonList>>
 
+    /**
+     * Werkt de vangstatus van een specifieke Pokémon bij in de lokale database.
+     *
+     * @param name De naam van de Pokémon.
+     * @param isCatched De nieuwe vangstatus.
+     */
     suspend fun updateCatchedStatus(name: String, isCatched: Boolean)
 
+    /**
+     * Voegt een Pokémon toe aan je team in de lokale database.
+     *
+     * @param pokemon Het [PokemonList] object dat toegevoegd moet worden.
+     */
     suspend fun insertToYourTeam(pokemon: PokemonList)
 
+    /**
+     * Verwijdert een Pokémon uit je team in de lokale database.
+     *
+     * @param pokemon Het [PokemonList] object dat verwijderd moet worden.
+     */
     suspend fun deletePokemon(pokemon: PokemonList)
 
+    /**
+     * Haalt een lijst op van alle Pokémon van een externe API.
+     *
+     * @return Een Flow van een lijst met [PokemonList].
+     */
     fun getPokemonList(): Flow<List<PokemonList>>
 
+    /**
+     * Haalt gedetailleerde informatie op over een specifieke Pokémon van een externe API.
+     *
+     * @param name De naam van de Pokémon.
+     * @return Een Flow van [Pokemon] met gedetailleerde informatie.
+     */
     fun getPokemonInfo(name: String): Flow<Pokemon>
 
-    //suspend fun refresh()
 
 }
 
+/**
+ * Implementatie van [PokemonRepository] die gebruikmaakt van een lokale RoomDB, een externe API, en DAO's.
+ * Biedt functionaliteiten zoals het ophalen, bijwerken en verwijderen van Pokémon-gegevens.
+ *
+ * @property pokemonDao DAO voor interactie met de Pokémon-gegevens in de RoomDB.
+ * @property pokemonListDao DAO voor interactie met de Pokémon lijst in de RoomDB.
+ * @property pokemonApiService Service voor het ophalen van gegevens van de externe Pokémon API.
+ */
 class PokemonRepositoryImpl(
     private val pokemonDao: PokemonDao,
     private val pokemonListDao: PokemonListDao,
@@ -80,14 +123,6 @@ class PokemonRepositoryImpl(
         }
     }
 
-    /*override suspend fun refresh() {
-        pokemonApiService.getPokemonListAsFlow().collect {
-            for (pokemon in it.asDomainObject()) {
-                Log.i(("PokemonRepositoryImpl"), "refresh: ${pokemon.name}")
-                insertToYourTeam(pokemon)
-            }
-        }
-    }*/
 }
 
 

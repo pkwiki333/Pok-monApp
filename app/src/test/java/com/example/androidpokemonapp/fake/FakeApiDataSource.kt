@@ -28,13 +28,13 @@ object FakeApiDataSource {
         return fakeApiPokemonList
     }
 
-    fun getFakePokemon(name : String): ApiPokemon {
-        when(name){
+    fun getFakePokemon(name: String): ApiPokemon {
+        when (name) {
             "Bulbasaur" -> return fakeApiPokemon[0]
             "Charmander" -> return fakeApiPokemon[1]
             "Squirtle" -> return fakeApiPokemon[2]
         }
-       return fakeApiPokemon[0]
+        return fakeApiPokemon[0]
     }
 
     private val fakeApiPokemon = listOf(
@@ -501,6 +501,34 @@ object FakeApiDataSource {
     fun getFakeDbPokemonList(): List<PokemonList> {
         return fakeDbPokemonList
     }
+
+    private val fakePokemonListChangeIsCatched = listOf(
+        PokemonList(
+            name = "Charizard",
+            pokedexIndex = 6,
+            isCatched = true
+        ),
+        PokemonList(
+            name = "Butterfree",
+            pokedexIndex = 12,
+            isCatched = false
+        )
+    )
+
+    /*fun getFakePokemonListChangeIsCatched(): List<PokemonList> {
+        return fakePokemonListChangeIsCatched
+    }*/
+
+
+    fun getFakePokemonListChangeIsCatched(): List<PokemonList> {
+        return listOf(
+            PokemonList(name = "Bulbasaur", pokedexIndex = 1, isCatched = false),
+            PokemonList(name = "Ivysaur", pokedexIndex = 2, isCatched = false),
+            PokemonList(name = "Charizard", pokedexIndex = 6, isCatched = false),
+        )
+    }
+
 }
+
 
 

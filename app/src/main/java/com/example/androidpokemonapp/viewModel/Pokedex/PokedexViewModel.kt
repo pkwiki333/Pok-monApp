@@ -98,6 +98,7 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
 
 
 
+
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

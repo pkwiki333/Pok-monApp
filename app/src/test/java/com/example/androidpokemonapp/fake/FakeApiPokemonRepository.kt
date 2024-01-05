@@ -9,6 +9,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 class FakeApiPokemonRepository(private val fakePokemonListDao: FakePokemonListDao = FakePokemonListDao()): PokemonRepository {
+
+    private val pokemonList = listOf(
+        PokemonList(name = "Bulbasaur", pokedexIndex = 1, isCatched = false),
+        PokemonList(name = "Ivysaur", pokedexIndex = 2, isCatched = false),
+        PokemonList(name = "Charizard", pokedexIndex = 6, isCatched = false),
+    )
     override fun getPokemonListDB(): Flow<List<PokemonList>> {
         return flowOf(FakeApiDataSource.getFakeDbPokemonList())
     }
