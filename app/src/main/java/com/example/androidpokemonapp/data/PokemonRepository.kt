@@ -100,26 +100,36 @@ class PokemonRepositoryImpl(
     }
 
     override fun getPokemonList(): Flow<List<PokemonList>> {
-        return pokemonApiService.getPokemonListAsFlow().map {
-            it.asDomainObject()
-        }.combine(pokemonListDao.getYourTeamList()) { pokemonList: List<PokemonList>, dbPokemonList: List<DbPokemonList> ->
-            val keys: List<String> = dbPokemonList.map {
-                it.name
-            }
-            pokemonList.map {
-                if (keys.contains(it.name))
-                    return@map it.copy(isCatched = true)
-                else
-                    return@map it
-            }
+        try{
+            return pokemonApiService.getPokemonListAsFlow().map {
+                it.asDomainObject()
+            }.combine(pokemonListDao.getYourTeamList()) { pokemonList: List<PokemonList>, dbPokemonList: List<DbPokemonList> ->
+                val keys: List<String> = dbPokemonList.map {
+                    it.name
+                }
+                pokemonList.map {
+                    if (keys.contains(it.name))
+                        return@map it.copy(isCatched = true)
+                    else
+                        return@map it
+                }
 
+            }
+        }catch (e: IOException){
+            throw IOException("Unable to get pokemon list", e)
         }
+
     }
 
     override fun getPokemonInfo(name: String): Flow<Pokemon> {
-        return pokemonApiService.getPokemonAsFlow(name).map {
-            it.asDomainObject()
+        try{
+            return pokemonApiService.getPokemonAsFlow(name).map {
+                it.asDomainObject()
+            }
+        }catch (e: IOException){
+            throw IOException("Unable to get pokemon info", e)
         }
+
     }
 
 }
