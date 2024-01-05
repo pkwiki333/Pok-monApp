@@ -30,11 +30,16 @@ import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+/**
+ * Een ViewModel-klasse die verantwoordelijk is voor het beheren van de willekeurige Pokemon-gegevens.
+ *
+ * @param pokemonRepository De repository waarmee toegang wordt verkregen tot Pokemon-gegevens.
+ */
 class RandomPokemonViewModel(private val pokemonRepository: PokemonRepository) : ViewModel() {
 
-    //private val _randomPokemonState = MutableStateFlow(RandomPokemonUIState(null))
-    //val randomPokemonState: StateFlow<RandomPokemonUIState> = _randomPokemonState.asStateFlow()
-
+    /**
+     * Een [StateFlow] dat de toestand van het ophalen van willekeurige Pokemon-gegevens vertegenwoordigt.
+     */
     var randomPokemonApiState: StateFlow<RandomPokemonApiState> =
         //MutableStateFlow(RandomPokemonApiState.Loading).asStateFlow()
         pokemonRepository.getPokemonList().flatMapConcat {
@@ -49,41 +54,10 @@ class RandomPokemonViewModel(private val pokemonRepository: PokemonRepository) :
                 initialValue = RandomPokemonApiState.Loading
             )
 
-   /* init {
-        getRandomPokemon()
-    }
-
-     fun getRandomPokemon() {
-        try {
-            viewModelScope.launch {
-                val pokemonList = pokemonRepository.getPokemonList().first()
-                val randomPokemon = pokemonList.random()
-                var pokemonName = randomPokemon.name
-                loadPokemonInfo(pokemonName)
-            }
-        } catch (e: Exception) {
-            randomPokemonApiState = flowOf(RandomPokemonApiState.Error).stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000L),
-                initialValue = RandomPokemonApiState.Error,
-            )
-            Log.e("RandomPokemonViewModel", "!!!!!getRandomPokemon: ${e.message}")
-        }
-    }
-
-    private fun loadPokemonInfo(pokemonName: String){
-        randomPokemonApiState =
-            pokemonRepository.getPokemonInfo(pokemonName)
-                .map<Pokemon, RandomPokemonApiState>
-                { RandomPokemonApiState.Success(it) }
-                .catch { e -> Log.e("error", "!!!!error Random Pokemon") }
-                .stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000L),
-                    initialValue = RandomPokemonApiState.Loading
-                )
-    }*/
     companion object {
+        /**
+         * Een [ViewModelProvider.Factory] om een instantie van [RandomPokemonViewModel] te maken.
+         */
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = (this[APPLICATION_KEY] as PokemonApplication)

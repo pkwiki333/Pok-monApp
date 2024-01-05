@@ -28,6 +28,9 @@ import androidx.compose.ui.layout.ContentScale
 import com.example.androidpokemonapp.ui.PokedexScreen
 import com.example.androidpokemonapp.ui.PokemonScreen
 
+/**
+ * Hoofdactiviteit van de app. Hier wordt de app-inhoud weergegeven.
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

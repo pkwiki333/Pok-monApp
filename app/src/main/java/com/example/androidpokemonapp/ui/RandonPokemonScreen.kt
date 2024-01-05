@@ -19,7 +19,12 @@ import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonApiState
 import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonViewModel
 
-
+/**
+ * Een composable functie voor het weergeven van een scherm met willekeurige Pokémon-details.
+ *
+ * @param padding De randen rondom de inhoud van het scherm.
+ * @param randomPokemonViewModel Een [RandomPokemonViewModel] voor het beheren van de willekeurige Pokémon-gegevens.
+ */
 @Composable
 fun RandomPokemonScreen(
     padding: PaddingValues, randomPokemonViewModel: RandomPokemonViewModel =

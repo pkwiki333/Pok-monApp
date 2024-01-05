@@ -20,7 +20,12 @@ import androidx.compose.ui.res.dimensionResource
 import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.model.Pokemon
 
-
+/**
+ * Een composable functie voor het weergeven van gedetailleerde informatie over een Pokémon.
+ *
+ * @param padding De paddingwaarden voor de layout.
+ * @param pokemon De Pokémon waarvan de details worden weergegeven.
+ */
 @Composable
 fun pokemonDetailScreenContent(
     padding: PaddingValues,

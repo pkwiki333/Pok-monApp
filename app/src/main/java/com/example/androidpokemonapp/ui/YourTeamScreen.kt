@@ -1,6 +1,5 @@
 package com.example.androidpokemonapp.ui
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,10 +16,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.model.PokemonList
-import com.example.androidpokemonapp.viewModel.Pokedex.PokemonListApiState
 import com.example.androidpokemonapp.viewModel.YourTeam.YourPokemonApiState
 import com.example.androidpokemonapp.viewModel.YourTeam.YourTeamViewModel
 
+/**
+ * Composable voor het weergeven van het "Your Team" scherm met een lijst van je team van Pokemon.
+ *
+ * @param onPokemonClicked Lambda-functie om uit te voeren wanneer er op een Pokemon wordt geklikt.
+ * @param yourTeamViewModel De ViewModel die de gegevens voor het "Your Team" scherm beheert.
+ * @param padding De paddingwaarden voor de layout.
+ */
 @Composable
 fun YourTeamScreen(
     onPokemonClicked: (String) -> Unit,

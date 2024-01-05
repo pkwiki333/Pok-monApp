@@ -66,7 +66,6 @@ interface PokemonRepository {
      */
     fun getPokemonInfo(name: String): Flow<Pokemon>
 
-
 }
 
 /**

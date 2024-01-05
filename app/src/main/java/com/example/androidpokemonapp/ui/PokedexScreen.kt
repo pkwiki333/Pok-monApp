@@ -25,7 +25,14 @@ import com.example.androidpokemonapp.viewModel.Pokedex.PokedexViewModel
 import com.example.androidpokemonapp.viewModel.Pokedex.PokemonListApiState
 import com.example.androidpokemonapp.viewModel.YourTeam.YourPokemonApiState
 import com.example.androidpokemonapp.viewModel.YourTeam.YourTeamViewModel
-
+/**
+ * Composable voor het weergeven van het Pokedex-scherm, inclusief de lijst met Pokemon-kaarten.
+ *
+ * @param padding De randen rondom de inhoud van het scherm.
+ * @param onPokemonClicked Een lambda-functie om te reageren op het klikken op een Pokemon-kaart.
+ * @param pokedexViewModel [PokedexViewModel] die wordt gebruikt om de lijst met Pokemon-gegevens op te halen.
+ * @param yourTeamViewModel [YourTeamViewModel] die wordt gebruikt om de lijst met je eigen Pokemon-team op te halen.
+ */
 
 @Composable
 fun PokedexScreen(

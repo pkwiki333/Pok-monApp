@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
     id("com.google.devtools.ksp")
+    id("org.jetbrains.dokka") version "1.9.10"
 }
 
 android {
@@ -69,7 +70,8 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation ("io.coil-kt:coil-gif:2.4.0")
 
-    val room_version = "2.5.0"
+
+val room_version = "2.5.0"
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
     ksp("androidx.room:room-compiler:$room_version")

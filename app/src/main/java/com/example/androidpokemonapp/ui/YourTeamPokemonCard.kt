@@ -34,6 +34,13 @@ import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.model.PokemonList
 import kotlinx.coroutines.delay
 
+/**
+ * Composable voor het weergeven van een Pokemon-kaart in het "Your Team" scherm.
+ *
+ * @param pokemon De PokemonList die moet worden weergegeven op de kaart.
+ * @param onPokemonClicked De lambda-functie om uit te voeren wanneer er op de Pokemon-kaart wordt geklikt.
+ * @param onPokemonRelease De lambda-functie om uit te voeren wanneer de Pokemon wordt vrijgegeven.
+ */
 @Composable
 fun YourTeamPokemonCard(
     pokemon: PokemonList,

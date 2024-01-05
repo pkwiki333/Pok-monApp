@@ -14,7 +14,11 @@ import coil.request.ImageRequest
 import com.example.androidpokemonapp.R
 
 
-
+/**
+ * Een composable functie die een GIF-afbeelding weergeeft met behulp van Coil.
+ *
+ * @param modifier Een optionele Modifier om de weergave van de afbeelding aan te passen.
+ */
 @Composable
 fun GifImage(
     modifier: Modifier = Modifier,

@@ -26,6 +26,11 @@ import com.example.androidpokemonapp.ui.pokemonDetailScreen
 
 import com.example.androidpokemonapp.ui.YourTeamScreen
 
+/**
+ * The main composable function responsible for managing navigation and displaying different screens in the Android Pokemon App.
+ *
+ * @param navController An optional [NavHostController] for navigation purposes. If not provided, a new one is created using [rememberNavController].
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PokemonApp(

@@ -20,6 +20,13 @@ import com.example.androidpokemonapp.viewModel.Pokedex.PokemonListApiState
 import com.example.androidpokemonapp.viewModel.PokemonDetails.PokemonApiState
 import com.example.androidpokemonapp.viewModel.PokemonDetails.PokemonDetailsViewModel
 
+/**
+ * Een composable functie voor het weergeven van gedetailleerde informatie over een Pokémon.
+ *
+ * @param name De naam van de Pokémon waarvoor de details worden weergegeven.
+ * @param padding De paddingwaarden voor de layout.
+ * @param pokemonDetailsViewModel Het ViewModel voor het ophalen van Pokémon-details.
+ */
 @Composable
 fun pokemonDetailScreen(
     name: String,

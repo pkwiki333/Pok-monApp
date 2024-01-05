@@ -34,6 +34,14 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.androidpokemonapp.R
 
+/**
+ * Een composable functie voor het hoofdscherm van de Pokémon-applicatie.
+ *
+ * @param padding De paddingwaarden voor de layout.
+ * @param onPokemonOfTheDayClicked Een callback om te reageren wanneer "Random Pokémon" wordt geklikt.
+ * @param onPokedexClicked Een callback om te reageren wanneer "Pokédex" wordt geklikt.
+ * @param onYourTeamClicked Een callback om te reageren wanneer "Your team" wordt geklikt.
+ */
 @Composable
 fun PokemonScreen(
     padding: PaddingValues,

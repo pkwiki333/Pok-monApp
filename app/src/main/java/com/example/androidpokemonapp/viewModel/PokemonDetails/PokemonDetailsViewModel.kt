@@ -21,16 +21,35 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
+/**
+ * ViewModel-klasse voor het ophalen van details van een specifieke Pokemon.
+ *
+ * @param pokemonRepository Een verwijzing naar de repository voor het ophalen van Pokemon-gegevens.
+ * @param name De naam van de Pokemon waarvan de details worden opgehaald.
+ */
 class PokemonDetailsViewModel(private val pokemonRepository: PokemonRepository, name: String) :
     ViewModel() {
 
+    /**
+     * Een [StateFlow] die de toestand van het ophalen van Pokemon-details vertegenwoordigt.
+     */
     var uipokemonApiState: StateFlow<PokemonApiState> =
         MutableStateFlow(PokemonApiState.Loading).asStateFlow()
 
+    /**
+     * Initialiseert de ViewModel en haalt de details op voor de opgegeven Pokemon-naam.
+     *
+     * @param name De naam van de Pokemon waarvan de details worden opgehaald.
+     */
     init {
         getPokemonDetail(name)
     }
 
+    /**
+     * Haalt de details op voor de opgegeven Pokemon-naam en werkt de toestand bij.
+     *
+     * @param name De naam van de Pokemon waarvan de details worden opgehaald.
+     */
     fun getPokemonDetail(name: String) {
         try {
             uipokemonApiState =
@@ -50,25 +69,16 @@ class PokemonDetailsViewModel(private val pokemonRepository: PokemonRepository, 
             )
 
         }
-
-
-
-
-       /* try {
-            uiPokemonState = pokemonRepository.getPokemonInfo(name).map { PokemonState(it)}.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000L),
-                initialValue = PokemonState()
-            )
-            pokemonApiState = PokemonApiState.Success
-        } catch (e: RuntimeException) {
-            pokemonApiState = PokemonApiState.Error
-        }*/
-
     }
 
 
     companion object {
+        /**
+         * Factory voor het maken van een instantie van [PokemonDetailsViewModel].
+         *
+         * @param name De naam van de Pokemon waarvan de details worden opgehaald.
+         * @return Een [ViewModelProvider.Factory] die wordt gebruikt om de ViewModel te maken.
+         */
         fun Factory(name: String): ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application =

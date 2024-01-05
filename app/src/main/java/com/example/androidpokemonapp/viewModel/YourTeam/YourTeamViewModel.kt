@@ -23,23 +23,30 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+/**
+ * ViewModel-klasse die verantwoordelijk is voor het beheren van de toestand van Pokemon-gegevens van jouw team.
+ *
+ * @property pokemonRepository Het repository voor het beheren van Pokemon-gerelateerde gegevens.
+ */
 
 class YourTeamViewModel(private val pokemonRepository: PokemonRepository): ViewModel() {
-    //private val _teamPokemonsState = MutableStateFlow(YourTeamUiState())
-   // val teamPokemonsState: StateFlow<YourTeamUiState> = _teamPokemonsState.asStateFlow()
 
-   // lateinit var uiTeamPokemonsState: StateFlow<List<PokemonList>>
-
-   /* var yourPokemonApiState: YourPokemonApiState by mutableStateOf(YourPokemonApiState.Loading)
-        private set*/
-
+    /**
+     * Een [StateFlow] die de toestand van Pokemon-gegevens van jouw team vertegenwoordigt.
+     */
     var uiYourpokemonApiState: StateFlow<YourPokemonApiState> =
         MutableStateFlow(YourPokemonApiState.Loading).asStateFlow()
 
+    /**
+     * Initialiseert de ViewModel en haalt de gegevens van Pokemon op van jouw team.
+     */
     init {
         fetchYourPokemon()
     }
 
+    /**
+     * Haalt de gegevens van Pokemon op van jouw team.
+     */
     private fun fetchYourPokemon() {
         try {
             uiYourpokemonApiState =
@@ -59,24 +66,14 @@ class YourTeamViewModel(private val pokemonRepository: PokemonRepository): ViewM
             )
 
         }
-
-
-
-
-
-        /*try {
-           // viewModelScope.launch { pokemonRepository.refresh() }
-            uiTeamPokemonsState = pokemonRepository.getPokemonListDB().stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000L),
-                initialValue = emptyList()
-            )
-            yourPokemonApiState = YourPokemonApiState.Success
-        } catch (e: Exception) {
-            yourPokemonApiState = YourPokemonApiState.Error
-        }*/
     }
 
+    /**
+     * Werkt de status van gevangen zijn bij een Pokemon bij en verwijdert deze indien nodig.
+     *
+     * @param name De naam van de Pokemon.
+     * @param isCatched Geeft aan of de Pokemon gevangen is.
+     */
     fun updateIsCatched(name: String, isCatched: Boolean) {
 
         viewModelScope.launch {
@@ -101,12 +98,9 @@ class YourTeamViewModel(private val pokemonRepository: PokemonRepository): ViewM
         }
     }
 
-    fun deletePokemon(pokemon: PokemonList){
-        viewModelScope.launch {
-            pokemonRepository.deletePokemon(pokemon)
-        }
-    }
-
+    /**
+     * Een [ViewModelProvider.Factory] die wordt gebruikt om een instantie van [YourTeamViewModel] te maken.
+     */
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

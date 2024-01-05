@@ -25,7 +25,11 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-//todo fix yourTeam in RoomDb
+/**
+ * ViewModel voor het beheren van de Pokedex-gegevens en interacties.
+ *
+ * @param pokemonRepository Het repository voor het ophalen en beheren van Pokemon-gegevens.
+ */
 class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewModel() {
 
     //private val _pokemonListState = MutableStateFlow(PokedexUIState())
@@ -36,10 +40,18 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
     var uipokemonListApiState: StateFlow<PokemonListApiState> =
         MutableStateFlow(PokemonListApiState.Loading).asStateFlow()
 
+    /**
+     * Initialiseert de ViewModel en haalt de Pokemon-gegevens op.
+     */
     init {
         fetchPokemons()
     }
 
+    /**
+     * Haalt de Pokemon-gegevens op van de repository.
+     *
+     * @param offset De offset voor het ophalen van meer gegevens (optioneel).
+     */
     fun fetchPokemons(offset: Int = 0) {
         try {
 
@@ -62,14 +74,12 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
         }
     }
 
-   /* fun loadMorePokemons() {
-        if(hasMoreData){
-            offset += 20
-            fetchPokemons(offset)
-        }
-    }*/
-
-
+    /**
+     * Update de vangstatus van een Pokemon en voeg deze toe aan het team als deze is gevangen.
+     *
+     * @param name De naam van de Pokemon.
+     * @param isCatched True als de Pokemon is gevangen, anders False.
+     */
     fun updateIsCatched(name: String, isCatched: Boolean) {
 
         viewModelScope.launch {
@@ -100,6 +110,9 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
 
 
     companion object {
+        /**
+         * Fabrieksmethode voor het maken van een `PokedexViewModel`.
+         */
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application =

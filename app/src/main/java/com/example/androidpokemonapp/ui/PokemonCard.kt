@@ -26,12 +26,18 @@ import androidx.compose.ui.unit.dp
 import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.model.PokemonList
 
+/**
+ * Een composable functie voor het weergeven van een Pokémon-kaart in de app.
+ *
+ * @param pokemon De Pokémon-gegevens om weer te geven op de kaart.
+ * @param onPokemonClicked Een callback-functie die wordt aangeroepen wanneer de Pokémon-kaart wordt aangeklikt.
+ * @param onPokemonCatched Een callback-functie die wordt aangeroepen wanneer de Pokémon wordt gevangen.
+ */
 @Composable
 fun PokemonCard(
     pokemon: PokemonList,
     yourTeamList: List<PokemonList>,
     onPokemonClicked: (String) -> Unit,
-    //onPokemonCatchDb: (PokemonList) -> Unit,
     onPokemonCatched: (PokemonList) -> Unit,
 ) {
     var isCatched by remember { mutableStateOf(pokemon.isCatched) }
