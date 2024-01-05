@@ -2,6 +2,7 @@ package com.example.androidpokemonapp.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.example.androidpokemonapp.model.Pokemon
 
 /**
@@ -17,6 +18,7 @@ import com.example.androidpokemonapp.model.Pokemon
  * @property moves Een lijst van moves die de Pokémon kan leren.
  */
 @Entity
+@TypeConverters(Converters::class)
 data class DbPokemon(
     @PrimaryKey
     val name: String,
