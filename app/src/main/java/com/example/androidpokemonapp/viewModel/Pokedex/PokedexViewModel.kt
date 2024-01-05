@@ -14,11 +14,13 @@ import com.example.androidpokemonapp.PokemonApplication
 import com.example.androidpokemonapp.data.PokemonRepository
 import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.model.PokemonList
+import com.example.androidpokemonapp.viewModel.PokemonDetails.PokemonApiState
 import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonApiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -32,10 +34,6 @@ import kotlinx.coroutines.launch
  */
 class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewModel() {
 
-    //private val _pokemonListState = MutableStateFlow(PokedexUIState())
-    //val pokemonListState: StateFlow<PokedexUIState> = _pokemonListState.asStateFlow()
-    private var offset = 0
-    val hasMoreData = true
 
     var uipokemonListApiState: StateFlow<PokemonListApiState> =
         MutableStateFlow(PokemonListApiState.Loading).asStateFlow()
@@ -52,12 +50,13 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
      *
      * @param offset De offset voor het ophalen van meer gegevens (optioneel).
      */
-    fun fetchPokemons(offset: Int = 0) {
+    fun fetchPokemons() {
         try {
 
             uipokemonListApiState =
                 pokemonRepository.getPokemonList()
-                    .map { PokemonListApiState.Success(it) }
+                    .map<List<PokemonList>, PokemonListApiState> { PokemonListApiState.Success(it) }
+                    .catch { emit(PokemonListApiState.Error) }
                     .stateIn(
                         scope = viewModelScope,
                         started = SharingStarted.WhileSubscribed(5_000L),
@@ -85,7 +84,7 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
         viewModelScope.launch {
             try {
                 var currentState = uipokemonListApiState.value
-                if(currentState is PokemonListApiState.Success) {
+                if (currentState is PokemonListApiState.Success) {
                     var pokemonList = currentState.pokemonList
 
                     if (isCatched) {
@@ -103,10 +102,6 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
 
         }
     }
-
-
-
-
 
 
     companion object {
