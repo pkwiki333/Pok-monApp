@@ -21,3 +21,5 @@ object PokemonData {
         list
     }
 }
+
+//iets veranderd
