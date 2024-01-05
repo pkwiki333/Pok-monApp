@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonViewModel
@@ -54,34 +55,70 @@ fun RandomPokemonCardInhoud(
         ) {
             Row {
                 Text(
-                    "Naam: ${pokemon.name}",
+                    "Naam: ",
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                )
+                Text(
+                    pokemon.name,
                     style = MaterialTheme.typography.titleLarge,
                 )
 
                 Text(
-                    "Pokedex: ${pokemon.pokedexIndex}",
-                    style = MaterialTheme.typography.titleLarge,
+                    "Pokedex:",
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                     modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_small))
                 )
+                Text(
+                    pokemon.pokedexIndex.toString(),
+                    style = MaterialTheme.typography.titleLarge,
+                )
             }
-            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
-            Text("Types: ${pokemon.types.joinToString(separator = ", ")}")
-            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
-            Text("Abilities:")
-            Text("${pokemon.abilities.joinToString(separator = ", ")}")
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
             Row {
-                Text("Height: ${pokemon.height / 10}m")
+                Text(
+                    "Types: ",
+                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                )
+                Text("${pokemon.types.joinToString(separator = ", ")}")
+            }
+
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
+            Row {
+                Text(
+                    "Abilities:",
+                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                )
+                Text("${pokemon.abilities.joinToString(separator = ", ")}")
+            }
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
+            Row {
+                Text(
+                    "Height: ",
+                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                )
+                Text(
+                    "${pokemon.height / 10}m"
+                )
                 Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
                 Text(
-                    "Weight: ${pokemon.weight / 10}kg",
+                    "Weight: ",
+                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                     modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_small))
+                )
+                Text(
+                    "${pokemon.weight / 10}kg"
                 )
             }
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
-            Text("Moves:")
-            Text("${pokemon.moves.joinToString(separator = ", ")}")
+            Row {
+                Text(
+                    "Moves: ",
+                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                )
+                Text("${pokemon.moves.joinToString(separator = ", ")}")
+            }
+
         }
     }
 }
