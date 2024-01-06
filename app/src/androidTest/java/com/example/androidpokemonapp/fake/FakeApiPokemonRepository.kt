@@ -31,7 +31,7 @@ class FakeApiPokemonRepository(private val fakePokemonListDao: FakePokemonListDa
 
 
     override suspend fun updateCatchedStatus(name: String, isCatched: Boolean) {
-        val replayCache:List<PokemonList> = pokemonListFlow.replayCache.first() ?: emptyList()
+        val replayCache:List<PokemonList> = pokemonListFlow.replayCache.firstOrNull() ?: emptyList()
                pokemonListFlow.tryEmit(
                    replayCache.map {
                 if (it.name == name) {

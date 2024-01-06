@@ -41,7 +41,7 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
      * Haalt de Pokemon-gegevens op van de repository.
      *
      */
-    fun fetchPokemons() {
+    private fun fetchPokemons() {
         try {
 
             uipokemonListApiState =

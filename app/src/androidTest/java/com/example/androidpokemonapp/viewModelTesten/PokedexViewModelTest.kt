@@ -7,12 +7,18 @@ import com.example.androidpokemonapp.fake.FakeApiPokemonRepository
 import com.example.androidpokemonapp.network.responses.asDomainObject
 import com.example.androidpokemonapp.viewModel.pokedex.PokedexViewModel
 import com.example.androidpokemonapp.viewModel.pokedex.PokemonListApiState
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
+import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Test
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Rule
+import kotlinx.coroutines.flow.collect
 
 class PokedexViewModelTest {
 
@@ -45,7 +51,6 @@ class PokedexViewModelTest {
 
     @Test
     fun PokedexViewModel_geeflijstPokemon_successState() = runTest {
-        viewModel.fetchPokemons()
         val state = viewModel.uipokemonListApiState.value
 
         if (state is PokemonListApiState.Success) {
@@ -53,8 +58,23 @@ class PokedexViewModelTest {
         }
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun pokedexViewModel_updatePokemonIsCatched_isCatchedTrue() = runTest {
-        TODO()
+        val collectJob = launch(UnconfinedTestDispatcher()) { viewModel.uipokemonListApiState.collect() }
+        val state = viewModel.uipokemonListApiState.value
+
+        viewModel.updateIsCatched("Bulbasaur", true)
+
+        val state2 = viewModel.uipokemonListApiState.value
+
+        if(state is PokemonListApiState.Success && state2 is PokemonListApiState.Success){
+            assertFalse(state.pokemonList.find { it.name == "Bulbasaur" }!!.isCatched)
+            assertTrue(state2.pokemonList.find { it.name == "Bulbasaur" }!!.isCatched)
+        }
+        else
+            assertTrue(false)
+
+        collectJob.cancel()
     }
 }

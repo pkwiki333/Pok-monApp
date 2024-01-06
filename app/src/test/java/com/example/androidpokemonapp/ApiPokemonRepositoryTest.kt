@@ -21,12 +21,15 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ApiPokemonRepositoryTest {
 
+    @get:Rule
+    val testDispatcher = TestDispatcherRule()
     private lateinit var repository: PokemonRepositoryImpl
     private lateinit var fakePokemonListDao: FakePokemonListDao
 
@@ -42,11 +45,9 @@ class ApiPokemonRepositoryTest {
 
     @Test
     fun apiPokemonRepository_getAllPokemons_verifyPokemonsList() = runTest {
-
+        fakePokemonListDao.emitflow(FakeApiDataSource.getFakeDbPokemonList().asDatabaseObject())
         val actualResults = repository.getPokemonList().first()
-        advanceUntilIdle()
         val expectedResults = FakeApiDataSource.getFakePokemonList().asDomainObject()
-        advanceUntilIdle()
         assertEquals(expectedResults, actualResults)
     }
 
@@ -60,6 +61,7 @@ class ApiPokemonRepositoryTest {
 
     @Test
     fun dBPokemonRepository_getPokemonCatched_verifyPokemonCatched() = runTest {
+        fakePokemonListDao.emitflow(FakeApiDataSource.getFakeDbPokemonList().asDatabaseObject())
         val actualResults = repository.getPokemonListDB().first()
 
         val expectedResults = FakeApiDataSource.getFakeDbPokemonList().asDatabaseObject()
@@ -72,19 +74,16 @@ class ApiPokemonRepositoryTest {
     fun dBPokemonRepository_updateIsCatched_verifyPokemonisCatchedUpdate() = runTest {
         val pokemon = DbPokemonList("Bulbasaur", 1, false)
         fakePokemonListDao.insertToYourTeam(pokemon)
-        advanceUntilIdle()
+
         val bulbasaur = repository.getPokemonList().first().find { it.name == "Bulbasaur" }
         assertNotNull("bulbasaur", bulbasaur)
-        advanceUntilIdle()
         if (bulbasaur != null) {
             repository.insertToYourTeam(bulbasaur)
+
             repository.updateCatchedStatus(bulbasaur.name, true)
 
-
-            val actualResult =
-                repository.getPokemonList().first().find { it.name == "Bulbasaur" }?.isCatched
+            val actualResult = repository.getPokemonList().first().find { it.name == "Bulbasaur" }?.isCatched
             assertEquals(true, actualResult)
-
         }
 
     }
