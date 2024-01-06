@@ -15,6 +15,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidpokemonapp.R
@@ -45,12 +46,13 @@ fun PokedexScreen(
             .padding(padding)
     ) {
         when (pokemonList) {
-            is PokemonListApiState.Loading -> GifImage()
+            is PokemonListApiState.Loading -> GifImage(modifier = Modifier.testTag("PikachuGif"))
             is PokemonListApiState.Error -> {
                 Column {
                     Image(
                         painter = painterResource(id = R.drawable.psyduck_logo_c81917330c_seeklogo_com),
-                        contentDescription = "ErrorPagePsyduck"
+                        contentDescription = "ErrorPagePsyduck",modifier = Modifier.testTag("errorPsyduck")
+
                     )
                     Text(text = "Laden mislukt")
                 }
@@ -71,7 +73,8 @@ fun PokedexScreen(
                             onPokemonClicked = onPokemonClicked,
                             onPokemonCatched = {
                                 pokedexViewModel.updateIsCatched(pokemon.name, true)
-                            }
+                            },
+                            modifier = Modifier.testTag("PokemonCard_${pokemon.name}")
                         )
                     }
                 }

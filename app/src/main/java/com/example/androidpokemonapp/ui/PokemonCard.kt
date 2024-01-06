@@ -22,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import com.example.androidpokemonapp.R
@@ -39,6 +40,7 @@ fun PokemonCard(
     pokemon: PokemonList,
     onPokemonClicked: (String) -> Unit,
     onPokemonCatched: (PokemonList) -> Unit,
+    modifier: Modifier
 ) {
     var isCatched by remember { mutableStateOf(pokemon.isCatched) }
     val context = LocalContext.current
@@ -46,6 +48,7 @@ fun PokemonCard(
         modifier = Modifier
             .padding(dimensionResource(id = R.dimen.padding_small))
             .fillMaxWidth()
+
     ) {
         Row(
             modifier = Modifier
@@ -58,10 +61,10 @@ fun PokemonCard(
                     .weight(1f)
                     .padding(start = dimensionResource(id = R.dimen.padding_medium))
             ) {
-                Text(pokemon.name, style = MaterialTheme.typography.titleMedium)
-                Text("Pokédex Index: ${pokemon.pokedexIndex}")
+                Text(pokemon.name, style = MaterialTheme.typography.titleMedium, modifier = Modifier.testTag("name"))
+                Text("Pokédex Index: ${pokemon.pokedexIndex}", modifier = Modifier.testTag("pokedexIndex"))
             }
-            IconButton(onClick = { onPokemonClicked(pokemon.name) }) {
+            IconButton(onClick = { onPokemonClicked(pokemon.name) }, modifier = Modifier.testTag("onPokemonClickedButton")) {
 
                 Icon(Icons.Filled.Info, "Info")
             }
@@ -70,7 +73,8 @@ fun PokemonCard(
                     //onPokemonCatchDb(pokemon)
                     isCatched = true
                     Toast.makeText(context, "${pokemon.name} is added to your team", Toast.LENGTH_SHORT).show()
-                    }) {
+
+                    }, modifier = Modifier.testTag("isCatchedFalseButton")) {
                     Image(
                         painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
                         contentDescription = "pokebal",
@@ -78,7 +82,7 @@ fun PokemonCard(
                     )
                 }
             }else{
-                IconButton(onClick = { Toast.makeText(context, "${pokemon.name} is already on your team", Toast.LENGTH_SHORT).show() }) {
+                IconButton(onClick = { Toast.makeText(context, "${pokemon.name} is already on your team", Toast.LENGTH_SHORT).show() },modifier = Modifier.testTag("isCatchedTrueButton")) {
                     Image(
                         painter = painterResource(id = R.drawable.pokeball_png_blackwhite),
                         contentDescription = "pokeball black/white",
