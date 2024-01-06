@@ -69,9 +69,10 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation ("io.coil-kt:coil-gif:2.4.0")
+    androidTestImplementation(project(mapOf("path" to ":app")))
 
 
-val roomversion = "2.5.0"
+    val roomversion = "2.5.0"
     implementation("androidx.room:room-runtime:$roomversion")
     implementation("androidx.room:room-ktx:$roomversion")
     ksp("androidx.room:room-compiler:$roomversion")

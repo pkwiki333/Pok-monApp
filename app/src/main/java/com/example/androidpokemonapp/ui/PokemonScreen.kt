@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -31,13 +32,13 @@ import com.example.androidpokemonapp.R
 /**
  * Een composable functie voor het hoofdscherm van de Pokémon-applicatie.
  *
- * @param onPokemonOfTheDayClicked Een callback om te reageren wanneer "Random Pokémon" wordt geklikt.
+ * @param onRandomPokemonClick Een callback om te reageren wanneer "Random Pokémon" wordt geklikt.
  * @param onPokedexClicked Een callback om te reageren wanneer "Pokédex" wordt geklikt.
  * @param onYourTeamClicked Een callback om te reageren wanneer "Your team" wordt geklikt.
  */
 @Composable
 fun PokemonScreen(
-    onPokemonOfTheDayClicked: () -> Unit,
+    onRandomPokemonClick: () -> Unit,
     onPokedexClicked: () -> Unit,
     onYourTeamClicked: () -> Unit
 ) {
@@ -93,10 +94,11 @@ fun PokemonScreen(
                         .fillMaxSize()
                         .padding(dimensionResource(id = R.dimen.padding_medium))) {
                     Button(
-                        onClick = onPokemonOfTheDayClicked,
+                        onClick = onRandomPokemonClick,
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.background),
                         modifier = Modifier
                             .width(400.dp)
+                            .testTag("randomPokemonButton")
 
                     ) {
                         Image(
@@ -114,6 +116,7 @@ fun PokemonScreen(
                         onClick = onPokedexClicked,
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.background),
                         modifier = Modifier.width(400.dp)
+                            .testTag("pokedexButton")
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
@@ -130,6 +133,7 @@ fun PokemonScreen(
                         onClick = onYourTeamClicked,
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.background),
                         modifier = Modifier.width(400.dp)
+                            .testTag("yourTeamButton")
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
@@ -143,14 +147,13 @@ fun PokemonScreen(
 
 
             } else {
-
-
                 Button(
-                    onClick = onPokemonOfTheDayClicked,
+                    onClick = onRandomPokemonClick,
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.background),
                     modifier = Modifier
                         .fillMaxWidth()
                         .align(Alignment.Start)
+                        .testTag("randomPokemonButton")
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
@@ -167,6 +170,7 @@ fun PokemonScreen(
                     onClick = onPokedexClicked,
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.background),
                     modifier = Modifier.fillMaxWidth()
+                        .testTag("pokedexButton")
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),
@@ -183,6 +187,7 @@ fun PokemonScreen(
                     onClick = onYourTeamClicked,
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.background),
                     modifier = Modifier.fillMaxWidth()
+                        .testTag("yourTeamButton")
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.pokeball_pokemon_svgrepo_com),

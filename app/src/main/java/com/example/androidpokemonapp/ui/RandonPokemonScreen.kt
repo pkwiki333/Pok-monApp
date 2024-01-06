@@ -12,6 +12,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidpokemonapp.R
@@ -41,19 +42,22 @@ fun RandomPokemonScreen(
             .padding(padding)
     ) {
         when (randomPokemonApiState) {
-            is RandomPokemonApiState.Loading -> GifImage()
+            is RandomPokemonApiState.Loading -> GifImage(modifier = Modifier.testTag("PikachuGif"))
             is RandomPokemonApiState.Error -> {
                 Column {
                     Image(
                         painter = painterResource(id = R.drawable.psyduck_logo_c81917330c_seeklogo_com),
-                        contentDescription = "ErrorPagePsyduck"
+                        contentDescription = "ErrorPagePsyduck",
+                        modifier = Modifier.testTag("errorPsyduck")
                     )
-                    Text(text = "Laden mislukt")
+                    Text(text = "Laden mislukt", modifier = Modifier.testTag("ladenmislukttekst"))
                 }
             }
+
             is RandomPokemonApiState.Success -> RandomPokemonCardInhoud(
                 pokemon = (randomPokemonApiState as RandomPokemonApiState.Success).pokemonDetail,
             )
+
         }
     }
 }

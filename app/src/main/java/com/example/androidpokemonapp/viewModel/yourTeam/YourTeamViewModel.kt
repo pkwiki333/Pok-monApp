@@ -41,7 +41,7 @@ class YourTeamViewModel(private val pokemonRepository: PokemonRepository): ViewM
     /**
      * Haalt de gegevens van Pokemon op van jouw team.
      */
-    private fun fetchYourPokemon() {
+    fun fetchYourPokemon() {
         try {
             uiYourpokemonApiState =
                 pokemonRepository.getPokemonListDB()

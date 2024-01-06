@@ -1,5 +1,6 @@
 package com.example.androidpokemonapp.fake
 
+import com.example.androidpokemonapp.data.database.DbPokemonList
 import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.model.PokemonList
 import com.example.androidpokemonapp.network.responses.Ability
@@ -331,6 +332,16 @@ object FakeApiDataSource {
 
     fun getFakeDbPokemonList(): List<PokemonList> {
         return fakeDbPokemonList
+    }
+
+    fun getFakePokmeonListYourTeam() : List<DbPokemonList> {
+        return listOf(
+            DbPokemonList(
+                name = "Charizard", pokedexIndex = 3, isCatched = true
+            ), DbPokemonList(
+                name = "Butterfree", pokedexIndex = 12, isCatched = true
+            )
+        )
     }
 
 

@@ -9,6 +9,7 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
@@ -66,5 +67,10 @@ class FakeApiPokemonRepository(private val fakePokemonListDao: FakePokemonListDa
         pokemonFlow.tryEmit(pokemon)
     }
 
+    fun setPokemonInfoError(pokemonName: String, exception: Exception) {
+        val flow = flow<Pokemon> {
+            throw exception
+        }
+    }
 
 }

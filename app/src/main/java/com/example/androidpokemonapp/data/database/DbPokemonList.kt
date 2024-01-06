@@ -17,7 +17,7 @@ data class DbPokemonList
     @PrimaryKey
     val name: String,
     val pokedexIndex: Int,
-    val isCatched: Boolean = false
+    var isCatched: Boolean = false
 )
 
 /**

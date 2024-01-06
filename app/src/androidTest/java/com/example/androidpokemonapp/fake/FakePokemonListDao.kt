@@ -2,9 +2,6 @@ package com.example.androidpokemonapp.fake
 
 import com.example.androidpokemonapp.data.database.DbPokemonList
 import com.example.androidpokemonapp.data.database.PokemonListDao
-import com.example.androidpokemonapp.data.database.asDatabaseObject
-import com.example.androidpokemonapp.model.Pokemon
-import com.example.androidpokemonapp.model.PokemonList
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow

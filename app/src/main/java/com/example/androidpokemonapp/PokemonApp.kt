@@ -60,7 +60,7 @@ fun PokemonApp(
                 ) {
                     composable(ScreensEnum.PokemonScreen.name) {
                         PokemonScreen(
-                            onPokemonOfTheDayClicked = { navController.navigate(ScreensEnum.RandomPokemon.name) },
+                            onRandomPokemonClick = { navController.navigate(ScreensEnum.RandomPokemon.name) },
                             onPokedexClicked = { navController.navigate(ScreensEnum.PokedexScreen.name) },
                             onYourTeamClicked = { navController.navigate(ScreensEnum.YourTeamScreen.name) },
                         )

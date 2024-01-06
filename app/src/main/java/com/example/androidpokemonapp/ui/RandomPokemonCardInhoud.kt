@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
 import com.example.androidpokemonapp.R
@@ -55,6 +56,7 @@ fun RandomPokemonCardInhoud(
                 Text(
                     pokemon.name,
                     style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.testTag("PokemonName")
                 )
 
                 Text(
@@ -65,6 +67,7 @@ fun RandomPokemonCardInhoud(
                 Text(
                     pokemon.pokedexIndex.toString(),
                     style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.testTag("PokemonPokedexIndex")
                 )
             }
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
@@ -73,7 +76,7 @@ fun RandomPokemonCardInhoud(
                     "Types: ",
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                 )
-                Text(pokemon.types.joinToString(separator = ", "))
+                Text(pokemon.types.joinToString(separator = ", "), modifier = Modifier.testTag("PokemonTypes"))
             }
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
@@ -82,7 +85,7 @@ fun RandomPokemonCardInhoud(
                     "Abilities:",
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                 )
-                Text(pokemon.abilities.joinToString(separator = ", "))
+                Text(pokemon.abilities.joinToString(separator = ", "), modifier = Modifier.testTag("PokemonAbilities"))
             }
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
             Row {
@@ -91,7 +94,7 @@ fun RandomPokemonCardInhoud(
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                 )
                 Text(
-                    "${pokemon.height / 10}m"
+                    "${pokemon.height / 10}m", modifier = Modifier.testTag("PokemonHeight")
                 )
                 Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
                 Text(
@@ -100,7 +103,7 @@ fun RandomPokemonCardInhoud(
                     modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_small))
                 )
                 Text(
-                    "${pokemon.weight / 10}kg"
+                    "${pokemon.weight / 10}kg", modifier = Modifier.testTag("PokemonWeight")
                 )
             }
 
@@ -110,7 +113,7 @@ fun RandomPokemonCardInhoud(
                     "Moves: ",
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                 )
-                Text(pokemon.moves.joinToString(separator = ", "))
+                Text(pokemon.moves.joinToString(separator = ", "), modifier = Modifier.testTag("PokemonMoves"))
             }
 
         }
