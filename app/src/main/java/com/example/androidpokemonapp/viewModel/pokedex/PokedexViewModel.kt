@@ -1,10 +1,6 @@
-package com.example.androidpokemonapp.viewModel.Pokedex
+package com.example.androidpokemonapp.viewModel.pokedex
 
 import android.util.Log
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -12,16 +8,12 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.androidpokemonapp.PokemonApplication
 import com.example.androidpokemonapp.data.PokemonRepository
-import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.model.PokemonList
-import com.example.androidpokemonapp.viewModel.PokemonDetails.PokemonApiState
-import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonApiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -48,7 +40,6 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
     /**
      * Haalt de Pokemon-gegevens op van de repository.
      *
-     * @param offset De offset voor het ophalen van meer gegevens (optioneel).
      */
     fun fetchPokemons() {
         try {
@@ -83,9 +74,9 @@ class PokedexViewModel(private val pokemonRepository: PokemonRepository) : ViewM
 
         viewModelScope.launch {
             try {
-                var currentState = uipokemonListApiState.value
+                val currentState = uipokemonListApiState.value
                 if (currentState is PokemonListApiState.Success) {
-                    var pokemonList = currentState.pokemonList
+                    val pokemonList = currentState.pokemonList
 
                     if (isCatched) {
                         for (pokemon in pokemonList) {

@@ -2,9 +2,7 @@
     <string name="app_name">AndroidPokemonApp</string>
     <string name="RandomPokemon">Random Pokémon</string>
     <string name="pokedex">Pokédex</string>
-    <string name="EmptyTitle" />
     <string name="your_team">Your team</string>
     <string name="main_menu">Main menu</string>
     <string name="pokemon_details">pokemon details</string>
-    <string name="get_random_pok_mon">Get Random Pokémon</string>
 </resources>

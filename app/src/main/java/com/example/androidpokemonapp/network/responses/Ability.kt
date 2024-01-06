@@ -9,12 +9,12 @@ import kotlinx.serialization.Serializable
  * responsgegevens van de Pokémon API. Het bevat details over een specifieke vaardigheid van een Pokémon.
  *
  * @property ability Een genest object van type [AbilityX] dat de daadwerkelijke vaardigheid beschrijft.
- * @property is_hidden Een boolean die aangeeft of de vaardigheid een verborgen vaardigheid is.
+ * @property isHidden Een boolean die aangeeft of de vaardigheid een verborgen vaardigheid is.
  * @property slot Een integer die de specifieke slot positie van deze vaardigheid op een Pokémon aangeeft.
  */
 @Serializable
 data class Ability(
     val ability: AbilityX,
-    val is_hidden: Boolean,
+    val isHidden: Boolean,
     val slot: Int
 )

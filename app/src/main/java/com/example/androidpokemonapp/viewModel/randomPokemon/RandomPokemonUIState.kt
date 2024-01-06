@@ -1,7 +1,6 @@
-package com.example.androidpokemonapp.viewModel.RandomPokemon
+package com.example.androidpokemonapp.viewModel.randomPokemon
 
 import com.example.androidpokemonapp.model.Pokemon
-import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Een interface die de verschillende toestanden van het ophalen van willekeurige Pokemon-details vertegenwoordigt.

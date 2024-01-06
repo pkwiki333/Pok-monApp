@@ -1,9 +1,6 @@
-package com.example.androidpokemonapp.viewModel.PokemonDetails
+package com.example.androidpokemonapp.viewModel.pokemonDetails
 
 import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -12,8 +9,6 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.androidpokemonapp.PokemonApplication
 import com.example.androidpokemonapp.data.PokemonRepository
 import com.example.androidpokemonapp.model.Pokemon
-import com.example.androidpokemonapp.viewModel.Pokedex.PokemonListApiState
-import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonApiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -41,7 +36,6 @@ class PokemonDetailsViewModel(private val pokemonRepository: PokemonRepository, 
     /**
      * Initialiseert de ViewModel en haalt de details op voor de opgegeven Pokemon-naam.
      *
-     * @param name De naam van de Pokemon waarvan de details worden opgehaald.
      */
     init {
         getPokemonDetail(name)

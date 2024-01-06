@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId = "com.example.androidpokemonapp"
         minSdk = 23
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -71,12 +71,12 @@ dependencies {
     implementation ("io.coil-kt:coil-gif:2.4.0")
 
 
-val room_version = "2.5.0"
-    implementation("androidx.room:room-runtime:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
-    ksp("androidx.room:room-compiler:$room_version")
-    testImplementation("androidx.room:room-testing:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
+val roomversion = "2.5.0"
+    implementation("androidx.room:room-runtime:$roomversion")
+    implementation("androidx.room:room-ktx:$roomversion")
+    ksp("androidx.room:room-compiler:$roomversion")
+    testImplementation("androidx.room:room-testing:$roomversion")
+    annotationProcessor("androidx.room:room-compiler:$roomversion")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0")

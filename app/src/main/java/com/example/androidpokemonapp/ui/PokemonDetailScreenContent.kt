@@ -1,7 +1,6 @@
 package com.example.androidpokemonapp.ui
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,12 +23,10 @@ import com.example.androidpokemonapp.model.Pokemon
 /**
  * Een composable functie voor het weergeven van gedetailleerde informatie over een Pokémon.
  *
- * @param padding De paddingwaarden voor de layout.
  * @param pokemon De Pokémon waarvan de details worden weergegeven.
  */
 @Composable
-fun pokemonDetailScreenContent(
-    padding: PaddingValues,
+fun PokemonDetailScreenContent(
     pokemon: Pokemon,
 ) {
 
@@ -68,13 +65,14 @@ fun pokemonDetailScreenContent(
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
             Row {
                 Text("Types: ", style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold))
-                Text("${pokemon.types.joinToString(separator = ", ")}")
+                Text(pokemon.types.joinToString(separator = ", "))
+
             }
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
             Row {
                 Text("Abilities:", style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold))
-                Text("${pokemon.abilities.joinToString(separator = ", ")}")
+                Text(pokemon.abilities.joinToString(separator = ", "))
             }
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
             Row {
@@ -96,7 +94,7 @@ fun pokemonDetailScreenContent(
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
             Row {
                 Text("Moves: ", style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold))
-                Text("${pokemon.moves.joinToString(separator = ", ")}")
+                Text(pokemon.moves.joinToString(separator = ", "))
             }
 
         }

@@ -54,7 +54,7 @@ enum class ScreensEnum(@StringRes val title: Int) {
          * @return The base screen as a [ScreensEnum] value.
          */
         fun getBaseRoute(route: String?): ScreensEnum {
-            val baseRoute = route?.substringBefore("/") ?: ScreensEnum.PokemonScreen.name
+            val baseRoute = route?.substringBefore("/") ?: PokemonScreen.name
 
             return ScreensEnum.values().find { it.name == baseRoute } ?: PokemonScreen
         }

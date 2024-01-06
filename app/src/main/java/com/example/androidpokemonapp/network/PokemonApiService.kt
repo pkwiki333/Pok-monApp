@@ -1,15 +1,12 @@
 package com.example.androidpokemonapp.network
 
-import android.util.Log
-import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.network.responses.ApiPokemon
 import com.example.androidpokemonapp.network.responses.ApiPokemonList
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import java.io.IOException
+
 
 /**
  * Interface die communicatie met de Pokémon API definieert om Pokémon-gerelateerde gegevens op te halen.

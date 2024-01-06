@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -17,12 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.model.Pokemon
-import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonViewModel
-import java.io.File
 
 /**
  * Toont een kaart met gedetailleerde informatie over een willekeurige Pokémon.
@@ -32,12 +28,10 @@ import java.io.File
  * De kaart kan verticaal gescrold worden als de content langer is dan het scherm.
  *
  * @param pokemon De Pokémon entiteit met de gegevens die getoond moeten worden.
- * @param randomPokemonViewModel ViewModel die wordt gebruikt voor het beheren van de state en events.
  */
 @Composable
 fun RandomPokemonCardInhoud(
     pokemon: Pokemon,
-    randomPokemonViewModel: RandomPokemonViewModel,
 ) {
     Card(
         modifier = Modifier
@@ -79,7 +73,7 @@ fun RandomPokemonCardInhoud(
                     "Types: ",
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                 )
-                Text("${pokemon.types.joinToString(separator = ", ")}")
+                Text(pokemon.types.joinToString(separator = ", "))
             }
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
@@ -88,7 +82,7 @@ fun RandomPokemonCardInhoud(
                     "Abilities:",
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                 )
-                Text("${pokemon.abilities.joinToString(separator = ", ")}")
+                Text(pokemon.abilities.joinToString(separator = ", "))
             }
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
             Row {
@@ -116,7 +110,7 @@ fun RandomPokemonCardInhoud(
                     "Moves: ",
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                 )
-                Text("${pokemon.moves.joinToString(separator = ", ")}")
+                Text(pokemon.moves.joinToString(separator = ", "))
             }
 
         }

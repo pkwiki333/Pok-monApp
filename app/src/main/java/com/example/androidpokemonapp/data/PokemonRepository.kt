@@ -1,6 +1,5 @@
 package com.example.androidpokemonapp.data
 
-import android.util.Log
 import com.example.androidpokemonapp.data.database.DbPokemonList
 import com.example.androidpokemonapp.data.database.PokemonDao
 import com.example.androidpokemonapp.data.database.PokemonListDao

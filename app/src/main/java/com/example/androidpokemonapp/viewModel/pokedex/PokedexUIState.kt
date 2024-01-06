@@ -1,6 +1,5 @@
-package com.example.androidpokemonapp.viewModel.Pokedex
+package com.example.androidpokemonapp.viewModel.pokedex
 
-import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.model.PokemonList
 
 /**

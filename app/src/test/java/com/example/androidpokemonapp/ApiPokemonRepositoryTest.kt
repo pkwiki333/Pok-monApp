@@ -1,23 +1,17 @@
 package com.example.androidpokemonapp
 
-import android.util.Log
-import com.example.androidpokemonapp.data.PokemonRepositoryImpl
+
 import com.example.androidpokemonapp.data.database.asDatabaseObject
 import com.example.androidpokemonapp.data.database.asDomainObject
 import com.example.androidpokemonapp.fake.FakeApiDataSource
 import com.example.androidpokemonapp.fake.FakeApiPokemonRepository
-import com.example.androidpokemonapp.fake.FakePokemonDao
-import com.example.androidpokemonapp.fake.FakePokemonListDao
-import com.example.androidpokemonapp.fake.FakeapiPokemonService
-import com.example.androidpokemonapp.model.PokemonList
 import com.example.androidpokemonapp.network.responses.asDomainObject
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-import org.mockito.kotlin.times
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.mockito.kotlin.verify
+
 
 
 class ApiPokemonRepositoryTest {
@@ -62,7 +56,7 @@ class ApiPokemonRepositoryTest {
         assertEquals(expectedResults, actualResults)
     }
 
-   /* @Test
+   @Test
     fun dBPokemonRepository_updateIsCatched_verifyPokemonisCatchedUpdate() = runTest {
 
         repository.updateCatchedStatus("Bulbasaur", true)
@@ -70,7 +64,7 @@ class ApiPokemonRepositoryTest {
         val actualResult = repository.getPokemonList().first().find { it.name == "Bulbasaur" }?.isCatched
 
         assertEquals(true, actualResult)
-    }*/
+    }
 }
 
 

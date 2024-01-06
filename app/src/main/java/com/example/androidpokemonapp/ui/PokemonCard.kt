@@ -1,3 +1,5 @@
+package com.example.androidpokemonapp.ui
+
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -22,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.model.PokemonList
 
@@ -36,7 +37,6 @@ import com.example.androidpokemonapp.model.PokemonList
 @Composable
 fun PokemonCard(
     pokemon: PokemonList,
-    yourTeamList: List<PokemonList>,
     onPokemonClicked: (String) -> Unit,
     onPokemonCatched: (PokemonList) -> Unit,
 ) {
@@ -65,7 +65,7 @@ fun PokemonCard(
 
                 Icon(Icons.Filled.Info, "Info")
             }
-            if (isCatched == false) {
+            if (!isCatched) {
                 IconButton(onClick = { onPokemonCatched(pokemon)
                     //onPokemonCatchDb(pokemon)
                     isCatched = true

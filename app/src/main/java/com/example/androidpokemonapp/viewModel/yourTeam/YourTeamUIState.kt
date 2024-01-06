@@ -1,7 +1,5 @@
-package com.example.androidpokemonapp.viewModel.YourTeam
+package com.example.androidpokemonapp.viewModel.yourTeam
 
-import com.example.androidpokemonapp.model.Pokemon
-import com.example.androidpokemonapp.model.PokemonDataDC
 import com.example.androidpokemonapp.model.PokemonList
 
 /**

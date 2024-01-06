@@ -8,12 +8,12 @@ import kotlinx.serialization.Serializable
  * samen met informatie over de gameversie zelf. De klasse is gemarkeerd als Serializable voor
  * compatibiliteit met Kotlinx Serialization.
  *
- * @property game_index De unieke index van de Pokémon in de specifieke gameversie.
+ * @property gameIndex De unieke index van de Pokémon in de specifieke gameversie.
  * @property version Een object van de klasse Version, die informatie over de gameversie bevat.
  */
 
 @Serializable
 data class GameIndice(
-    val game_index: Int,
+    val gameIndex: Int,
     val version: Version
 )

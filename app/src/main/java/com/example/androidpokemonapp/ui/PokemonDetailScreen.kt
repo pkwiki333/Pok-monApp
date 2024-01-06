@@ -16,9 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidpokemonapp.R
-import com.example.androidpokemonapp.viewModel.Pokedex.PokemonListApiState
-import com.example.androidpokemonapp.viewModel.PokemonDetails.PokemonApiState
-import com.example.androidpokemonapp.viewModel.PokemonDetails.PokemonDetailsViewModel
+import com.example.androidpokemonapp.viewModel.pokemonDetails.PokemonApiState
+import com.example.androidpokemonapp.viewModel.pokemonDetails.PokemonDetailsViewModel
 
 /**
  * Een composable functie voor het weergeven van gedetailleerde informatie over een Pokémon.
@@ -28,7 +27,7 @@ import com.example.androidpokemonapp.viewModel.PokemonDetails.PokemonDetailsView
  * @param pokemonDetailsViewModel Het ViewModel voor het ophalen van Pokémon-details.
  */
 @Composable
-fun pokemonDetailScreen(
+fun PokemonDetailScreen(
     name: String,
     padding: PaddingValues,
     pokemonDetailsViewModel: PokemonDetailsViewModel = viewModel(factory = PokemonDetailsViewModel.Factory(name = name))
@@ -58,8 +57,7 @@ fun pokemonDetailScreen(
                 }
             }
             is PokemonApiState.Success -> {
-                    pokemonDetailScreenContent(
-                        padding = padding,
+                    PokemonDetailScreenContent(
                         pokemon = (uiPokemonApiState as PokemonApiState.Success).pokemon
                     )
             }

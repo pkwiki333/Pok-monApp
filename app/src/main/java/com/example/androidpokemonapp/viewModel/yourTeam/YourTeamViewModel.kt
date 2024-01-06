@@ -1,24 +1,18 @@
 
-package com.example.androidpokemonapp.viewModel.YourTeam
+package com.example.androidpokemonapp.viewModel.yourTeam
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.androidpokemonapp.PokemonApplication
 import com.example.androidpokemonapp.data.PokemonRepository
-import com.example.androidpokemonapp.model.PokemonList
-import com.example.androidpokemonapp.viewModel.Pokedex.PokemonListApiState
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -78,9 +72,9 @@ class YourTeamViewModel(private val pokemonRepository: PokemonRepository): ViewM
 
         viewModelScope.launch {
             try {
-                var currentState = uiYourpokemonApiState.value
+                val currentState = uiYourpokemonApiState.value
                 if(currentState is YourPokemonApiState.Success) {
-                    var pokemonList = currentState.pokemonDbList
+                    val pokemonList = currentState.pokemonDbList
 
                     if (isCatched) {
                         pokemonRepository.updateCatchedStatus(name, false)

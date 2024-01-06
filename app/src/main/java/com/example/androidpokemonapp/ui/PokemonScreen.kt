@@ -1,12 +1,11 @@
 package com.example.androidpokemonapp.ui
 
-import android.annotation.SuppressLint
+
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,36 +16,27 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.example.androidpokemonapp.R
 
 /**
  * Een composable functie voor het hoofdscherm van de Pokémon-applicatie.
  *
- * @param padding De paddingwaarden voor de layout.
  * @param onPokemonOfTheDayClicked Een callback om te reageren wanneer "Random Pokémon" wordt geklikt.
  * @param onPokedexClicked Een callback om te reageren wanneer "Pokédex" wordt geklikt.
  * @param onYourTeamClicked Een callback om te reageren wanneer "Your team" wordt geklikt.
  */
 @Composable
 fun PokemonScreen(
-    padding: PaddingValues,
     onPokemonOfTheDayClicked: () -> Unit,
     onPokedexClicked: () -> Unit,
     onYourTeamClicked: () -> Unit
@@ -83,7 +73,7 @@ fun PokemonScreen(
                 Image(
                     painter = painterResource(id = R.drawable.pokemon_23),
                     contentDescription = "Pokémon logo",
-                    modifier = Modifier.size(dimensionResource(id = R.dimen.logo_size))
+                   modifier = Modifier.size(dimensionResource(id = R.dimen.logo_size))
                 )
             }
         }

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -16,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidpokemonapp.R
-import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonApiState
-import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonViewModel
+import com.example.androidpokemonapp.viewModel.randomPokemon.RandomPokemonApiState
+import com.example.androidpokemonapp.viewModel.randomPokemon.RandomPokemonViewModel
 
 /**
  * Een composable functie voor het weergeven van een scherm met willekeurige Pokémon-details.
@@ -27,7 +26,8 @@ import com.example.androidpokemonapp.viewModel.RandomPokemon.RandomPokemonViewMo
  */
 @Composable
 fun RandomPokemonScreen(
-    padding: PaddingValues, randomPokemonViewModel: RandomPokemonViewModel =
+    padding: PaddingValues,
+    randomPokemonViewModel: RandomPokemonViewModel =
         viewModel(factory = RandomPokemonViewModel.Factory)
 ) {
 
@@ -53,7 +53,6 @@ fun RandomPokemonScreen(
             }
             is RandomPokemonApiState.Success -> RandomPokemonCardInhoud(
                 pokemon = (randomPokemonApiState as RandomPokemonApiState.Success).pokemonDetail,
-                randomPokemonViewModel = randomPokemonViewModel
             )
         }
     }

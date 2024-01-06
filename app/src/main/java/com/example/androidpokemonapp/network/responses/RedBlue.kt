@@ -6,18 +6,18 @@ package com.example.androidpokemonapp.network.responses
  * Deze klasse slaat verschillende afbeeldingen op die gebruikt worden voor de weergave van Pokémon in de klassieke Red en Blue versies.
  * Het omvat zowel gekleurde als grijstinten afbeeldingen, evenals transparante versies van zowel de voor- als achterkant weergaven.
  *
- * @property back_default De standaard achterkant weergave van de Pokémon in Red/Blue-stijl.
- * @property back_gray De achterkant weergave in grijstinten van de Pokémon in Red/Blue-stijl.
- * @property back_transparent De transparante achterkant weergave van de Pokémon in Red/Blue-stijl.
- * @property front_default De standaard voorkant weergave van de Pokémon in Red/Blue-stijl.
- * @property front_gray De voorkant weergave in grijstinten van de Pokémon in Red/Blue-stijl.
- * @property front_transparent De transparante voorkant weergave van de Pokémon in Red/Blue-stijl.
+ * @property backDefault De standaard achterkant weergave van de Pokémon in Red/Blue-stijl.
+ * @property backGray De achterkant weergave in grijstinten van de Pokémon in Red/Blue-stijl.
+ * @property backTransparent De transparante achterkant weergave van de Pokémon in Red/Blue-stijl.
+ * @property frontDefault De standaard voorkant weergave van de Pokémon in Red/Blue-stijl.
+ * @property frontGray De voorkant weergave in grijstinten van de Pokémon in Red/Blue-stijl.
+ * @property frontTransparent De transparante voorkant weergave van de Pokémon in Red/Blue-stijl.
  */
 data class RedBlue(
-    val back_default: String,
-    val back_gray: String,
-    val back_transparent: String,
-    val front_default: String,
-    val front_gray: String,
-    val front_transparent: String
+    val backDefault: String,
+    val backGray: String,
+    val backTransparent: String,
+    val frontDefault: String,
+    val frontGray: String,
+    val frontTransparent: String
 )

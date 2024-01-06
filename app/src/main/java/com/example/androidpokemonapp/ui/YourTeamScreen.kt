@@ -16,8 +16,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.model.PokemonList
-import com.example.androidpokemonapp.viewModel.YourTeam.YourPokemonApiState
-import com.example.androidpokemonapp.viewModel.YourTeam.YourTeamViewModel
+import com.example.androidpokemonapp.viewModel.yourTeam.YourPokemonApiState
+import com.example.androidpokemonapp.viewModel.yourTeam.YourTeamViewModel
 
 /**
  * Composable voor het weergeven van het "Your Team" scherm met een lijst van je team van Pokemon.

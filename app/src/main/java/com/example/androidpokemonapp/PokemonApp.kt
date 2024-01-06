@@ -6,9 +6,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.androidpokemonapp.ui.PokemonScreen
 import com.example.androidpokemonapp.ui.ScreensEnum
@@ -22,7 +19,7 @@ import androidx.navigation.navArgument
 import com.example.androidpokemonapp.ui.PokedexScreen
 import com.example.androidpokemonapp.ui.PokemonTopBar
 import com.example.androidpokemonapp.ui.RandomPokemonScreen
-import com.example.androidpokemonapp.ui.pokemonDetailScreen
+import com.example.androidpokemonapp.ui.PokemonDetailScreen
 
 import com.example.androidpokemonapp.ui.YourTeamScreen
 
@@ -63,7 +60,6 @@ fun PokemonApp(
                 ) {
                     composable(ScreensEnum.PokemonScreen.name) {
                         PokemonScreen(
-                            padding = innerPadding,
                             onPokemonOfTheDayClicked = { navController.navigate(ScreensEnum.RandomPokemon.name) },
                             onPokedexClicked = { navController.navigate(ScreensEnum.PokedexScreen.name) },
                             onYourTeamClicked = { navController.navigate(ScreensEnum.YourTeamScreen.name) },
@@ -90,7 +86,7 @@ fun PokemonApp(
                         ) { backStackEntry ->
                             val pokemonName = backStackEntry.arguments?.getString("pokemonName")
                                 ?: "Naam niet gevonden"
-                            pokemonDetailScreen(name = pokemonName, padding = innerPadding)
+                            PokemonDetailScreen(name = pokemonName, padding = innerPadding)
                         }
                     }
                 })

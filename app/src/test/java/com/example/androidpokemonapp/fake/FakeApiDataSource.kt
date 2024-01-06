@@ -1,6 +1,8 @@
 package com.example.androidpokemonapp.fake
 
 import com.example.androidpokemonapp.model.PokemonList
+import com.example.androidpokemonapp.network.responses.Ability
+import com.example.androidpokemonapp.network.responses.AbilityX
 import com.example.androidpokemonapp.network.responses.ApiPokemon
 import com.example.androidpokemonapp.network.responses.ApiPokemonList
 import com.example.androidpokemonapp.network.responses.Move
@@ -8,9 +10,9 @@ import com.example.androidpokemonapp.network.responses.MoveLearnMethod
 import com.example.androidpokemonapp.network.responses.MoveX
 import com.example.androidpokemonapp.network.responses.Result
 import com.example.androidpokemonapp.network.responses.Type
+import com.example.androidpokemonapp.network.responses.TypeX
 import com.example.androidpokemonapp.network.responses.VersionGroup
 import com.example.androidpokemonapp.network.responses.VersionGroupDetail
-import com.example.androidpokemonapp.network.responses.asDomainObject
 
 object FakeApiDataSource {
 
@@ -46,84 +48,82 @@ object FakeApiDataSource {
             types = listOf(
                 Type(
                     slot = 1,
-                    type = com.example.androidpokemonapp.network.responses.TypeX(
+                    type = TypeX(
                         name = "grass",
                         url = "https://pokeapi.co/api/v2/type/12/"
                     )
                 ),
                 Type(
                     slot = 2,
-                    type = com.example.androidpokemonapp.network.responses.TypeX(
+                    type = TypeX(
                         name = "poison",
                         url = "https://pokeapi.co/api/v2/type/4/"
                     )
                 )
             ),
             abilities = listOf(
-                com.example.androidpokemonapp.network.responses.Ability(
-                    ability = com.example.androidpokemonapp.network.responses.AbilityX(
+                Ability(
+                    ability = AbilityX(
                         name = "overgrow",
                         url = "https://pokeapi.co/api/v2/ability/65/"
                     ),
-                    is_hidden = false,
+                    isHidden = false,
                     slot = 1
-                ),
-                com.example.androidpokemonapp.network.responses.Ability(
-                    ability = com.example.androidpokemonapp.network.responses.AbilityX(
+                ), Ability(
+                    ability = AbilityX(
                         name = "chlorophyll",
                         url = "https://pokeapi.co/api/v2/ability/34/"
                     ),
-                    is_hidden = true,
+                    isHidden = true,
                     slot = 3
                 )
             ),
-            moves = listOf(
-                com.example.androidpokemonapp.network.responses.Move(
-                    move = com.example.androidpokemonapp.network.responses.MoveX(
+            moves = listOf(Move(
+                    move = MoveX(
                         name = "razor-wind",
                         url = "https://pokeapi.co/api/v2/move/13/"
                     ),
-                    version_group_details = listOf(
+                    versionGroupDetails = listOf(
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "gold-silver",
                                 url = "https://pokeapi.co/api/v2/version-group/3/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "crystal",
                                 url = "https://pokeapi.co/api/v2/version-group/4/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "ruby-sapphire",
                                 url = "https://pokeapi.co/api/v2/version-group/5/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "emerald",
                                 url = "https://pokeapi.co/api/v2/version-group/6/"
                             )
@@ -136,47 +136,47 @@ object FakeApiDataSource {
                         name = "swords-dance",
                         url = "https://pokeapi.co/api/v2/move/14/"
                     ),
-                    version_group_details = listOf(
+                    versionGroupDetails = listOf(
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "gold-silver",
                                 url = "https://pokeapi.co/api/v2/version-group/3/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "crystal",
                                 url = "https://pokeapi.co/api/v2/version-group/4/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "ruby-sapphire",
                                 url = "https://pokeapi.co/api/v2/version-group/5/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "emerald",
                                 url = "https://pokeapi.co/api/v2/version-group/6/"
                             )
@@ -194,84 +194,84 @@ object FakeApiDataSource {
             types = listOf(
                 Type(
                     slot = 1,
-                    type = com.example.androidpokemonapp.network.responses.TypeX(
+                    type = TypeX(
                         name = "grass",
                         url = "https://pokeapi.co/api/v2/type/12/"
                     )
                 ),
                 Type(
                     slot = 2,
-                    type = com.example.androidpokemonapp.network.responses.TypeX(
+                    type = TypeX(
                         name = "poison",
                         url = "https://pokeapi.co/api/v2/type/4/"
                     )
                 )
             ),
             abilities = listOf(
-                com.example.androidpokemonapp.network.responses.Ability(
-                    ability = com.example.androidpokemonapp.network.responses.AbilityX(
+                Ability(
+                    ability = AbilityX(
                         name = "overgrow",
                         url = "https://pokeapi.co/api/v2/ability/65/"
                     ),
-                    is_hidden = false,
+                    isHidden = false,
                     slot = 1
                 ),
-                com.example.androidpokemonapp.network.responses.Ability(
-                    ability = com.example.androidpokemonapp.network.responses.AbilityX(
+                Ability(
+                    ability = AbilityX(
                         name = "chlorophyll",
                         url = "https://pokeapi.co/api/v2/ability/34/"
                     ),
-                    is_hidden = true,
+                    isHidden = true,
                     slot = 3
                 )
             ),
             moves = listOf(
-                com.example.androidpokemonapp.network.responses.Move(
-                    move = com.example.androidpokemonapp.network.responses.MoveX(
+                Move(
+                    move = MoveX(
                         name = "razor-wind",
                         url = "https://pokeapi.co/api/v2/move/13/"
                     ),
-                    version_group_details = listOf(
+                    versionGroupDetails = listOf(
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "gold-silver",
                                 url = "https://pokeapi.co/api/v2/version-group/3/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "crystal",
                                 url = "https://pokeapi.co/api/v2/version-group/4/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "ruby-sapphire",
                                 url = "https://pokeapi.co/api/v2/version-group/5/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "emerald",
                                 url = "https://pokeapi.co/api/v2/version-group/6/"
                             )
@@ -284,47 +284,47 @@ object FakeApiDataSource {
                         name = "swords-dance",
                         url = "https://pokeapi.co/api/v2/move/14/"
                     ),
-                    version_group_details = listOf(
+                    versionGroupDetails = listOf(
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "gold-silver",
                                 url = "https://pokeapi.co/api/v2/version-group/3/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "crystal",
                                 url = "https://pokeapi.co/api/v2/version-group/4/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "ruby-sapphire",
                                 url = "https://pokeapi.co/api/v2/version-group/5/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "emerald",
                                 url = "https://pokeapi.co/api/v2/version-group/6/"
                             )
@@ -342,84 +342,84 @@ object FakeApiDataSource {
             types = listOf(
                 Type(
                     slot = 4,
-                    type = com.example.androidpokemonapp.network.responses.TypeX(
+                    type = TypeX(
                         name = "grass",
                         url = "https://pokeapi.co/api/v2/type/12/"
                     )
                 ),
                 Type(
                     slot = 2,
-                    type = com.example.androidpokemonapp.network.responses.TypeX(
+                    type = TypeX(
                         name = "poison",
                         url = "https://pokeapi.co/api/v2/type/4/"
                     )
                 )
             ),
             abilities = listOf(
-                com.example.androidpokemonapp.network.responses.Ability(
-                    ability = com.example.androidpokemonapp.network.responses.AbilityX(
+                Ability(
+                    ability = AbilityX(
                         name = "overgrow",
                         url = "https://pokeapi.co/api/v2/ability/65/"
                     ),
-                    is_hidden = false,
+                    isHidden = false,
                     slot = 1
                 ),
-                com.example.androidpokemonapp.network.responses.Ability(
-                    ability = com.example.androidpokemonapp.network.responses.AbilityX(
+                Ability(
+                    ability = AbilityX(
                         name = "chlorophyll",
                         url = "https://pokeapi.co/api/v2/ability/34/"
                     ),
-                    is_hidden = true,
+                    isHidden = true,
                     slot = 3
                 )
             ),
             moves = listOf(
-                com.example.androidpokemonapp.network.responses.Move(
-                    move = com.example.androidpokemonapp.network.responses.MoveX(
+                Move(
+                    move = MoveX(
                         name = "razor-wind",
                         url = "https://pokeapi.co/api/v2/move/13/"
                     ),
-                    version_group_details = listOf(
+                    versionGroupDetails = listOf(
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "gold-silver",
                                 url = "https://pokeapi.co/api/v2/version-group/3/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "crystal",
                                 url = "https://pokeapi.co/api/v2/version-group/4/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "ruby-sapphire",
                                 url = "https://pokeapi.co/api/v2/version-group/5/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "emerald",
                                 url = "https://pokeapi.co/api/v2/version-group/6/"
                             )
@@ -432,47 +432,47 @@ object FakeApiDataSource {
                         name = "swords-dance",
                         url = "https://pokeapi.co/api/v2/move/14/"
                     ),
-                    version_group_details = listOf(
+                    versionGroupDetails = listOf(
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "gold-silver",
                                 url = "https://pokeapi.co/api/v2/version-group/3/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "crystal",
                                 url = "https://pokeapi.co/api/v2/version-group/4/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "ruby-sapphire",
                                 url = "https://pokeapi.co/api/v2/version-group/5/"
                             )
                         ),
                         VersionGroupDetail(
-                            level_learned_at = 0,
-                            move_learn_method = MoveLearnMethod(
+                            levelLearnedAt = 0,
+                            moveLearnMethod = MoveLearnMethod(
                                 name = "egg",
                                 url = "https://pokeapi.co/api/v2/move-learn-method/2/"
                             ),
-                            version_group = VersionGroup(
+                            versionGroup = VersionGroup(
                                 name = "emerald",
                                 url = "https://pokeapi.co/api/v2/version-group/6/"
                             )
@@ -514,10 +514,6 @@ object FakeApiDataSource {
             isCatched = false
         )
     )
-
-    /*fun getFakePokemonListChangeIsCatched(): List<PokemonList> {
-        return fakePokemonListChangeIsCatched
-    }*/
 
 
     fun getFakePokemonListChangeIsCatched(): List<PokemonList> {

@@ -3,7 +3,7 @@ package com.example.androidpokemonapp.data.mockdata
 import com.example.androidpokemonapp.model.PokemonDataDC
 
 object PokemonData {
-    val sampleData = listOf(
+    private val sampleData = listOf(
         PokemonDataDC("Bulbasaur", "Grass, Poison", 1),
         PokemonDataDC("Charmander", "Fire", 2),
         PokemonDataDC("Pikachu", "Electric", 3),
@@ -21,5 +21,3 @@ object PokemonData {
         list
     }
 }
-
-//iets veranderd

@@ -1,4 +1,4 @@
-package com.example.androidpokemonapp.viewModel.PokemonDetails
+package com.example.androidpokemonapp.viewModel.pokemonDetails
 
 import com.example.androidpokemonapp.model.Pokemon
 
