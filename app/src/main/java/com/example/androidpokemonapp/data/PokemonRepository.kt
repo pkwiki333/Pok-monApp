@@ -75,7 +75,6 @@ interface PokemonRepository {
  * @property pokemonApiService Service voor het ophalen van gegevens van de externe Pokémon API.
  */
 class PokemonRepositoryImpl(
-    /*private val pokemonDao: PokemonDao,*/
     private val pokemonListDao: PokemonListDao,
     private val pokemonApiService: PokemonApiService
 ) : PokemonRepository {
