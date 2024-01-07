@@ -45,7 +45,7 @@ class RandomPokemonCardInhoudTest {
     }
 
     @Test
-    fun randomPokemonCardInhoud_displaysPokemonTypes() {
+    fun randomPokemonCardInhoud_geeftPokemonTypes() {
         composeTestRule.setContent {
             RandomPokemonCardInhoud(pokemon = testPokemon)
         }
@@ -53,7 +53,7 @@ class RandomPokemonCardInhoudTest {
     }
 
     @Test
-    fun randomPokemonCardInhoud_displaysPokemonAbilities() {
+    fun randomPokemonCardInhoud_geeftPokemonAbilities() {
         composeTestRule.setContent {
             RandomPokemonCardInhoud(pokemon = testPokemon)
         }
@@ -61,7 +61,7 @@ class RandomPokemonCardInhoudTest {
     }
 
     @Test
-    fun randomPokemonCardInhoud_displaysPokemonHeight() {
+    fun randomPokemonCardInhoud_geeftPokemonHeight() {
         composeTestRule.setContent {
             RandomPokemonCardInhoud(pokemon = testPokemon)
         }
@@ -69,14 +69,14 @@ class RandomPokemonCardInhoudTest {
     }
 
     @Test
-    fun randomPokemonCardInhoud_displaysPokemonWeight() {
+    fun randomPokemonCardInhoud_geeftPokemonWeight() {
         composeTestRule.setContent {
             RandomPokemonCardInhoud(pokemon = testPokemon)
         }
         composeTestRule.onNodeWithTag("PokemonWeight").assertIsDisplayed()
     }
     @Test
-    fun randomPokemonCardInhoud_displaysPokemonMoves() {
+    fun randomPokemonCardInhoud_geeftPokemonMoves() {
         composeTestRule.setContent {
             RandomPokemonCardInhoud(pokemon = testPokemon)
         }

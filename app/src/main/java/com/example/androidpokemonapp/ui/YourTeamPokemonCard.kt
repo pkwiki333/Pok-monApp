@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.model.PokemonList
@@ -58,6 +59,7 @@ fun YourTeamPokemonCard(
             modifier = Modifier
                 .padding(dimensionResource(id = R.dimen.padding_small))
                 .fillMaxWidth()
+                .testTag("PikachuCard")
         ) {
             Row(
                 modifier = Modifier
@@ -70,10 +72,10 @@ fun YourTeamPokemonCard(
                         .weight(1f)
                         .padding(start = dimensionResource(id = R.dimen.padding_medium))
                 ) {
-                    Text(pokemon.name, style = MaterialTheme.typography.titleMedium)
-                    Text("Pokédex Index: ${pokemon.pokedexIndex}")
+                    Text(pokemon.name, style = MaterialTheme.typography.titleMedium, modifier = Modifier.testTag("name"))
+                    Text("Pokédex Index: ${pokemon.pokedexIndex}", modifier = Modifier.testTag("pokedexIndex"))
                 }
-                IconButton(onClick = { onPokemonClicked(pokemon.name) }) {
+                IconButton(onClick = { onPokemonClicked(pokemon.name) }, modifier = Modifier.testTag("onPokemonClickedButton")) {
 
                     Icon(Icons.Filled.Info, "Info")
                 }
@@ -83,7 +85,8 @@ fun YourTeamPokemonCard(
                         Toast.makeText(context,"${pokemon.name} is released", Toast.LENGTH_SHORT).show()
                     }, colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.error
-                    )
+                    ),
+                    modifier = Modifier.testTag("Release")
                 ) {
                     Text("Release")
                 }

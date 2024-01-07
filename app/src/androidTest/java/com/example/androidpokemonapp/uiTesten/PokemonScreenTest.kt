@@ -1,14 +1,10 @@
 package com.example.androidpokemonapp.uiTesten
 
-import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.androidpokemonapp.MainActivity
 import com.example.androidpokemonapp.ui.PokemonScreen
-import com.example.androidpokemonapp.ui.ScreensEnum
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -24,7 +20,7 @@ class PokemonScreenTest {
     val composeTestRule =createComposeRule()
 
     @Test
-    fun pokemonScreen_randomPokemonButton_isDisplayed() {
+    fun pokemonScreen_randomPokemonButton_getoond() {
         composeTestRule.setContent {
             PokemonScreen(
                 onRandomPokemonClick = { randomPokemon = true },
@@ -40,7 +36,7 @@ class PokemonScreenTest {
     }
 
     @Test
-    fun pokemonScreen_pokedexButton_isDisplayed() {
+    fun pokemonScreen_pokedexButton_getoond() {
         composeTestRule.setContent {
             PokemonScreen(
                 onRandomPokemonClick = { randomPokemon = true },
@@ -57,7 +53,7 @@ class PokemonScreenTest {
     }
 
     @Test
-    fun pokemonScreen_yourTeamButton_isDisplayed() {
+    fun pokemonScreen_yourTeamButton_getoond() {
         composeTestRule.setContent {
             PokemonScreen(
                 onRandomPokemonClick = { randomPokemon = true },

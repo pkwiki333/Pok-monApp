@@ -20,7 +20,7 @@ class PokemonCardTest {
     var pokemonCatched = false
 
     @Test
-    fun pokemonCard_displaysPokemonName() {
+    fun pokemonCard_geeftPokemonName() {
         val testPokemon = PokemonList(name = "Pikachu", pokedexIndex = 25, isCatched = false)
 
         composeTestRule.setContent {
@@ -36,7 +36,7 @@ class PokemonCardTest {
     }
 
     @Test
-    fun pokemonCard_displaysPokemonPokedexIndex() {
+    fun pokemonCard_geeftPokemonPokedexIndex() {
         val testPokemon = PokemonList(name = "Pikachu", pokedexIndex = 25, isCatched = false)
 
         composeTestRule.setContent {
@@ -51,7 +51,7 @@ class PokemonCardTest {
         composeTestRule.onNodeWithTag("pokedexIndex").assertIsDisplayed()
     }
     @Test
-    fun pokemonCard_displaysPokemonPokedexButtonInfoDisplayed() {
+    fun pokemonCard_geeftPokemonPokedexButtonInfo() {
         val testPokemon = PokemonList(name = "Pikachu", pokedexIndex = 25, isCatched = false)
 
         composeTestRule.setContent {
@@ -66,7 +66,7 @@ class PokemonCardTest {
         composeTestRule.onNodeWithTag("onPokemonClickedButton").assertIsDisplayed()
     }
     @Test
-    fun pokemonCard_displaysPokemonPokedexButtonInfoClicked() {
+    fun pokemonCard_PokemonPokedexButtonInfoClicked() {
         val testPokemon = PokemonList(name = "Pikachu", pokedexIndex = 25, isCatched = false)
 
         composeTestRule.setContent {
@@ -82,7 +82,7 @@ class PokemonCardTest {
         assertTrue(pokemonClicked)
     }
     @Test
-    fun pokemonCard_displaysPokemonPokedexButtonCatchIsCatchedFalseDisplayed() {
+    fun pokemonCard_geeftPokemonPokedexButtonCatchIsCatchedFalse() {
         val testPokemon = PokemonList(name = "Pikachu", pokedexIndex = 25, isCatched = false)
 
         composeTestRule.setContent {
@@ -98,7 +98,7 @@ class PokemonCardTest {
     }
 
     @Test
-    fun pokemonCard_displaysPokemonPokedexButtonisCatchedFalseClicked() {
+    fun pokemonCard_PokemonPokedexButtonisCatchedFalseClicked() {
         val testPokemon = PokemonList(name = "Pikachu", pokedexIndex = 25, isCatched = false)
 
         composeTestRule.setContent {
@@ -115,7 +115,7 @@ class PokemonCardTest {
     }
 
     @Test
-    fun pokemonCard_displaysPokemonPokedexButtonCatchIsCatchedTrueDisplayed() {
+    fun pokemonCard_geeftPokemonPokedexButtonCatchIsCatchedTrue() {
         val testPokemon = PokemonList(name = "Pikachu", pokedexIndex = 25, isCatched = true)
 
         composeTestRule.setContent {

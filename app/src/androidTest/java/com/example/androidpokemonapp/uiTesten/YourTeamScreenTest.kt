@@ -1,68 +1,63 @@
 package com.example.androidpokemonapp.uiTesten
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import com.example.androidpokemonapp.fake.FakeApiPokemonRepository
-import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.model.PokemonList
 import com.example.androidpokemonapp.ui.PokedexScreen
-import com.example.androidpokemonapp.ui.PokemonCard
-import com.example.androidpokemonapp.viewModel.pokedex.PokedexViewModel
+import com.example.androidpokemonapp.ui.YourTeamScreen
 import com.example.androidpokemonapp.viewModel.pokedex.PokemonListApiState
-import com.example.androidpokemonapp.viewModel.randomPokemon.RandomPokemonApiState
+import com.example.androidpokemonapp.viewModel.yourTeam.YourPokemonApiState
+import com.example.androidpokemonapp.viewModel.yourTeam.YourTeamViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class PokedexScreenTest {
+class YourTeamScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
-    lateinit var viewModel: PokedexViewModel
+    lateinit var viewModel: YourTeamViewModel
     lateinit var repository: FakeApiPokemonRepository
-    var pokedexClicked = false
+    var onPokemonClicked = false
 
     @Before
     fun setup() {
         repository = FakeApiPokemonRepository()
-        viewModel = PokedexViewModel(repository)
+        viewModel = YourTeamViewModel(repository)
     }
 
+
     @Test
-    fun pokedexScreen_loadingState_geeftLoadingPikachuGif() {
+    fun yourTeamScreen_loadingState_geeftLoadingIndicator() {
         viewModel.apply {
-            uipokemonListApiState = MutableStateFlow(PokemonListApiState.Loading)
+            uiYourpokemonApiState = MutableStateFlow(YourPokemonApiState.Loading)
         }
 
         composeTestRule.setContent {
-            PokedexScreen(
-                padding = PaddingValues(),
-                onPokemonClicked = { pokedexClicked = true },
-                pokedexViewModel = viewModel
-            )
+            YourTeamScreen(onPokemonClicked = {onPokemonClicked = true}, padding = PaddingValues())
         }
 
         composeTestRule.onNodeWithTag("PikachuGif").assertIsDisplayed()
     }
 
     @Test
-    fun pokedexScreen_errorState_geeftErrorPage() {
+    fun yourTeamScreen_errorState_geeftErrorPage() {
         viewModel.apply {
-            uipokemonListApiState = MutableStateFlow(PokemonListApiState.Error)
+            uiYourpokemonApiState = MutableStateFlow(YourPokemonApiState.Error)
         }
 
         composeTestRule.setContent {
-            PokedexScreen(
+            YourTeamScreen(
                 padding = PaddingValues(),
-                onPokemonClicked = { pokedexClicked = true },
-                pokedexViewModel = viewModel
+                onPokemonClicked = { onPokemonClicked = true },
+                yourTeamViewModel = viewModel
             )
         }
-
         composeTestRule.onNodeWithTag("errorPsyduck").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("errorText").assertIsDisplayed()
     }
 }

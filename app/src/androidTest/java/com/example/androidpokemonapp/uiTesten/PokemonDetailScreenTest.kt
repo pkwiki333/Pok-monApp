@@ -7,10 +7,12 @@ import androidx.compose.ui.test.onNodeWithTag
 import com.example.androidpokemonapp.fake.FakeApiPokemonRepository
 import com.example.androidpokemonapp.ui.PokemonDetailScreen
 import com.example.androidpokemonapp.ui.RandomPokemonScreen
+import com.example.androidpokemonapp.ui.YourTeamScreen
 import com.example.androidpokemonapp.viewModel.pokemonDetails.PokemonApiState
 import com.example.androidpokemonapp.viewModel.pokemonDetails.PokemonDetailsViewModel
 import com.example.androidpokemonapp.viewModel.randomPokemon.RandomPokemonApiState
 import com.example.androidpokemonapp.viewModel.randomPokemon.RandomPokemonViewModel
+import com.example.androidpokemonapp.viewModel.yourTeam.YourPokemonApiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
 import org.junit.Rule
@@ -28,7 +30,7 @@ class PokemonDetailScreenTest {
         viewModel = PokemonDetailsViewModel(repository, "Pikachu")
     }
     @Test
-    fun randomPokemonScreen_loadingState_displaysGifImage() {
+    fun pokemonDetailScreen_loadingState_geeftGifImage() {
         viewModel.apply {
             uipokemonApiState = MutableStateFlow(PokemonApiState.Loading)
         }
@@ -41,15 +43,21 @@ class PokemonDetailScreenTest {
     }
 
     @Test
-    fun randomPokemonScreen_errorState_displaysPsyduckImageEnText() {
+    fun pokemonDetailScreen_errorState_geeftErrorPage() {
         viewModel.apply {
             uipokemonApiState = MutableStateFlow(PokemonApiState.Error)
         }
 
         composeTestRule.setContent {
-            PokemonDetailScreen(name = "Pikachu", padding = PaddingValues())
+            PokemonDetailScreen(
+                name = "Pikachu",
+                padding = PaddingValues(),
+                pokemonDetailsViewModel = viewModel
+            )
         }
-
         composeTestRule.onNodeWithTag("errorPsyduck").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("errorText").assertIsDisplayed()
+
+
     }
 }

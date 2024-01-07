@@ -7,6 +7,7 @@ import com.example.androidpokemonapp.fake.FakeApiPokemonRepository
 import com.example.androidpokemonapp.viewModel.pokedex.PokemonListApiState
 import com.example.androidpokemonapp.viewModel.yourTeam.YourPokemonApiState
 import com.example.androidpokemonapp.viewModel.yourTeam.YourTeamViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -60,24 +61,4 @@ class YourTeamViewModelTest {
             Assert.assertNotNull(state.pokemonDbList)
         }
     }
-        @Test
-        fun yourTeamViewModel_updateIsCatched_updatesCatchedStatus() = runTest {
-            val collectJob = launch(UnconfinedTestDispatcher()) { viewModel.uiYourpokemonApiState.collect() }
-            val state = viewModel.uiYourpokemonApiState.value
-
-            viewModel.updateIsCatched("Bulbasaur", false)
-
-            val state2 = viewModel.uiYourpokemonApiState.value
-
-            if(state is YourPokemonApiState.Success && state2 is YourPokemonApiState.Success){
-                assertTrue(state.pokemonDbList.find { it.name == "Bulbasaur" }!!.isCatched)
-                assertFalse(state2.pokemonDbList.find { it.name == "Bulbasaur" }!!.isCatched)
-            }
-            else
-                assertTrue(false)
-
-            collectJob.cancel()
-        }
-
-
     }

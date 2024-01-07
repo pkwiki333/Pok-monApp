@@ -346,8 +346,9 @@ object FakeApiDataSource {
 
 
 
-    fun getFakePokemonListBubla(): PokemonList {
-        return PokemonList(name = "Bulbasaur", pokedexIndex = 1, isCatched = false)
+
+    fun getFakePokemonListBubla(): List<DbPokemonList> {
+        return listOf( DbPokemonList(name = "Bulbasaur", pokedexIndex = 1, isCatched = true))
 
 
     }

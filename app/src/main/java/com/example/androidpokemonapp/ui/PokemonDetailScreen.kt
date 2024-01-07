@@ -52,10 +52,9 @@ fun PokemonDetailScreen(
                 Column {
                     Image(
                         painter = painterResource(id = R.drawable.psyduck_logo_c81917330c_seeklogo_com),
-                        contentDescription = "ErrorPagePsyduck",
-                        modifier = Modifier.testTag("errorPsyduck")
+                        contentDescription = "ErrorPagePsyduck", modifier = Modifier.testTag("errorPsyduck")
                     )
-                    Text(text = "Laden mislukt")
+                    Text(text = "Laden mislukt", modifier = Modifier.testTag("errorText"))
                 }
             }
             is PokemonApiState.Success -> {

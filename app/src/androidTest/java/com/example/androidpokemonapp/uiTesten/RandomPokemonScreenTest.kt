@@ -30,7 +30,7 @@ class RandomPokemonScreenTest {
         viewModel = RandomPokemonViewModel(repository)
     }
     @Test
-    fun randomPokemonScreen_loadingState_displaysGifImage() {
+    fun randomPokemonScreen_loadingState_geeftGifImage() {
         viewModel.apply {
             randomPokemonApiState = MutableStateFlow(RandomPokemonApiState.Loading)
         }
@@ -43,7 +43,7 @@ class RandomPokemonScreenTest {
     }
 
     @Test
-    fun randomPokemonScreen_errorState_displaysPsyduckImageEnText() {
+    fun randomPokemonScreen_errorState_geeftPsyduckImageEnText() {
         viewModel.apply {
             randomPokemonApiState = MutableStateFlow(RandomPokemonApiState.Error)
         }

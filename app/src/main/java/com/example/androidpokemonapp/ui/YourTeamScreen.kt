@@ -12,10 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.model.PokemonList
+import com.example.androidpokemonapp.viewModel.pokedex.PokemonListApiState
 import com.example.androidpokemonapp.viewModel.yourTeam.YourPokemonApiState
 import com.example.androidpokemonapp.viewModel.yourTeam.YourTeamViewModel
 
@@ -37,17 +39,18 @@ fun YourTeamScreen(
 
     fun onPokemonRelease(pokemon: PokemonList) {
        yourTeamViewModel.updateIsCatched(pokemon.name, pokemon.isCatched)
-        //yourTeamViewModel.deletePokemon(pokemon)
     }
 
     when (uiYourPokemonApiList) {
-        is YourPokemonApiState.Loading -> GifImage()
-        is YourPokemonApiState.Error -> Column {
-            Image(
-                painter = painterResource(id = R.drawable.psyduck_logo_c81917330c_seeklogo_com),
-                contentDescription = "ErrorPagePsyduck"
-            )
-            Text(text = "Laden mislukt")
+        is YourPokemonApiState.Loading -> GifImage(modifier = Modifier.testTag("PikachuGif"))
+        is YourPokemonApiState.Error -> {
+            Column {
+                Image(
+                    painter = painterResource(id = R.drawable.psyduck_logo_c81917330c_seeklogo_com),
+                    contentDescription = "ErrorPagePsyduck",modifier = Modifier.testTag("errorPsyduck")
+                )
+                Text(text = "Laden mislukt", modifier = Modifier.testTag("errorText"))
+            }
         }
 
         is YourPokemonApiState.Success -> {
