@@ -5,7 +5,6 @@ import com.example.androidpokemonapp.data.database.PokemonListDao
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.flow
 
 class FakePokemonListDao: PokemonListDao {
     private val pokemonTeam = mutableListOf<DbPokemonList>()

@@ -28,7 +28,6 @@ import com.example.androidpokemonapp.viewModel.pokedex.PokemonListApiState
  * @param padding De randen rondom de inhoud van het scherm.
  * @param onPokemonClicked Een lambda-functie om te reageren op het klikken op een Pokemon-kaart.
  * @param pokedexViewModel [PokedexViewModel] die wordt gebruikt om de lijst met Pokemon-gegevens op te halen.
- * @param yourTeamViewModel [YourTeamViewModel] die wordt gebruikt om de lijst met je eigen Pokemon-team op te halen.
  */
 
 @Composable
@@ -74,7 +73,6 @@ fun PokedexScreen(
                             onPokemonCatched = {
                                 pokedexViewModel.updateIsCatched(pokemon.name, true)
                             },
-                            modifier = Modifier.testTag("PokemonCard")
                         )
                     }
                 }

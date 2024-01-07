@@ -4,18 +4,12 @@ import com.example.androidpokemonapp.TestDispatcherRule
 import com.example.androidpokemonapp.data.database.asDomainObject
 import com.example.androidpokemonapp.fake.FakeApiDataSource
 import com.example.androidpokemonapp.fake.FakeApiPokemonRepository
-import com.example.androidpokemonapp.viewModel.pokedex.PokemonListApiState
 import com.example.androidpokemonapp.viewModel.yourTeam.YourPokemonApiState
 import com.example.androidpokemonapp.viewModel.yourTeam.YourTeamViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -43,7 +37,7 @@ class YourTeamViewModelTest {
         @Test
         fun yourTeamViewModel_fetchYourPokemon_emitsSuccessState() = runTest {
             val expectedPokemonList = FakeApiDataSource.getFakePokmeonListYourTeam()
-            fakeRepository.DbPokemonListFlow.tryEmit(expectedPokemonList)
+            fakeRepository.dbPokemonListFlow.tryEmit(expectedPokemonList)
 
             viewModel.fetchYourPokemon()
 

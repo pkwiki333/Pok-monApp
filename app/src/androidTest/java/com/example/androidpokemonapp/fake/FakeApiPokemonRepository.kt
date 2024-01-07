@@ -9,9 +9,7 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
 
 class FakeApiPokemonRepository(private val fakePokemonListDao: FakePokemonListDao = FakePokemonListDao()) :
     PokemonRepository {
@@ -19,10 +17,10 @@ class FakeApiPokemonRepository(private val fakePokemonListDao: FakePokemonListDa
     val pokemonListFlow: MutableSharedFlow<List<PokemonList>> =
         MutableSharedFlow(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
-    val pokemonFlow: MutableSharedFlow<Pokemon> =
+    private val pokemonFlow: MutableSharedFlow<Pokemon> =
         MutableSharedFlow(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
-    val DbPokemonListFlow: MutableSharedFlow<List<DbPokemonList>> =
+    val dbPokemonListFlow: MutableSharedFlow<List<DbPokemonList>> =
         MutableSharedFlow(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
     override fun getPokemonListDB(): Flow<List<PokemonList>> {
@@ -44,15 +42,15 @@ class FakeApiPokemonRepository(private val fakePokemonListDao: FakePokemonListDa
     }
 
     override suspend fun insertToYourTeam(pokemon: PokemonList) {
-        val replayCache:List<DbPokemonList> = DbPokemonListFlow.replayCache.firstOrNull() ?: emptyList()
+        val replayCache:List<DbPokemonList> = dbPokemonListFlow.replayCache.firstOrNull() ?: emptyList()
         val dbPokemon = pokemon.asDatabaseObject()
-        DbPokemonListFlow.tryEmit(replayCache + dbPokemon)
+        dbPokemonListFlow.tryEmit(replayCache + dbPokemon)
     }
 
     override suspend fun deletePokemon(pokemon: PokemonList) {
-        val replayCache:List<DbPokemonList> = DbPokemonListFlow.replayCache.firstOrNull() ?: emptyList()
+        val replayCache:List<DbPokemonList> = dbPokemonListFlow.replayCache.firstOrNull() ?: emptyList()
         val dbPokemon = pokemon.asDatabaseObject()
-        DbPokemonListFlow.tryEmit(replayCache.filter { it.name != dbPokemon.name })
+        dbPokemonListFlow.tryEmit(replayCache.filter { it.name != dbPokemon.name })
     }
 
     override fun getPokemonList(): Flow<List<PokemonList>> {
@@ -67,10 +65,5 @@ class FakeApiPokemonRepository(private val fakePokemonListDao: FakePokemonListDa
         pokemonFlow.tryEmit(pokemon)
     }
 
-    fun setPokemonInfoError(pokemonName: String, exception: Exception) {
-        val flow = flow<Pokemon> {
-            throw exception
-        }
-    }
 
 }

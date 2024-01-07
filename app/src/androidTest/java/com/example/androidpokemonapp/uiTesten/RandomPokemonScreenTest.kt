@@ -2,17 +2,13 @@ package com.example.androidpokemonapp.uiTesten
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import com.example.androidpokemonapp.fake.FakeApiPokemonRepository
-import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.ui.RandomPokemonScreen
 import com.example.androidpokemonapp.viewModel.randomPokemon.RandomPokemonApiState
 import com.example.androidpokemonapp.viewModel.randomPokemon.RandomPokemonViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

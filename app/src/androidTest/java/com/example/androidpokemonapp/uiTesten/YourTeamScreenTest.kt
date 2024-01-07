@@ -4,12 +4,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
 import com.example.androidpokemonapp.fake.FakeApiPokemonRepository
-import com.example.androidpokemonapp.model.PokemonList
-import com.example.androidpokemonapp.ui.PokedexScreen
 import com.example.androidpokemonapp.ui.YourTeamScreen
-import com.example.androidpokemonapp.viewModel.pokedex.PokemonListApiState
 import com.example.androidpokemonapp.viewModel.yourTeam.YourPokemonApiState
 import com.example.androidpokemonapp.viewModel.yourTeam.YourTeamViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,9 +16,9 @@ import org.junit.Test
 class YourTeamScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
-    lateinit var viewModel: YourTeamViewModel
-    lateinit var repository: FakeApiPokemonRepository
-    var onPokemonClicked = false
+    private lateinit var viewModel: YourTeamViewModel
+    private lateinit var repository: FakeApiPokemonRepository
+    private var onPokemonClicked = false
 
     @Before
     fun setup() {

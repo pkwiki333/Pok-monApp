@@ -14,7 +14,7 @@ import org.junit.Test
 class RandomPokemonCardInhoudTest {
     @get:Rule
     val composeTestRule = createComposeRule()
-    lateinit var testPokemon : Pokemon
+    private lateinit var testPokemon : Pokemon
 
     @Before
     fun setup() {

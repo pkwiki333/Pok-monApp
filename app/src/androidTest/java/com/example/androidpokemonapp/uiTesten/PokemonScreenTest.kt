@@ -12,9 +12,9 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class PokemonScreenTest {
-    var randomPokemon = false
-    var pokedexClicked = false
-    var yourTeamClicked = false
+    private var randomPokemon = false
+    private var pokedexClicked = false
+    private var yourTeamClicked = false
 
     @get:Rule
     val composeTestRule =createComposeRule()

@@ -6,13 +6,8 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import com.example.androidpokemonapp.fake.FakeApiPokemonRepository
 import com.example.androidpokemonapp.ui.PokemonDetailScreen
-import com.example.androidpokemonapp.ui.RandomPokemonScreen
-import com.example.androidpokemonapp.ui.YourTeamScreen
 import com.example.androidpokemonapp.viewModel.pokemonDetails.PokemonApiState
 import com.example.androidpokemonapp.viewModel.pokemonDetails.PokemonDetailsViewModel
-import com.example.androidpokemonapp.viewModel.randomPokemon.RandomPokemonApiState
-import com.example.androidpokemonapp.viewModel.randomPokemon.RandomPokemonViewModel
-import com.example.androidpokemonapp.viewModel.yourTeam.YourPokemonApiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
 import org.junit.Rule

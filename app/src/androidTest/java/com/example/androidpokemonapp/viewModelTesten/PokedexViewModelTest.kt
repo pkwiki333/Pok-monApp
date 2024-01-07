@@ -11,7 +11,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert
 import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Test
@@ -45,12 +44,12 @@ class PokedexViewModelTest {
     @Test
     fun pokedexViewModel_initialState_isLoading() = runTest {
         val initialState = viewModel.uipokemonListApiState.value
-        Assert.assertTrue(initialState is PokemonListApiState.Loading)
+        assertTrue(initialState is PokemonListApiState.Loading)
     }
 
 
     @Test
-    fun PokedexViewModel_geeflijstPokemon_successState() = runTest {
+    fun pokedexViewModel_geeflijstPokemon_successState() = runTest {
         val state = viewModel.uipokemonListApiState.value
 
         if (state is PokemonListApiState.Success) {

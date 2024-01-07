@@ -3,7 +3,6 @@ package com.example.androidpokemonapp.uiTesten
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextContains
-import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
@@ -16,8 +15,8 @@ import org.junit.Test
 class PokemonCardTest {
     @get:Rule
     val composeTestRule = createComposeRule()
-    var pokemonClicked = false
-    var pokemonCatched = false
+    private var pokemonClicked = false
+    private var pokemonCatched = false
 
     @Test
     fun pokemonCard_geeftPokemonName() {
@@ -28,7 +27,6 @@ class PokemonCardTest {
                 pokemon = testPokemon,
                 onPokemonClicked = {pokemonClicked = true},
                 onPokemonCatched = {pokemonCatched = true},
-                modifier = Modifier
             )
         }
 
@@ -44,7 +42,6 @@ class PokemonCardTest {
                 pokemon = testPokemon,
                 onPokemonClicked = {pokemonClicked = true},
                 onPokemonCatched = {pokemonCatched = true},
-                modifier = Modifier
             )
         }
 
@@ -52,33 +49,31 @@ class PokemonCardTest {
     }
     @Test
     fun pokemonCard_geeftPokemonPokedexButtonInfo() {
-        val testPokemon = PokemonList(name = "Pikachu", pokedexIndex = 25, isCatched = false)
+        val testPokemon = PokemonList(name = "bulbasaur", pokedexIndex = 1, isCatched = false)
 
         composeTestRule.setContent {
             PokemonCard(
                 pokemon = testPokemon,
                 onPokemonClicked = {pokemonClicked = true},
                 onPokemonCatched = {pokemonCatched = true},
-                modifier = Modifier
             )
         }
 
-        composeTestRule.onNodeWithTag("onPokemonClickedButton").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("onPokemonClickedButton_bulbasaur").assertIsDisplayed()
     }
     @Test
     fun pokemonCard_PokemonPokedexButtonInfoClicked() {
-        val testPokemon = PokemonList(name = "Pikachu", pokedexIndex = 25, isCatched = false)
+        val testPokemon = PokemonList(name = "bulbasaur", pokedexIndex = 1, isCatched = false)
 
         composeTestRule.setContent {
             PokemonCard(
                 pokemon = testPokemon,
                 onPokemonClicked = {pokemonClicked = true},
                 onPokemonCatched = {pokemonCatched = true},
-                modifier = Modifier
             )
         }
 
-        composeTestRule.onNodeWithTag("onPokemonClickedButton").performClick()
+        composeTestRule.onNodeWithTag("onPokemonClickedButton_bulbasaur").performClick()
         assertTrue(pokemonClicked)
     }
     @Test
@@ -90,7 +85,6 @@ class PokemonCardTest {
                 pokemon = testPokemon,
                 onPokemonClicked = {pokemonClicked = true},
                 onPokemonCatched = {pokemonCatched = true},
-                modifier = Modifier
             )
         }
 
@@ -106,7 +100,6 @@ class PokemonCardTest {
                 pokemon = testPokemon,
                 onPokemonClicked = {pokemonClicked = true},
                 onPokemonCatched = {pokemonCatched = true},
-                modifier = Modifier
             )
         }
 
@@ -123,7 +116,6 @@ class PokemonCardTest {
                 pokemon = testPokemon,
                 onPokemonClicked = {pokemonClicked = true},
                 onPokemonCatched = {pokemonCatched = true},
-                modifier = Modifier
             )
         }
 

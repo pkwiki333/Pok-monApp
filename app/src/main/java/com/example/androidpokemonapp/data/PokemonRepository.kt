@@ -70,7 +70,6 @@ interface PokemonRepository {
  * Implementatie van [PokemonRepository] die gebruikmaakt van een lokale RoomDB, een externe API, en DAO's.
  * Biedt functionaliteiten zoals het ophalen, bijwerken en verwijderen van Pokémon-gegevens.
  *
- * @property pokemonDao DAO voor interactie met de Pokémon-gegevens in de RoomDB.
  * @property pokemonListDao DAO voor interactie met de Pokémon lijst in de RoomDB.
  * @property pokemonApiService Service voor het ophalen van gegevens van de externe Pokémon API.
  */

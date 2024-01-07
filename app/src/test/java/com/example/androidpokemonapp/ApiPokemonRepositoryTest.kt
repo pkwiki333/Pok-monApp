@@ -1,31 +1,23 @@
 package com.example.androidpokemonapp
 
 
-import android.util.Log
-import com.example.androidpokemonapp.data.PokemonRepository
 import com.example.androidpokemonapp.data.PokemonRepositoryImpl
 import com.example.androidpokemonapp.data.database.DbPokemonList
 import com.example.androidpokemonapp.data.database.asDatabaseObject
 import com.example.androidpokemonapp.data.database.asDomainObject
 import com.example.androidpokemonapp.fake.FakeApiDataSource
-import com.example.androidpokemonapp.fake.FakeApiPokemonRepository
-import com.example.androidpokemonapp.fake.FakePokemonDao
 import com.example.androidpokemonapp.fake.FakePokemonListDao
 import com.example.androidpokemonapp.fake.FakeapiPokemonService
 import com.example.androidpokemonapp.network.responses.asDomainObject
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class ApiPokemonRepositoryTest {
 
     @get:Rule
@@ -37,7 +29,6 @@ class ApiPokemonRepositoryTest {
     fun setUp() {
         fakePokemonListDao = FakePokemonListDao()
         repository = PokemonRepositoryImpl(
-            pokemonDao = FakePokemonDao(),
             pokemonListDao = fakePokemonListDao,
             pokemonApiService = FakeapiPokemonService()
         )

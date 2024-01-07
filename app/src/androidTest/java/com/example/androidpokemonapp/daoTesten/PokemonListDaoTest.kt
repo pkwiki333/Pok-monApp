@@ -3,7 +3,6 @@ package com.example.androidpokemonapp.daoTesten
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import com.example.androidpokemonapp.data.database.DbPokemonList
 import com.example.androidpokemonapp.data.database.PokemonListDao
 import com.example.androidpokemonapp.data.database.PokemonListDatabase
 import com.example.androidpokemonapp.data.database.asDatabaseObject
@@ -20,19 +19,14 @@ import java.io.IOException
 
 class PokemonListDaoTest {
 
-    lateinit var pokemonListDao: PokemonListDao
-    lateinit var pokemonDb: PokemonListDatabase
+    private lateinit var pokemonListDao: PokemonListDao
+    private lateinit var pokemonDb: PokemonListDatabase
 
     private var pokemonList= PokemonList("bulbasaur", 1, false)
     private var pokemonList2= PokemonList("ivysaur", 2, false)
 
     private suspend fun addOnePokemonToDb() {
         pokemonListDao.insertToYourTeam(pokemonList.asDatabaseObject())
-    }
-
-    private suspend fun addTwoPokemonsToDb() {
-        pokemonListDao.insertToYourTeam(pokemonList.asDatabaseObject())
-        pokemonListDao.insertToYourTeam(pokemonList2.asDatabaseObject())
     }
 
 

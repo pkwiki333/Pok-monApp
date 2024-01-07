@@ -25,8 +25,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import com.example.androidpokemonapp.R
 import com.example.androidpokemonapp.model.PokemonList
 
@@ -42,7 +40,6 @@ fun PokemonCard(
     pokemon: PokemonList,
     onPokemonClicked: (String) -> Unit,
     onPokemonCatched: (PokemonList) -> Unit,
-    modifier: Modifier
 ) {
     var isCatched by remember { mutableStateOf(pokemon.isCatched) }
     val context = LocalContext.current
@@ -66,7 +63,7 @@ fun PokemonCard(
                 Text(pokemon.name, style = MaterialTheme.typography.titleMedium, modifier = Modifier.testTag("name"))
                 Text("Pokédex Index: ${pokemon.pokedexIndex}", modifier = Modifier.testTag("pokedexIndex"))
             }
-            IconButton(onClick = { onPokemonClicked(pokemon.name) }, modifier = Modifier.testTag("onPokemonClickedButton")/*.semantics { contentDescription = "onPokemonClickedButton" }*/) {
+            IconButton(onClick = { onPokemonClicked(pokemon.name) }, modifier = Modifier.testTag("onPokemonClickedButton_${pokemon.name}")) {
 
                 Icon(Icons.Filled.Info, "Info")
             }

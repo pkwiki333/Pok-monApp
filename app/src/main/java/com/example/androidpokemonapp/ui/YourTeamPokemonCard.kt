@@ -75,7 +75,7 @@ fun YourTeamPokemonCard(
                     Text(pokemon.name, style = MaterialTheme.typography.titleMedium, modifier = Modifier.testTag("name"))
                     Text("Pokédex Index: ${pokemon.pokedexIndex}", modifier = Modifier.testTag("pokedexIndex"))
                 }
-                IconButton(onClick = { onPokemonClicked(pokemon.name) }, modifier = Modifier.testTag("onPokemonClickedButton")) {
+                IconButton(onClick = { onPokemonClicked(pokemon.name) }, modifier = Modifier.testTag("onPokemonClickedButton_${pokemon.name}")) {
 
                     Icon(Icons.Filled.Info, "Info")
                 }

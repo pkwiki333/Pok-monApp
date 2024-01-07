@@ -5,7 +5,6 @@ import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
 import com.example.androidpokemonapp.model.Pokemon
 import com.example.androidpokemonapp.ui.PokemonDetailScreenContent
 import org.junit.Before
@@ -15,7 +14,7 @@ import org.junit.Test
 class PokemonDetailScreenContentTest {
     @get:Rule
     val composeTestRule = createComposeRule()
-    lateinit var testPokemon: Pokemon
+    private lateinit var testPokemon: Pokemon
 
     @Before
     fun setup() {
