@@ -7,7 +7,7 @@ import com.example.androidpokemonapp.network.responses.asDomainObject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class FakePokemonDao : PokemonDao {
+abstract class FakePokemonDao : PokemonDao {
     override fun getPokemonInfo(name: String): Flow<DbPokemon> {
         return flow{
             emit(FakeApiDataSource.getFakePokemon(name).asDomainObject().asDatabaseObject())

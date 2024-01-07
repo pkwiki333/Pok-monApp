@@ -2,8 +2,6 @@ package com.example.androidpokemonapp.data
 
 import android.content.Context
 import androidx.room.Room
-import com.example.androidpokemonapp.data.database.PokemonDao
-import com.example.androidpokemonapp.data.database.PokemonDatabase
 import com.example.androidpokemonapp.data.database.PokemonListDao
 import com.example.androidpokemonapp.data.database.PokemonListDatabase
 import com.example.androidpokemonapp.network.PokemonApiService
@@ -37,12 +35,12 @@ class AppContainerImpl(private val applicationContext: Context) : AppContainer {
         retrofit.create(PokemonApiService::class.java)
     }
 
-    /**Lazy initialisatie van de RoomDB voor Pokémon-gegevens.*/
+   /* *//**Lazy initialisatie van de RoomDB voor Pokémon-gegevens.*//*
     private val pokemonDb: PokemonDatabase by lazy {
         Room.databaseBuilder(applicationContext, PokemonDatabase::class.java, "Pokemon_database")
             .fallbackToDestructiveMigration()
             .build()
-    }
+    }*/
 
     /**Lazy initialisatie van de RoomDB voor de Pokémon lijst.*/
     private val pokemonListDb: PokemonListDatabase by lazy {
@@ -55,13 +53,13 @@ class AppContainerImpl(private val applicationContext: Context) : AppContainer {
     private val pokemonListDao: PokemonListDao by lazy {
         pokemonListDb.pokemonListDao()
     }
-    private val pokemonDao: PokemonDao by lazy {
+  /*  private val pokemonDao: PokemonDao by lazy {
         pokemonDb.pokemonDao()
-    }
+    }*/
 
     /**Lazy initialisatie van de repository met DAO's en netwerkservice.*/
     override val pokemonRepository: PokemonRepository by lazy {
-        PokemonRepositoryImpl(pokemonListDao = pokemonListDao,pokemonDao = pokemonDao, pokemonApiService = retrofitService)
+        PokemonRepositoryImpl(pokemonListDao = pokemonListDao/*,pokemonDao = pokemonDao*/, pokemonApiService = retrofitService)
     }
 
 

@@ -11,6 +11,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import com.example.androidpokemonapp.R
 
 /**
  * Een composable functie voor de bovenste navigatiebalk van het Pokémon-scherm.
@@ -40,7 +41,7 @@ fun PokemonTopBar(
                 IconButton(onClick = navigateUp) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "navigate back",
+                        contentDescription = stringResource(R.string.navigate_back),
                     )
                 }
             }

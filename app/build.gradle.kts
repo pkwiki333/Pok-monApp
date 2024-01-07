@@ -79,6 +79,18 @@ dependencies {
     testImplementation("androidx.room:room-testing:$roomversion")
     annotationProcessor("androidx.room:room-compiler:$roomversion")
 
+    androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation("androidx.navigation:navigation-testing:2.6.0")
+    androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.7.5")
+    implementation("androidx.compose.material3:material3-window-size-class")
+
+    testImplementation ("androidx.room:room-testing:2.6.1")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0-RC2")
+
+
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")

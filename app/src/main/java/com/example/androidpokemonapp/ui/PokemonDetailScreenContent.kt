@@ -35,6 +35,7 @@ fun PokemonDetailScreenContent(
         modifier = Modifier
             .fillMaxSize()
             .padding(dimensionResource(id = R.dimen.padding_medium))
+            .testTag("PokemonDetailScreenContent"),
     ) {
         Column(
             modifier = Modifier

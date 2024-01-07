@@ -74,7 +74,7 @@ fun PokedexScreen(
                             onPokemonCatched = {
                                 pokedexViewModel.updateIsCatched(pokemon.name, true)
                             },
-                            modifier = Modifier.testTag("PokemonCard_${pokemon.name}")
+                            modifier = Modifier.testTag("PokemonCard")
                         )
                     }
                 }

@@ -1,7 +1,6 @@
 package com.example.androidpokemonapp.data
 
 import com.example.androidpokemonapp.data.database.DbPokemonList
-import com.example.androidpokemonapp.data.database.PokemonDao
 import com.example.androidpokemonapp.data.database.PokemonListDao
 import com.example.androidpokemonapp.data.database.asDatabaseObject
 import com.example.androidpokemonapp.data.database.asDomainObject
@@ -76,7 +75,7 @@ interface PokemonRepository {
  * @property pokemonApiService Service voor het ophalen van gegevens van de externe Pokémon API.
  */
 class PokemonRepositoryImpl(
-    private val pokemonDao: PokemonDao,
+    /*private val pokemonDao: PokemonDao,*/
     private val pokemonListDao: PokemonListDao,
     private val pokemonApiService: PokemonApiService
 ) : PokemonRepository {
